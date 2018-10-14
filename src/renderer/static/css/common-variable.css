@@ -1,0 +1,11 @@
+:root {
+
+	--app-border-color: rgba(126,115,95,1); /* app容器边框的颜色 */
+
+	--the-side-bar-bg-color: rgba(51,62,70, 1); /* 左侧边栏背景颜色 */
+	--the-side-bar-select-bg-color: rgba(29,131,35, 1); /* 左侧边栏选中nav的背景颜色 */
+
+	--container-bg-color: rgba(27,34,38, 1); /* container内容背景颜色 */
+
+	--common-header-bg-color: rgba(39,45,49,1); /* 头部容器背景颜色 */
+}

@@ -1,0 +1,1 @@
+export const ZOOM_FACTOR = '__current_zoom_factor__'
