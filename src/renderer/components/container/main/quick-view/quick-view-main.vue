@@ -1,9 +1,9 @@
 <template>
-	<div class="quick-view-content">
+	<div class="quick-view-main">
 		<div class="header">
 			导入视频, 快速查看
 		</div>
-		<main class="quick-view-main">
+		<main>
 			<base-lazy-load-img 
 			    mode="default"
 	            :time="300"
@@ -44,7 +44,7 @@
     const errorBgImg = require('../../../../assets/bg/dark/hDefault.jpg')
 
 	export default {
-		name: 'QuickViewContent',
+		name: 'QuickViewMain',
 		components: { BaseLoading, BaseLazyLoadImg },
 		data() {
 			return {
@@ -89,7 +89,7 @@
 </script>
 
 <style scoped>
-	.quick-view-content {
+	.quick-view-main {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
@@ -109,7 +109,7 @@
 		color: #fff;
 	}
 
-	.quick-view-main {
+	main {
 		height: 100%;
 		flex-grow: 1;
 	}
