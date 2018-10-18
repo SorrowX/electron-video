@@ -1,54 +1,43 @@
 <template>
-	<div class="quick-view-main">
-		<div class="header">
-			导入视频, 快速查看
-		</div>
-		<main>
-			<base-lazy-load-img 
-			    mode="default"
-	            :time="300"
-	            :done="true"
-	            :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
-			    @before="handleImgbefore" 
-			    @success="handleImgsuccess" 
-			    @error="handleImgerror">
-			    <ul class="ul-list" v-if="arrMedia.length > 0">
-    				<li v-for="(media, index) in arrMedia" @click="goPlayPage(media)">
-    					<a href="#">
-    						<img :src="defaultBgImg" :data-src="media['imgUrl']" alt="">
-    					</a>
-    					<p>{{ media['filename'] }}</p>
-    				</li>
-    			</ul>
-			</base-lazy-load-img>
-			<base-loading v-if="arrMedia.length === 0" size="min"></base-loading>
-			<div class="empty" v-if="arrMedia.length === 0" v-show="false">
-				<p>空空如也</p>
-				<div class="course">
-					<p>1. 进入设置中心 </p>
-					<p>2. 点击 '进入操作页面' 旁边的 'Go' 按钮, 对选择好目录下的视频进行截图</p>
-					<p>3. 然后回到 '导入视频,快速查看' 页面</p>
-					<p>4. 选择视频资源文件夹内容即可</p>
-				</div>
-			</div>
-		</main>
-	</div>
+	<base-lazy-load-img 
+	    mode="default"
+        :time="300"
+        :done="true"
+        :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
+	    @before="handleImgbefore" 
+	    @success="handleImgsuccess" 
+	    @error="handleImgerror">
+	    <ul class="ul-list" v-if="arrMedia.length > 0">
+			<li v-for="(media, index) in arrMedia" @click="goPlayPage(media)">
+				<a href="#">
+					<img :src="defaultBgImg" :data-src="media['imgUrl']" alt="">
+				</a>
+				<p>{{ media['filename'] }}</p>
+			</li>
+		</ul>
+	</base-lazy-load-img>
 </template>
 
 <script>
-    import BaseLazyLoadImg from '../../../base/base-lazy-load-img'
-    import BaseLoading from '../../../base/base-loading'
-    import { loopGeneratImg } from '../../../../../api/api'
+    import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
+    import { loopGeneratImg } from '../../../../../../api/api'
 
-    const defaultBgImg = require('../../../../assets/bg/dark/hDefault.jpg')
-    const errorBgImg = require('../../../../assets/bg/dark/hDefault.jpg')
+    const defaultBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
+    const errorBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
 
 	export default {
-		name: 'QuickViewMain',
-		components: { BaseLoading, BaseLazyLoadImg },
+		name: 'QuickViewMainContent',
+		components: { BaseLazyLoadImg },
+		props: {
+			arrMedia: {
+				type: Array,
+				default: function() {
+					return []
+				}
+			}
+		},
 		data() {
 			return {
-				arrMedia: [],
 				defaultBgImg
 			}
 		},
@@ -71,49 +60,11 @@
 				console.log('handleImgerror')
 				el.src = errorBgImg
 			},
-		},
-		mounted() {
-			loopGeneratImg({
-				videoResourcePath: 'D:\\迅雷',
-				genImgResourcePath: 'D:\\迅雷\\img',
-				num: 20,
-				delayRequest: 0,
-				imgTimeout: 100,
-				imgExtName: '.png'
-			}).then((data) => {
-				console.log('导入视频结果: ', data)
-				// this.arrMedia = data
-			})
 		}
 	}
 </script>
 
 <style scoped>
-	.quick-view-main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: 100%;
-		padding: 0 1% 0 2.5%; /* li含有右边maring的1.5,所以需要减去 */
-        overflow: auto;
-	}
-
-	.header {
-		height: 65px;
-		flex: none;
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		font-size: 15px;
-		color: #fff;
-	}
-
-	main {
-		height: 100%;
-		flex-grow: 1;
-	}
-
 	.ul-list {
 		display: flex;
 		flex-wrap: wrap;
@@ -180,28 +131,5 @@
 		-webkit-box-orient: vertical; /* 多行溢出出现省略号 */
 
 		/*white-space: nowrap;*/ /* 单行溢出出现省略号 */
-	}
-
-	/* 内容为空的 样式 */
-	.empty {
-		width: 98.5%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		background-color: rgba(39,45,49,1);
-	}
-
-	.empty p {
-		margin-bottom: 2%;
-		font-size: 16px;
-		color: #fff;
-	}
-
-	.empty .course p {
-		margin-bottom: 2%;
-		font-size: 12px;
-		color: rgba(153,153,153,1);
 	}
 </style>
