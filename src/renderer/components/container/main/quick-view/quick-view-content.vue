@@ -4,13 +4,25 @@
 			导入视频, 快速查看
 		</div>
 		<main class="quick-view-main">
-			<ul class="ul-list" v-if="arrMedia.length > 0">
-				<li v-for="(media, index) in arrMedia" @click="goPlayPage(media)">
-					<a href="#"><img :src="media['imgUrl']"></a>
-					<p>{{ media['filename'] }}</p>
-				</li>
-			</ul>
-			<div class="empty" v-if="arrMedia.length === 0">
+			<base-lazy-load-img 
+			    mode="default"
+	            :time="300"
+	            :done="true"
+	            :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
+			    @before="handleImgbefore" 
+			    @success="handleImgsuccess" 
+			    @error="handleImgerror">
+			    <ul class="ul-list" v-if="arrMedia.length > 0">
+    				<li v-for="(media, index) in arrMedia" @click="goPlayPage(media)">
+    					<a href="#">
+    						<img :src="defaultBgImg" :data-src="media['imgUrl']" alt="">
+    					</a>
+    					<p>{{ media['filename'] }}</p>
+    				</li>
+    			</ul>
+			</base-lazy-load-img>
+			<base-loading v-if="arrMedia.length === 0" size="min"></base-loading>
+			<div class="empty" v-if="arrMedia.length === 0" v-show="false">
 				<p>空空如也</p>
 				<div class="course">
 					<p>1. 进入设置中心 </p>
@@ -24,13 +36,20 @@
 </template>
 
 <script>
+    import BaseLazyLoadImg from '../../../base/base-lazy-load-img'
+    import BaseLoading from '../../../base/base-loading'
     import { loopGeneratImg } from '../../../../../api/api'
+
+    const defaultBgImg = require('../../../../assets/bg/dark/hDefault.jpg')
+    const errorBgImg = require('../../../../assets/bg/dark/hDefault.jpg')
 
 	export default {
 		name: 'QuickViewContent',
+		components: { BaseLoading, BaseLazyLoadImg },
 		data() {
 			return {
-				arrMedia: []
+				arrMedia: [],
+				defaultBgImg
 			}
 		},
 		methods: {
@@ -40,7 +59,18 @@
                 	name: 'movie',
                 	params: media
                 })
-			}
+			},
+			handleImgbefore() {
+				console.log('handleImgbefore')
+			},
+			handleImgsuccess(el) {
+				console.log('handleImgsuccess')
+				el.classList.add('success')
+			},
+			handleImgerror(el) {
+				console.log('handleImgerror')
+				el.src = errorBgImg
+			},
 		},
 		mounted() {
 			loopGeneratImg({
@@ -52,7 +82,7 @@
 				imgExtName: '.png'
 			}).then((data) => {
 				console.log('导入视频结果: ', data)
-				this.arrMedia = data
+				// this.arrMedia = data
 			})
 		}
 	}
@@ -71,6 +101,7 @@
 
 	.header {
 		height: 65px;
+		flex: none;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
@@ -110,6 +141,29 @@
 
 	.ul-list li img:hover {
 		transform: scale(1.2);
+	}
+
+	.success {
+	    animation: fadeIn 1s ease-out 0.1s 1 both;
+
+	    /*animation: name duration timing-function delay iteration-count direction fill-mode play-state;*/
+	    /*animation-name: keyframename|none; animation-name 属性为 @keyframes 动画指定名称。*/
+	    /*animation-duration: time; animation-duration属性定义动画完成一个周期需要多少秒或毫秒。*/
+	    /*animation-timing-function: value; animation-timing-function使用的数学函数，称为三次贝塞尔曲线，速度曲线*/
+	    /*animation-delay: time; animation-delay 属性定义动画什么时候开始*/
+	    /*animation-iteration-count: value; animation-iteration-count属性定义动画应该播放多少次。*/
+	    /*animation-direction: normal|reverse|alternate|alternate-reverse|initial|inherit; animation-direction 属性定义是否循环交替反向播放动画。*/
+	    /*animation-fill-mode: none|forwards|backwards|both|initial|inherit; animation-fill-mode 属性规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式。both: 动画遵循 forwards 和 backwards 的规则。也就是说，动画会在两个方向上扩展动画属性。*/
+	    /*animation-play-state: paused|running; animation--play-state属性指定动画是否正在运行或已暂停。*/
+	}
+
+	@keyframes fadeIn {
+	    from {
+	        opacity: 0;
+	    }
+	    to {
+	        opacity: 1;
+	    }
 	}
 
 	.ul-list li p {
