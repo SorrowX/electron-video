@@ -58,13 +58,17 @@
                 }
             },
             goBack() {
-                // this.isShowBack = false // 最好让外部自己调用隐藏返回箭头
-                this.$router.go(-2)
+                this.$router.push({ path: this.lastRoutePath })
             }
         },
         mounted() {
-            this.$root.$on('window-bar-show-back-ui', (bool) => {
+            this.$root.$on('window-bar-show-back-arrow', (bool) => { // 让外部告诉当前组件是否显示 回退箭头
                 this.isShowBack = bool
+            })
+
+            this.lastRoutePath = '/main'
+            this.$root.$on('window-bar-set-last-route-path', (path) => { // 设置上一次路由,好回退
+                this.lastRoutePath = path
             })
         }
 	}

@@ -1,15 +1,17 @@
 <template>
 	<div class="quick-view">
 		<quick-view-header></quick-view-header>
+		<quick-view-nav></quick-view-nav>
 		<quick-view-content></quick-view-content>
 	</div>
 </template>
 
 <script>
 	import QuickViewHeader from './quick-view-header'
+	import QuickViewNav from './quick-view-nav'
 	import QuickViewContent from './quick-view-content'
 
-	const components = { QuickViewHeader, QuickViewContent }
+	const components = { QuickViewHeader, QuickViewNav, QuickViewContent }
 
 	export default {
 		name: 'QuickView',

@@ -1,10 +1,7 @@
 <template>
 	<div class="container">
-        <!-- 主页面 -->
-        <app-main></app-main>
-
-        <!-- 视频播放页面 -->
-        <transition :name="transitionName">
+        <!-- 主页面/视频播放页面 -->
+        <transition name="fade" mode="out-in">
             <router-view></router-view>
         </transition>
     </div>
@@ -20,12 +17,6 @@
             return {
                 transitionName: 'movie-fade-right'
             }
-        },
-        mounted() {
-            // 根据视频播放页面的状态(进入还是离开)来决定使用哪个动画
-            this.$root.$on('window-bar-show-back-ui', (bool) => {
-                this.transitionName = bool == true ? 'movie-fade-right' : 'movie-fade-left'
-            })
         }
 	}
 </script>
@@ -37,6 +28,14 @@
         flex-direction: column;
         position: relative;
     	background-color: var(--container-bg-color);
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .35s ease;
+    }
+
+    .fade-enter, .fade-leave-active {
+        opacity: 0
     }
 
     .movie-fade-right-enter-active, 

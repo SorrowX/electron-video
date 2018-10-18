@@ -30,14 +30,14 @@
 
 	.logo{
 		position: relative;
-		left: -23px;
+		/*left: -23px;*/
 		display: block;
 		width: 23px;
 		height: 17px;
-		background-image: url(../../assets/logo.png);
+		background-image: url(../../assets/min-logo.png);
 		background-size: contain;
 		background-repeat: no-repeat;
-		filter: drop-shadow(28px 0px rgba(11,200,6,1));
+		/*filter: drop-shadow(28px 0px rgba(11,200,6,1));*/
 	}
 
 	.delimiter{

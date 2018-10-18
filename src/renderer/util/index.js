@@ -50,10 +50,6 @@ export function setZoomFactor(devScaleFactor, devInnerHeight) {
         (window.devicePixelRatio / devDevicePixelRatio) * 
         (devScaleFactor / scaleFactor)
 
-    console.log(window.innerHeight, devInnerHeight, window.innerHeight / devInnerHeight)
-    console.log(window.devicePixelRatio, devDevicePixelRatio, (window.devicePixelRatio / devDevicePixelRatio))
-    console.log(devScaleFactor, scaleFactor, devScaleFactor / scaleFactor)
-
     let min = 0.8, max = 1.4
     if (zoomFactor <= min) {
         zoomFactor = min
@@ -66,7 +62,7 @@ export function setZoomFactor(devScaleFactor, devInnerHeight) {
 
     local.setItem(ZOOM_FACTOR, zoomFactor) // 存入缓存中
 
-    console.log('zoomFactor: ', require('electron').webFrame.getZoomFactor(), zoomFactor)
+    console.log('zoomFactor: ', require('electron').webFrame.getZoomFactor())
 
     return require('electron').webFrame.getZoomFactor()
 }

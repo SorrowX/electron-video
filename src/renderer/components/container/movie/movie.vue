@@ -34,7 +34,7 @@
 		    // 因为当守卫执行前，组件实例还没被创建
 		    // console.log('beforeRouteEnter')
 		    next(vm => {
-		        vm.$root.$emit('window-bar-show-back-ui', true)
+		        vm.$root.$emit('window-bar-show-back-arrow', true)
 		    })
 		},
 		beforeRouteUpdate (to, from, next) {
@@ -50,7 +50,7 @@
 		    // 可以访问组件实例 `this`
 		    // console.log('beforeRouteLeave')
 		    next()
-		    this.$root.$emit('window-bar-show-back-ui', false)
+		    this.$root.$emit('window-bar-show-back-arrow', false)
 		},
 		mounted() {
 	        console.log('播放视频数据: ', this.$route.params)
