@@ -29,52 +29,19 @@
 				curIndex: 0,
 				navArr: [
 				    {
-				    	tag: '推荐'
+				    	tag: '推荐',
+				    	videoResourcePath: 'D:\\迅雷',
+				    	genImgResourcePath: 'D:\\迅雷\\img'
 				    },
 				    {
-				    	tag: '电视剧'
+				    	tag: 'http',
+				    	videoResourcePath: 'D:\\http',
+				    	genImgResourcePath: 'D:\\http\\img'
 				    },
 				    {
-				    	tag: '电影'
-				    },
-				    {
-				    	tag: '推荐'
-				    },
-				    {
-				    	tag: '电视剧'
-				    },
-				    {
-				    	tag: '电影'
-				    },
-				    {
-				    	tag: '推荐'
-				    },
-				    {
-				    	tag: '电视剧'
-				    },
-				    {
-				    	tag: '电影'
-				    },
-				    {
-				    	tag: '推荐'
-				    },
-				    {
-				    	tag: '电视剧'
-				    },
-				    {
-				    	tag: '电影'
-				    },
-				    {
-				    	tag: '推荐'
-				    },
-				    {
-				    	tag: '电视剧'
-				    },
-				    {
-				    	tag: '电影'
-				    },
-				    {
-				    	tag: '结束'
+				    	tag: 'css',
+				    	videoResourcePath: 'D:\\css',
+				    	genImgResourcePath: 'D:\\css\\img'
 				    }
 				]
 			}
@@ -105,7 +72,23 @@
 			handlerClickNav(index, data) {
 				this.curIndex = index
 				this.$emit('click-nav', data)
+				this.$router.push({
+					name: 'quick-main-content',
+					params: {
+						videopath: data.videoResourcePath,
+						imgpath: data.genImgResourcePath,
+					}
+				})
 			}
+		},
+		mounted() {
+			this.$router.push({
+				name: 'quick-main-content',
+				params: {
+					videopath: this.navArr[0].videoResourcePath,
+					imgpath: this.navArr[0].genImgResourcePath,
+				}
+			})
 		}
 	}
 </script>

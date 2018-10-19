@@ -2,7 +2,8 @@
 	<div class="quick-view">
 		<quick-view-header></quick-view-header>
 		<quick-view-nav></quick-view-nav>
-		<quick-view-main></quick-view-main>
+		<!-- <quick-view-main></quick-view-main> -->
+		<router-view></router-view>
 	</div>
 </template>
 

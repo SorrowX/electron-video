@@ -11,54 +11,8 @@
 </template>
 
 <script>
-    import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
-    import { loopGeneratImg } from '../../../../../../api/api'
-
-    const defaultBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
-    const errorBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
-
 	export default {
-		name: 'QuickViewMainContent',
-		components: { BaseLazyLoadImg },
-		data() {
-			return {
-				arrMedia: [],
-				defaultBgImg
-			}
-		},
-		methods: {
-			goPlayPage(media) {
-				this.$root.$emit('window-bar-set-last-route-path', this.$route.fullPath)
-                this.$router.push({
-                	name: 'movie',
-                	params: media
-                })
-			},
-			handleImgbefore() {
-				console.log('handleImgbefore')
-			},
-			handleImgsuccess(el) {
-				console.log('handleImgsuccess')
-				el.classList.add('success')
-			},
-			handleImgerror(el) {
-				console.log('handleImgerror')
-				el.src = errorBgImg
-			},
-		},
-		mounted() {
-			loopGeneratImg({
-				videoResourcePath: 'D:\\迅雷',
-				genImgResourcePath: 'D:\\迅雷\\img',
-				num: 20,
-				delayRequest: 0,
-				imgTimeout: 100,
-				imgExtName: '.png'
-			}).then((data) => {
-				console.log('导入视频结果: ', data)
-				// this.arrMedia = data
-			})
-		}
+		name: 'QuickViewMainEmpty'
 	}
 </script>
 

@@ -2,7 +2,12 @@
 	<div class="play-page">
 		<div class="play-movie">
 			<div class="movie">
-				<movie-play :videoUrl="videoUrl" :poster="videoPoster"></movie-play>
+				<movie-play 
+				    :videoUrl="videoUrl" 
+				    :poster="videoPoster" 
+				    ref="moviePlayComponent"
+				>
+				</movie-play>
 				<movie-info></movie-info>
 			</div>
 			<div class="recommend">
@@ -51,6 +56,13 @@
 		    // console.log('beforeRouteLeave')
 		    next()
 		    this.$root.$emit('window-bar-show-back-arrow', false)
+		},
+		methods: {
+			play(videoUrl, videoPoster) {
+				this.videoUrl = videoUrl
+				this.videoPoster = videoPoster
+				this.$refs.moviePlayComponent.play()
+			}
 		},
 		mounted() {
 	        console.log('播放视频数据: ', this.$route.params)

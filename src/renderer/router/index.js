@@ -40,7 +40,24 @@ export default new Router({
                 },
                 {
                     path: 'quick-view',
-                    component: require('@/components/container/main/quick-view/quick-view').default
+                    component: require('@/components/container/main/quick-view/quick-view').default,
+                    children: [
+                        /*{
+                            path: '',
+                            redirect: { name: 'quick-main-content' }
+                        },*/
+                        {
+                            name: 'quick-main-content',
+                            path: 'quick-main-content/:videopath/:imgpath',
+                            component: require('@/components/container/main/quick-view/quick-view-main/quick-view-main').default,
+                            props: function(route) {
+                                return {
+                                    videoResourcePath: route.params.videopath,
+                                    genImgResourcePath: route.params.imgpath
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     path: 'vip',

@@ -4,22 +4,24 @@
 			导入视频, 快速查看
 		</div>
 		<main>
-			<quick-view-main-content 
-			    v-show="arrMedia.length > 0" 
-			    :arrMedia="arrMedia"
-			>
-			</quick-view-main-content>
+			<transition mode="out-in">
+				<quick-view-main-content 
+				    v-if="arrMedia.length > 0 && loading === false" 
+				    :arrMedia="arrMedia"
+				>
+				</quick-view-main-content>
+				
+				<quick-view-main-empty 
+				    v-if="arrMedia.length === 0 && loading === false"
+				>
+				</quick-view-main-empty>
 
-			<quick-view-main-empty 
-			    v-show="arrMedia.length === 0 && loading === false"
-			>
-			</quick-view-main-empty>
-			
-			<base-loading 
-			    size="min" 
-			    v-show="loading"
-			>
-			</base-loading>
+				<base-loading 
+				    v-if="loading"
+				    size="min" 
+				>
+				</base-loading>
+			</transition>
 		</main>
 	</div>
 </template>
@@ -33,31 +35,68 @@
 	export default {
 		name: 'QuickViewMain',
 		components: { BaseLoading, QuickViewMainContent, QuickViewMainEmpty },
+		props: {
+			videoResourcePath: {
+				type: String,
+				default: ''
+			},
+			genImgResourcePath: {
+				type: String,
+				default: ''
+			}
+		},
 		data() {
 			return {
 				arrMedia: [],
-				loading: false
+				loading: true
 			}
 		},
-		methods: {
-			
+		beforeRouteEnter (to, from, next) {
+		    // console.log('beforeRouteEnter')
+		    next(vm => {
+			    // console.log('beforeRouteEnter2', vm)
+			    vm.loadData()
+		    })
 		},
-		mounted() {
-			this.loading = true
-			setTimeout(() => {
+		beforeRouteUpdate (to, from, next) {
+		    // console.log('beforeRouteUpdate', to, this.videoResourcePath)
+		    next()
+		    // this.loadData()
+		},
+		beforeRouteLeave (to, from, next) {
+		    // console.log('beforeRouteLeave')
+		    next()
+		},
+		methods: {
+			loadData() {
+				if (!this.videoResourcePath ||
+					!this.genImgResourcePath
+				) {
+					return
+				}
+
+				this.loading = true
+				// console.log('路径打印:', this.videoResourcePath)
 				loopGeneratImg({
-					videoResourcePath: 'D:\\迅雷',
-					genImgResourcePath: 'D:\\迅雷\\img',
-					num: 20,
-					delayRequest: 0,
-					imgTimeout: 100,
+					videoResourcePath: this.videoResourcePath,
+					genImgResourcePath: this.genImgResourcePath,
+					num: 0,
+					delayRequest: 1000,
+					imgTimeout: 1000,
 					imgExtName: '.png'
 				}).then((data) => {
-					console.log('导入视频结果: ', data)
+					// console.log('导入视频结果: ', data)
 					this.loading = false
 					this.arrMedia = data
 				})
-			}, 3000)
+			}
+		},
+		mounted() {
+			// console.log('mounted')
+			this.$watch('videoResourcePath', (path) => {
+				// console.log('watch:', path)
+				this.loadData()
+			})
 		}
 	}
 </script>

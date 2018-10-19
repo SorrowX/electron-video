@@ -3,6 +3,7 @@
 		<video 
 		    :src="videoUrl"
 		    :poster="poster"
+		    ref="videoDom"
 		    controls="controls"
 		>
 		</video>
@@ -11,6 +12,7 @@
 
 <script>
 	export default {
+		name: 'MoviePlay',
 		props: {
 			videoUrl: {
 				type: String,
@@ -21,7 +23,13 @@
 				default: ''
 			}
 		},
-		name: 'MoviePlay'
+		methods: {
+			play() {
+				this.$nextTick(() => {
+	                this.$refs.videoDom.play()
+				})
+			}
+		}
 	}
 </script>
 

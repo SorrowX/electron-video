@@ -112,7 +112,7 @@ async function sleep(ms) {
 /**
  * 根据指定的视频文件夹和图片路径文件夹,生成所有视频的一帧图片
  * @param 
- *    options.num: { Number } 一次获取几个资源
+ *    options.num: { Number } 一次获取几个资源 (0比较特殊会返回全部数据)
  *    options.videoResourcePath: { String } 视频资源文件夹路径
  *    options.genImgResourcePath: { String } 生成的图片 存放的路径
  *    options.forceUpdate: { Boolean } 是否强制生成图片 如果存在图片的情况下
@@ -133,36 +133,36 @@ async function sleep(ms) {
 */
 export async function loopGeneratPicture(options) {
 	let {
-		num = 10000,
+		num = 0,
 		videoResourcePath,
 		genImgResourcePath,
-		forceUpdate = false,
 		errorImgPath = '',
 		imgTimeout = 3 * 1000,
 		delayRequest = 1 * 1000,
 		imgExtName = '.png',
+		forceUpdate = false,
 		callback = function() {}
 	} = options
 	
 	await getFileResource(videoResourcePath) // 获取视频资源且放入缓存中
 	let resource = cache[videoResourcePath]
 
-	let handleResourceArr
-	if (resource.length <= num) {
-		handleResourceArr = resource
+	let ret
+	if (resource.length <= num || num === 0) {
+		ret = resource
 	} else {
-		handleResourceArr = resource.splice(0, num)
+		ret = resource.splice(0, num)
 	}
 
-	let i = 0, len = handleResourceArr.length
+	let i = 0, len = ret.length
 	let successNum = 0, failNum = 0, totalNum = len
 	for (; i < len; i++) {
 		try {
-			let imgPath = genImgResourcePath + '/' + handleResourceArr[i]['filename'] + imgExtName
+			let imgPath = genImgResourcePath + '/' + ret[i]['filename'] + imgExtName
 			let genImgPath
 			if (forceUpdate || !fu.exist(imgPath)) {
 				genImgPath = await screenshot({
-					videoUrl: handleResourceArr[i]['videoUrl'],
+					videoUrl: ret[i]['videoUrl'],
 					imgPath: imgPath,
 					timeout: imgTimeout
 				})
@@ -170,22 +170,22 @@ export async function loopGeneratPicture(options) {
 			} else {
 				genImgPath = imgPath
 			}
-			handleResourceArr[i]['genImgPath'] = genImgPath
-			handleResourceArr[i]['imgUrl'] = encode(genImgPath)
+			ret[i]['genImgPath'] = genImgPath
+			ret[i]['imgUrl'] = encode(genImgPath)
 			++successNum
-			callback({ state: 'success', successNum, failNum, totalNum, fileData: handleResourceArr[i] })
+			callback({ state: 'success', successNum, failNum, totalNum, fileData: ret[i] })
 		} catch(e) {
-			handleResourceArr[i]['genImgPath'] = errorImgPath
-			handleResourceArr[i]['imgUrl'] = encode(errorImgPath)
+			ret[i]['genImgPath'] = errorImgPath
+			ret[i]['imgUrl'] = encode(errorImgPath)
 			++failNum
-			callback({ state: 'fail', successNum, failNum, totalNum, fileData: handleResourceArr[i] })
-			console.error(`视频${handleResourceArr[i]['filename']}生成图片失败,视频地址: ${handleResourceArr[i]['videoUrl']}`, e)
+			callback({ state: 'fail', successNum, failNum, totalNum, fileData: ret[i] })
+			console.error(`视频${ret[i]['filename']}生成图片失败,视频地址: ${ret[i]['videoUrl']}`, e)
 		}
 	}
-	handleResourceArr.successNum = successNum
-	handleResourceArr.failNum = failNum
-	handleResourceArr.totalNum = totalNum
-	return handleResourceArr
+	ret.successNum = successNum
+	ret.failNum = failNum
+	ret.totalNum = totalNum
+	return ret
 }
 
 /*setTimeout(() => {

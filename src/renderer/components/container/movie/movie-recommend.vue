@@ -1,17 +1,184 @@
 <template>
-	<div class="movie-recommend">hi</div>
+	<div class="movie-recommend">
+		<div class="you-like">猜你喜欢</div>
+		<div class="like-list">
+			<base-lazy-load-img 
+			    mode="default"
+		        :time="300"
+		        :done="true"
+		        :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
+			    @success="handleImgsuccess" 
+			    @error="handleImgerror">
+				<ul v-if="arrMedia.length > 0">
+					<li v-for="(media, index) in arrMedia" @click="play(media)" class="active">
+						<div class="like-thumb">
+							<img :src="defaultBgImg" :data-src="media['imgUrl']" alt="">
+							<div class="time">{{ getTime() }}</div>
+						</div>
+						<div class="like-info">
+							<p>{{ media['filename'] }}</p>
+							<p>热度: {{ Math.ceil(Math.random() * 10000) }}</p>
+						</div>
+					</li>
+				</ul>
+			</base-lazy-load-img>
+		</div>
+	</div>
 </template>
 
 <script>
+	import BaseLazyLoadImg from '../../base/base-lazy-load-img'
+	import { loopGeneratImg } from '../../../../api/api'
+
+	const defaultBgImg = require('../../../assets/bg/dark/focusDefault.jpg')
+    const errorBgImg = require('../../../assets/bg/dark/hDefault.jpg')
+
 	export default {
-		name: 'MovieRecommend'
+		name: 'MovieRecommend',
+		components: { BaseLazyLoadImg },
+		data() {
+			return {
+				arrMedia: [],
+				defaultBgImg
+			}
+		},
+		methods:{
+			handleImgsuccess(el) {
+				el.classList.add('img-success')
+			},
+			handleImgerror(el) {
+				el.src = errorBgImg
+			},
+			loadData(videoResourcePath, genImgResourcePath) {
+				loopGeneratImg({
+					videoResourcePath,
+					genImgResourcePath,
+					num: 0,
+					delayRequest: 1000,
+					imgTimeout: 1000,
+					imgExtName: '.png'
+				}).then((data) => {
+					console.log('导入视频结果: ', data)
+					this.arrMedia = data
+				})
+			},
+			play(data) {
+				this.$parent.play(data.videoUrl, data.imgUrl)
+			},
+			getRandomNumber() {
+				let arr = [0,1,2,3,4,5,6,7,8,9]
+				return Math.floor(Math.random() * arr.length)
+			},
+			getTime() {
+				return `${this.getRandomNumber()}${this.getRandomNumber()}:${this.getRandomNumber()}${this.getRandomNumber()}`
+			}
+		},
+		mounted() {
+			this.loadData('D:\\迅雷', 'D:\\迅雷\\img')
+		}
 	}
 </script>
 
 <style scoped>
 	.movie-recommend {
 		width: 100%;
-		height: 2000px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.you-like,
+	.like-list {
+		padding: 0 20px 0 12px;
+	}
+
+	.you-like {
+		flex: none;
+		height: 55px;
+		line-height: 55px;
+		color: rgba(255,255,255,1);
+		font-size: 22.5px;
+	}
+
+	.like-list {
+		flex: 1;
+		overflow: auto;
+	}
+
+	.like-list ul {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.active {
+		color: red;
+	}
+
+	.like-list ul li .active .time {
+		color: red;
+	}
+
+	.like-list ul li .active .like-info p {
+		color: red;
+	}
+
+	.like-list ul li {
+		display: flex;
+		width: 100%;
+		height: 80px;
+		background-color: rgba(75,75,80,1);
+		margin-bottom: 20px;
+	}
+
+	.like-list ul li:hover {
+		cursor: pointer;
+	}
+
+	.like-thumb {
+		width: 140px;
+		height: 100%;
+		flex: none;
+		position: relative;
+	}
+
+	.like-thumb img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.like-thumb .time {
+		width: 42px;
+		height: 24px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: rgba(0,0,0,.6);
+		position: absolute;
+		right: 0;
+		bottom: 0;
 		color: #fff;
+	}
+
+	.like-info {
+		flex: 1;
+		padding: 5px 10px 5px 10px;
+		overflow: hidden;
+	}
+
+	.like-info p:nth-child(1) {
+		max-height: 52px;
+		font-size: 12px;
+		color: rgba(255,255,255,1);
+		margin-bottom: 8px;
+
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical; /* 多行溢出出现省略号 */
+		overflow: hidden;
+	}
+
+	.like-info p:nth-child(2) {
+		font-size: 11px;
+		color: rgba(148,148,148,1);
 	}
 </style>
