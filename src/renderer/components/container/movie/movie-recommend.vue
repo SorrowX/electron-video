@@ -10,7 +10,11 @@
 			    @success="handleImgsuccess" 
 			    @error="handleImgerror">
 				<ul v-if="arrMedia.length > 0">
-					<li v-for="(media, index) in arrMedia" @click="play(media)" class="active">
+					<li 
+					    v-for="(media, index) in arrMedia" 
+					    @click="play(media, index)" 
+					    :class="{ 'active': curMediaIndex == index }"
+					>
 						<div class="like-thumb">
 							<img :src="defaultBgImg" :data-src="media['imgUrl']" alt="">
 							<div class="time">{{ getTime() }}</div>
@@ -39,6 +43,7 @@
 		data() {
 			return {
 				arrMedia: [],
+				curMediaIndex: -1,
 				defaultBgImg
 			}
 		},
@@ -62,7 +67,8 @@
 					this.arrMedia = data
 				})
 			},
-			play(data) {
+			play(data, index) {
+				this.curMediaIndex = index
 				this.$parent.play(data.videoUrl, data.imgUrl)
 			},
 			getRandomNumber() {
@@ -110,16 +116,10 @@
 		flex-direction: column;
 	}
 
-	.active {
-		color: red;
-	}
-
-	.like-list ul li .active .time {
-		color: red;
-	}
-
-	.like-list ul li .active .like-info p {
-		color: red;
+	.active div .time,
+	.active .like-info p:nth-child(1),
+	.active .like-info p:nth-child(2) {
+		color: rgba(11,190,6,1);
 	}
 
 	.like-list ul li {
