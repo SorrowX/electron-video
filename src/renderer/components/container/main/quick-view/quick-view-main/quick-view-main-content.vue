@@ -43,11 +43,12 @@
 		},
 		methods: {
 			goPlayPage(media) {
-				this.$root.$emit('window-bar-set-last-route-path', this.$route.fullPath)
-                this.$router.push({
-                	name: 'movie',
-                	params: media
-                })
+				this.$root.$emit('window-bar-show-back-arrow', true)
+				let movieComponent = this.$root.appMovieComponent
+				movieComponent.play({
+					videoUrl: media.videoUrl,
+					videoPoster: media.imgUrl
+				})
 			},
 			handleImgbefore() {
 				// console.log('handleImgbefore')

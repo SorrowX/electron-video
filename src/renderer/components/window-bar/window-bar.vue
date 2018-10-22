@@ -31,20 +31,9 @@
 <script>
 	export default {
 		name: 'TheWindowBar',
-        props: {
-            isShowBackUI: {
-                type: Boolean,
-                default: false
-            }
-        },
         data() {
             return {
                 isShowBack: false
-            }
-        },
-        watch: {
-            isShowBackUI(bool) {
-                this.isShowBack = false
             }
         },
         methods: {
@@ -58,17 +47,14 @@
                 }
             },
             goBack() {
-                this.$router.push({ path: this.lastRoutePath })
+                this.isShowBack = false // 返回箭头隐藏
+                let movieComponent = this.$root.appMovieComponent
+                movieComponent.isShow(false)
             }
         },
         mounted() {
             this.$root.$on('window-bar-show-back-arrow', (bool) => { // 让外部告诉当前组件是否显示 回退箭头
                 this.isShowBack = bool
-            })
-
-            this.lastRoutePath = '/main'
-            this.$root.$on('window-bar-set-last-route-path', (path) => { // 设置上一次路由,好回退
-                this.lastRoutePath = path
             })
         }
 	}
