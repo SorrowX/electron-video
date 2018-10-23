@@ -19,6 +19,21 @@
 ![页面基础骨架1](./dist/screenshot/1.png)
 ![页面基础骨架2](./dist/screenshot/2.png)
 
+### 2018年10月22日
+``` bash
+1. 好久没写了,太忙了最近,带着写了如下
+2. 编写了添加快速查看nav的组件
+3. vuex存储系统的分类编写
+```
+#### 今日成果如下
+![组件](./dist/screenshot/3.png)
+![组件](./dist/screenshot/4.png)
+![组件](./dist/screenshot/5.png)
+![组件](./dist/screenshot/6.png)
+![组件](./dist/screenshot/7.png)
+![组件](./dist/screenshot/8.png)
+![组件](./dist/screenshot/9.png)
+
 
 #### Build Setup
 

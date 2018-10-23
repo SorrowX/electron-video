@@ -14,7 +14,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="nav-operate">
+		<div class="nav-operate" @click="addNav">
 			<i class="nav-operate-img"></i>
 			添加
 		</div>
@@ -22,29 +22,19 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
+
 	export default {
 		name: 'QuickViewNav',
 		data() {
 			return {
-				curIndex: 0,
-				navArr: [
-				    {
-				    	tag: '推荐',
-				    	videoResourcePath: 'D:\\迅雷',
-				    	genImgResourcePath: 'D:\\迅雷\\img'
-				    },
-				    {
-				    	tag: 'http',
-				    	videoResourcePath: 'D:\\http',
-				    	genImgResourcePath: 'D:\\http\\img'
-				    },
-				    {
-				    	tag: 'css',
-				    	videoResourcePath: 'D:\\css',
-				    	genImgResourcePath: 'D:\\css\\img'
-				    }
-				]
+				curIndex: 0
 			}
+		},
+		computed: {
+			...mapState('quickView', [
+				'navArr'
+			])
 		},
 		methods: {
 			handlerMouseWheel(evt) {
@@ -72,23 +62,39 @@
 			handlerClickNav(index, data) {
 				this.curIndex = index
 				this.$emit('click-nav', data)
-				this.$router.push({
-					name: 'quick-main-content',
-					params: {
-						videopath: data.videoResourcePath,
-						imgpath: data.genImgResourcePath,
-					}
+				this.$emit('no-nav-data', false)
+				this.$nextTick(() => {
+					this.$router.push({
+						name: 'quick-main-content',
+						params: {
+							videopath: data.videoDirPath,
+							imgpath: data.imgDirPath,
+						}
+					})
 				})
+			},
+			loadFirstPageData() {
+				if (this.navArr.length >= 1) {
+					this.$emit('no-nav-data', false)
+					this.$nextTick(() => {
+						this.$router.push({
+							name: 'quick-main-content',
+							params: {
+								videopath: this.navArr[0].videoDirPath,
+								imgpath: this.navArr[0].imgDirPath,
+							}
+						})
+					})
+				} else {
+					this.$emit('no-nav-data', true)
+				}
+			},
+			addNav() {
+				this.$root.$emit('quick-view-nav-show-ui', true)
 			}
 		},
 		mounted() {
-			this.$router.push({
-				name: 'quick-main-content',
-				params: {
-					videopath: this.navArr[0].videoResourcePath,
-					imgpath: this.navArr[0].genImgResourcePath,
-				}
-			})
+			this.loadFirstPageData()
 		}
 	}
 </script>

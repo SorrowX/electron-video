@@ -14,18 +14,18 @@
 <script>
     import { local } from '../../../../../shared/storage'
     import { setZoomFactor } from '../../../../util/index'
-    import { ZOOM_FACTOR } from '../../../../constant/index'
+    import { WINDOW_ZOOM_FACTOR } from '../../../../constant/index'
 
 	export default {
 		name: 'ZoomOption',
 		data() {
 			return {
-				zoomRatio: parseInt(Math.ceil(local.getItem(ZOOM_FACTOR) * 100)),
+				zoomRatio: parseInt(Math.ceil(local.getItem(WINDOW_ZOOM_FACTOR) * 100)),
 			}
 		},
 		methods: {
 			setZoom(type) {
-				let curZoom = local.getItem(ZOOM_FACTOR)
+				let curZoom = local.getItem(WINDOW_ZOOM_FACTOR)
 				let val
 				if (type === 'add') {
                     val = curZoom + 0.1

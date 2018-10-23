@@ -34,13 +34,17 @@
 
 	export default {
 		name: 'QuickViewMain',
-		components: { BaseLoading, QuickViewMainContent, QuickViewMainEmpty },
+		components: { 
+			BaseLoading, 
+			QuickViewMainContent, 
+			QuickViewMainEmpty
+		},
 		props: {
-			videoResourcePath: {
+			videoDirPath: {
 				type: String,
 				default: ''
 			},
-			genImgResourcePath: {
+			imgDirPath: {
 				type: String,
 				default: ''
 			}
@@ -52,34 +56,28 @@
 			}
 		},
 		beforeRouteEnter (to, from, next) {
-		    // console.log('beforeRouteEnter')
 		    next(vm => {
-			    // console.log('beforeRouteEnter2', vm)
 			    vm.loadData()
 		    })
 		},
 		beforeRouteUpdate (to, from, next) {
-		    // console.log('beforeRouteUpdate', to, this.videoResourcePath)
 		    next()
-		    // this.loadData()
 		},
 		beforeRouteLeave (to, from, next) {
-		    // console.log('beforeRouteLeave')
 		    next()
 		},
 		methods: {
 			loadData() {
-				if (!this.videoResourcePath ||
-					!this.genImgResourcePath
+				if (!this.videoDirPath ||
+					!this.imgDirPath
 				) {
 					return
 				}
 
 				this.loading = true
-				// console.log('路径打印:', this.videoResourcePath)
 				loopGeneratImg({
-					videoResourcePath: this.videoResourcePath,
-					genImgResourcePath: this.genImgResourcePath,
+					videoResourcePath: this.videoDirPath,
+					genImgResourcePath: this.imgDirPath,
 					num: 0,
 					delayRequest: 1000,
 					imgTimeout: 1000,
@@ -92,9 +90,7 @@
 			}
 		},
 		mounted() {
-			// console.log('mounted')
-			this.$watch('videoResourcePath', (path) => {
-				// console.log('watch:', path)
+			this.$watch('videoDirPath', (path) => {
 				this.loadData()
 			})
 		}

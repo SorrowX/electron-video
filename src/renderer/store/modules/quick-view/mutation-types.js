@@ -1,0 +1,1 @@
+export const ADD_NAV_TO_NAVARR = 'ADD_NAV_TO_NAVARR'

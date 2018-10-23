@@ -1,6 +1,6 @@
 import config from '../../config/config'
 import { local } from '../../shared/storage'
-import { ZOOM_FACTOR } from '../constant/index'
+import { WINDOW_ZOOM_FACTOR } from '../constant/index'
 
 /**
  * 函数节流
@@ -60,7 +60,7 @@ export function setZoomFactor(devScaleFactor, devInnerHeight) {
 
     require('electron').webFrame.setZoomFactor(zoomFactor)
 
-    local.setItem(ZOOM_FACTOR, zoomFactor) // 存入缓存中
+    local.setItem(WINDOW_ZOOM_FACTOR, zoomFactor) // 存入缓存中
 
     console.log('zoomFactor: ', require('electron').webFrame.getZoomFactor())
 

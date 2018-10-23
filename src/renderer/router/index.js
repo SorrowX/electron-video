@@ -52,8 +52,8 @@ export default new Router({
                             component: require('@/components/container/main/quick-view/quick-view-main/quick-view-main').default,
                             props: function(route) {
                                 return {
-                                    videoResourcePath: route.params.videopath,
-                                    genImgResourcePath: route.params.imgpath
+                                    videoDirPath: route.params.videopath,
+                                    imgDirPath: route.params.imgpath
                                 }
                             }
                         }
