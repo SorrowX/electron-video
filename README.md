@@ -34,6 +34,11 @@
 ![组件](./dist/screenshot/8.png)
 ![组件](./dist/screenshot/9.png)
 
+### 2018年10月24日
+``` bash
+1. 今天编写完快速查看中导航的 增 删 改 功能
+2. 准备写home组件的逻辑(数据由快速查看设置好的数据取)
+
 
 #### Build Setup
 
