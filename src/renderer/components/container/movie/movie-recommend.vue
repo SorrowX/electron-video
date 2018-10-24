@@ -33,6 +33,7 @@
 <script>
 	import BaseLazyLoadImg from '../../base/base-lazy-load-img'
 	import { loopGeneratImg } from '../../../../api/api'
+	import { mapState } from 'vuex'
 
 	const defaultBgImg = require('../../../assets/bg/dark/focusDefault.jpg')
     const errorBgImg = require('../../../assets/bg/dark/hDefault.jpg')
@@ -46,6 +47,9 @@
 				curMediaIndex: -1,
 				defaultBgImg
 			}
+		},
+		computed: {
+			...mapState('quickView', ['navArr'])
 		},
 		methods:{
 			handleImgsuccess(el) {
@@ -63,7 +67,6 @@
 					imgTimeout: 1000,
 					imgExtName: '.png'
 				}).then((data) => {
-					console.log('导入视频结果: ', data)
 					this.arrMedia = data
 				})
 			},
@@ -80,10 +83,18 @@
 			},
 			getTime() {
 				return `${this.getRandomNumber()}${this.getRandomNumber()}:${this.getRandomNumber()}${this.getRandomNumber()}`
+			},
+			randomLoadData(navArr) {
+				if (navArr.length === 0) return
+				let nav = navArr[Math.floor(Math.random() * navArr.length)]
+                this.loadData(nav['videoDirPath'], nav['imgDirPath'])
 			}
 		},
 		mounted() {
-			this.loadData('D:\\迅雷', 'D:\\迅雷\\img')
+			this.$watch('navArr', (val) => {
+				this.randomLoadData(val)
+			})
+			this.randomLoadData(this.navArr)
 		}
 	}
 </script>

@@ -15,7 +15,7 @@ import VideoScreenshot from './video-screenshot'
 */
 export function getResource(folderPath, match) {
 	match = match || function(item) {
-		return item.name.match(/\.mp4|.jpg$/i)
+		return item.name.match(/\.mp4$|\.jpg$/i)
 	}
 	return new Promise((resolve, reject) => {
 		let res = []
