@@ -32,43 +32,24 @@
 
 <script>
 	import BaseLazyLoadImg from '../../base/base-lazy-load-img'
-	import { loopGeneratImg } from '../../../../api/api'
-	import { mapState } from 'vuex'
-
-	const defaultBgImg = require('../../../assets/bg/dark/focusDefault.jpg')
-    const errorBgImg = require('../../../assets/bg/dark/hDefault.jpg')
+	import CommonMixin from '../../../mixin/common-mixin'
 
 	export default {
 		name: 'MovieRecommend',
+		mixins: [ CommonMixin ],
 		components: { BaseLazyLoadImg },
 		data() {
 			return {
 				arrMedia: [],
-				curMediaIndex: -1,
-				defaultBgImg
+				curMediaIndex: -1
 			}
-		},
-		computed: {
-			...mapState('quickView', ['navArr'])
 		},
 		methods:{
 			handleImgsuccess(el) {
 				el.classList.add('img-success')
 			},
 			handleImgerror(el) {
-				el.src = errorBgImg
-			},
-			loadData(videoResourcePath, genImgResourcePath) {
-				loopGeneratImg({
-					videoResourcePath,
-					genImgResourcePath,
-					num: 0,
-					delayRequest: 1000,
-					imgTimeout: 1000,
-					imgExtName: '.png'
-				}).then((data) => {
-					this.arrMedia = data
-				})
+				el.src = this.errorBgImg
 			},
 			play(data, index) {
 				this.curMediaIndex = index
@@ -87,7 +68,13 @@
 			randomLoadData(navArr) {
 				if (navArr.length === 0) return
 				let nav = navArr[Math.floor(Math.random() * navArr.length)]
-                this.loadData(nav['videoDirPath'], nav['imgDirPath'])
+                this.loadVideoData(
+                	nav['videoDirPath'], 
+                	nav['imgDirPath'], 
+                	(data) => {
+                    	this.arrMedia = data
+                    }
+                )
 			}
 		},
 		mounted() {

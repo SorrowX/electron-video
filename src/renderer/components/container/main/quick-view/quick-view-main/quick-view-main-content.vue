@@ -4,7 +4,6 @@
         :time="300"
         :done="true"
         :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
-	    @before="handleImgbefore" 
 	    @success="handleImgsuccess" 
 	    @error="handleImgerror">
 	    <ul class="ul-list" v-if="arrMedia.length > 0">
@@ -20,7 +19,6 @@
 
 <script>
     import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
-    import { loopGeneratImg } from '../../../../../../api/api'
 
     const defaultBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
     const errorBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
@@ -50,17 +48,12 @@
 					videoPoster: media.imgUrl
 				})
 			},
-			handleImgbefore() {
-				// console.log('handleImgbefore')
-			},
 			handleImgsuccess(el) {
-				// console.log('handleImgsuccess')
 				el.classList.add('img-success')
 			},
 			handleImgerror(el) {
-				// console.log('handleImgerror')
 				el.src = errorBgImg
-			},
+			}
 		}
 	}
 </script>

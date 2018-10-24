@@ -152,6 +152,7 @@
 		color: rgba(153,153,153,1);
 		font-size: 15px;
 		cursor: pointer;
+		border: 2px solid transparent
 	}
 
 	.active {

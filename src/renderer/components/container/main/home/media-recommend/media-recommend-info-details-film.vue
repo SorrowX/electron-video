@@ -1,98 +1,75 @@
 <template>
 	<div class="recommend-film">
 		<div class="tag">推荐</div>
-		<div class="content">
-			<div class="film">
-				<div class="film-cover">
-					<img src="https://r1.ykimg.com/051600005962E794859B5D0534003306">
-				</div>
-				<div class="film-info">
-					<div class="information">
-						<span class="title">我的少女时代</span> 
-						<span class="performer">小王八小王八小王八小王八小王八</span>
-					</div>
-					<div class="introduce">
-						<p>
-							神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。林真心偶然发现欧阳和陶敏敏交往的秘密；在喜欢敏敏的流氓学生徐太宇的胁迫下，两人组成“失恋阵线联盟”，誓言拆散这对金童玉女，帮彼此倒追心上人。一个是LOSER壁花想要走到白马王子身边，一个是地痞混混想追到圣女校花，两人一路跌跌撞撞、笑料百出，却万万没想到对彼此动了心。
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="film">
-				<div class="film-cover">
-					<img src="https://r1.ykimg.com/051600005962E794859B5D0534003306">
-				</div>
-				<div class="film-info">
-					<div class="information">
-						<span class="title">我的少女时代</span> 
-						<span class="performer">小王八</span>
-					</div>
-					<div class="introduce">
-						<p>
-							神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="film">
-				<div class="film-cover">
-					<img src="https://r1.ykimg.com/051600005962E794859B5D0534003306">
-				</div>
-				<div class="film-info">
-					<div class="information">
-						<span class="title">我的少女时代我的少女时代我的少女时代我的少女时代我的少女时代我的少女时代</span> 
-						<span class="performer">小王八</span>
-					</div>
-					<div class="introduce">
-						<p>
-							神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。林真心偶然发现欧阳和陶敏敏交往的秘密；在喜欢敏敏的流氓学生徐太宇的胁迫下，两人组成“失恋阵线联盟”
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="film">
-				<div class="film-cover">
-					<img src="https://r1.ykimg.com/051600005962E794859B5D0534003306">
-				</div>
-				<div class="film-info">
-					<div class="information">
-						<span class="title">我的少女时代我的少女时代我的少女时代我的少女时代我的少女时代我的少女时代</span> 
-						<span class="performer">小王八</span>
-					</div>
-					<div class="introduce">
-						<p>
-							神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="film">
-				<div class="film-cover">
-					<img src="https://r1.ykimg.com/051600005962E794859B5D0534003306">
-				</div>
-				<div class="film-info">
-					<div class="information">
-						<span class="title">我的少女时代我的少女时代我的少女时代我的少女时代我的少女时代我的少女时代</span> 
-						<span class="performer">小王八</span>
-					</div>
-					<div class="introduce">
-						<p>
-							神经大条且长相平凡的林真心（宋芸桦饰）
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
+		<base-lazy-load-img 
+	        mode="diy"
+            :time="300"
+            :done="true"
+            :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
+            :diy="{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }"
+		    @success="handleImgsuccess" 
+		    @error="handleImgerror"
+		>
+		    <div class="content" v-show="filmsData.length > 0">
+		    	<div class="film" v-for="(film, index) in filmsData">
+		    		<div class="film-cover">
+		    			<img :src="defaultBgImg" :data-src="film['imgUrl']" @click="play(film)">
+		    		</div>
+		    		<div class="film-info">
+		    			<div class="information">
+		    				<span class="title">{{ film['filename'] }}</span> 
+		    				<span class="performer">{{ film['performer'] }}</span>
+		    			</div>
+		    			<div class="introduce">
+		    				<p>
+		    					{{ film['introduce'] }}
+		    				</p>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		</base-lazy-load-img>
 	</div>
 </template>
 
 <script>
+	import CommonMixin from '../../../../../mixin/common-mixin'
+	import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
+
 	export default {
-		name: 'MediaRecommendInfoDetailsFilm'
+		name: 'MediaRecommendInfoDetailsFilm',
+		mixins: [ CommonMixin ],
+		components: { BaseLazyLoadImg },
+		data() {
+			return {
+				films: []
+			}
+		},
+        computed: {
+        	filmsData() {
+        		return this.films.map((film) => {
+        			film['performer'] = '徐志伟'
+        			film['introduce'] = '神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。'
+        			return film
+        		})
+        	}
+        },
+        methods: {
+            play(film) {
+            	this.playVideo(film['videoUrl'], film['imgUrl'])
+            },
+			handleImgsuccess(el) {
+				el.classList.add('img-success')
+			},
+			handleImgerror(el) {
+				el.src = this.errorBgImg
+			}
+        },
+		mounted() {
+			this.getRandomVideoData((data) => {
+				this.films = data
+			})
+		}
 	}
 </script>
 
@@ -143,6 +120,10 @@
 	.film-cover>img {
 		width: 100%;
 		height: 100%;
+	}
+
+	.film-cover>img:hover {
+		cursor: pointer;
 	}
 
 	/* 推荐电影信息 样式 */

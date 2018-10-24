@@ -12,22 +12,6 @@
 				>
 				    {{ item.tag }}
 				</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>推荐</li>
-				<li>结束</li>
 			</ul>
 		</div>
 		<div class="nav-operate">
@@ -38,20 +22,16 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
 	import { loopGeneratImg } from '../../../../../api/api'
+	import CommonMixin from '../../../../mixin/common-mixin'
 
 	export default {
 		name: 'HomeNav',
+		mixins: [ CommonMixin ],
 		data() {
 			return {
 				curIndex: 0
 			}
-		},
-		computed: {
-			...mapState('quickView', [
-				'navArr'
-			])
 		},
 		methods: {
 			handlerMouseWheel(evt) {
@@ -78,6 +58,7 @@
 			},
 			handlerClickNav(index, item) {
 				this.curIndex = index
+				this.$emit('click-nav', item)
 			}
 		}
 	}
@@ -138,6 +119,7 @@
 		color: rgba(153,153,153,1);
 		font-size: 15px;
 		cursor: pointer;
+		border: 2px solid transparent;
 	}
 
 	.active {

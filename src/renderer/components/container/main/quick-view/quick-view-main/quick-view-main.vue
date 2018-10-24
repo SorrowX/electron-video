@@ -29,13 +29,13 @@
 <script>
     import { loopGeneratImg } from '../../../../../../api/api'
     import BaseLoading from '../../../../base/base-loading'
+    import CommonMixin from '../../../../../mixin/common-mixin'
     import QuickViewMainContent from './quick-view-main-content'
     import QuickViewMainEmpty from './quick-view-main-empty'
 
-    import { mapState } from 'vuex'
-
 	export default {
 		name: 'QuickViewMain',
+		mixins: [ CommonMixin ],
 		components: { 
 			BaseLoading, 
 			QuickViewMainContent, 
@@ -57,9 +57,6 @@
 				loading: true
 			}
 		},
-		computed: {
-			...mapState('quickView', ['navArr'])
-		},
 		beforeRouteEnter (to, from, next) {
 		    next(vm => {
 			    vm.loadData()
@@ -80,18 +77,14 @@
 				}
 
 				this.loading = true
-				loopGeneratImg({
-					videoResourcePath: this.videoDirPath,
-					genImgResourcePath: this.imgDirPath,
-					num: 0,
-					delayRequest: 1000,
-					imgTimeout: 1000,
-					imgExtName: '.png'
-				}).then((data) => {
-					// console.log('导入视频结果: ', data)
-					this.loading = false
-					this.arrMedia = data
-				})
+				this.loadVideoData(
+					this.videoDirPath,
+					this.imgDirPath,
+					(data) => {
+						this.loading = false
+						this.arrMedia = data
+					}
+				)
 			}
 		},
 		mounted() {
