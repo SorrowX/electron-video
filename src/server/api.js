@@ -119,6 +119,7 @@ async function sleep(ms) {
  *    options.errorImgPath: { String } 没有生成图片的情况下使用 该图片
  *    options.imgTimeout: { Number } 生成每个图片的超时时间
  *    options.imgExtName: { String } 生成每个图片的后缀名
+ *    options.existImg: { Array } 按照给出的图片后缀寻找该图片是否存在本地文件中
  *    options.delayRequest: { Number } 当前视频生成完毕后, 等待多长时间 操作下一个视频(单位毫秒 该选项主要是为了缓解服务器压力)
  * @return
  *    promise 
@@ -140,10 +141,11 @@ export async function loopGeneratPicture(options) {
 		imgTimeout = 3 * 1000,
 		delayRequest = 1 * 1000,
 		imgExtName = '.png',
+		existImg = ['.png', '.jpg'],
 		forceUpdate = false,
 		callback = function() {}
 	} = options
-	
+
 	await getFileResource(videoResourcePath) // 获取视频资源且放入缓存中
 	let resource = cache[videoResourcePath]
 
@@ -159,17 +161,29 @@ export async function loopGeneratPicture(options) {
 	for (; i < len; i++) {
 		try {
 			let imgPath = genImgResourcePath + '/' + ret[i]['filename'] + imgExtName
+			let imgPathArr = getImgPath(genImgResourcePath, ret[i]['filename'])
 			let genImgPath
-			if (forceUpdate || !fu.exist(imgPath)) {
+
+			if (forceUpdate) {
 				genImgPath = await screenshot({
 					videoUrl: ret[i]['videoUrl'],
 					imgPath: imgPath,
 					timeout: imgTimeout
 				})
-				await sleep(delayRequest) // 延迟1s, 缓解服务器压力
+				await sleep(delayRequest)
 			} else {
-				genImgPath = imgPath
+				if (imgPathIsExist(imgPathArr)) {
+					genImgPath = imgPath
+				} else {
+					genImgPath = await screenshot({
+						videoUrl: ret[i]['videoUrl'],
+						imgPath: imgPath,
+						timeout: imgTimeout
+					})
+					await sleep(delayRequest) // 延迟1s, 缓解服务器压力
+				}
 			}
+			
 			ret[i]['genImgPath'] = genImgPath
 			ret[i]['imgUrl'] = encode(genImgPath)
 			++successNum
@@ -186,24 +200,19 @@ export async function loopGeneratPicture(options) {
 	ret.failNum = failNum
 	ret.totalNum = totalNum
 	return ret
+
+	function getImgPath(genImgResourcePath, filename) {
+		let imgPathArr = []
+		imgPathArr = existImg.map((extName) => {
+			return genImgResourcePath + '/' + filename + extName
+		})
+		return imgPathArr
+	}
+
+	function imgPathIsExist(imgPathArr) {
+		let ret = imgPathArr.every((imgPath) => {
+			return fu.exist(imgPath) == false
+		})
+		return ret === true ? false : true
+	}
 }
-
-/*setTimeout(() => {
-	loopGeneratPicture({
-		videoResourcePath: 'D:\\迅雷',
-		genImgResourcePath: 'D:\\迅雷\\img',
-		num: 10
-	}).then((data) => {
-		console.log('hi', data)
-	})
-
-    let p = `D:\\迅雷\\img\\${Math.random()}.jpg`
-	screenshot({
-		videoUrl: 'http://192.168.130.164:9420/D:%5C%E8%BF%85%E9%9B%B7%E4%B8%8B%E8%BD%BD%5C%E5%AE%88%E6%9C%9B%E8%80%85BD%E4%B8%AD%E8%8B%B1%E5%8F%8C%E5%AD%97%5B%E7%94%B5%E5%BD%B1%E5%A4%A9%E5%A0%82www.dy2018.com%5D.mp4',
-		imgPath: p,
-	}).then((ret) => {
-		console.log('ret: ', ret)
-	}).catch((e) => {
-		console.log('e: ', e)
-	})
-}, 5000)*/
