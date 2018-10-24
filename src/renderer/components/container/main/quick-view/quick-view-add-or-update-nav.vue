@@ -70,9 +70,16 @@
 			}
 		},
 		methods: {
-			isShow(bool, operateType) {
-				this.operateType = operateType = operateType || this.operateType
+			initData(bool, operateType, nav) {
 				this.show = bool
+				this.operateType = operateType
+				if (nav) {
+					this.oldTag = this.tag = nav['tag']
+					this.videoDirPath = nav['videoDirPath']
+					this.imgDirPath = nav['imgDirPath']
+				} else {
+					this.tag = this.videoDirPath = this.imgDirPath = ''
+				}
 			},
 			setPath(type) {
 				let title = '选择路径', self = this
@@ -106,21 +113,30 @@
 					return
 				}
 
-				this.addNavToNavArr({
-					tag: this.tag,
-					videoDirPath: this.videoDirPath,
-					imgDirPath: this.imgDirPath
-				})
+				if (this.operateType === 'add') {
+					this.addNavToNavArr({
+						tag: this.tag,
+						videoDirPath: this.videoDirPath,
+						imgDirPath: this.imgDirPath
+					})
+					this.$emit('commit')
+				} else {
+					this.updateNav({
+						oldTag: this.oldTag,
+						tag: this.tag,
+						videoDirPath: this.videoDirPath,
+						imgDirPath: this.imgDirPath
+					})
+				}
 
 				this.show = false
-				this.$emit('commit')
 			},
-			...mapActions('quickView', ['addNavToNavArr'])
+			...mapActions('quickView', ['addNavToNavArr', 'updateNav'])
 		},
 		mounted() {
 			// 监听 quick-view-nav.vue 组件发来的消息(是否显示该组件)
-			this.$root.$on('quick-view-nav-show-ui', (bool) => {
-                this.show = bool
+			this.$root.$on('quick-view-nav-show-ui', (bool, operateType, nav) => {
+                this.initData(bool, operateType, nav)
 			})
 		}
 	}

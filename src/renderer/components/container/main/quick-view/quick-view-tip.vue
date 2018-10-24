@@ -1,16 +1,16 @@
 <template>
-	<transition>
-		<div class="quick-view-tip" v-show="show">
-			<div class="content">
-				<p v-for="(tip, index) in tipArr">
-				    {{ index + 1 }}: {{ tip }}
-			    </p>
-			</div>
+	<div class="quick-view-tip" v-show="navArr.length === 0">
+		<div class="content">
+			<p v-for="(tip, index) in tipArr">
+			    {{ index + 1 }}: {{ tip }}
+		    </p>
 		</div>
-	</transition>
+	</div>
 </template>
 
 <script>
+	import { mapState } from 'vuex'
+
 	export default {
 		name: 'QuickViewTip',
 		props: {
@@ -29,7 +29,10 @@
 					]
 				}
 			}
-		}
+		},
+		computed: {
+			...mapState('quickView', ['navArr'])
+		},
 	}
 </script>
 

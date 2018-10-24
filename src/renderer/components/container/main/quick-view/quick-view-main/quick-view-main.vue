@@ -1,5 +1,5 @@
 <template>
-	<div class="quick-view-main">
+	<div class="quick-view-main" v-show="navArr && navArr.length > 0">
 		<div class="header">
 			导入视频, 快速查看
 		</div>
@@ -32,6 +32,8 @@
     import QuickViewMainContent from './quick-view-main-content'
     import QuickViewMainEmpty from './quick-view-main-empty'
 
+    import { mapState } from 'vuex'
+
 	export default {
 		name: 'QuickViewMain',
 		components: { 
@@ -54,6 +56,9 @@
 				arrMedia: [],
 				loading: true
 			}
+		},
+		computed: {
+			...mapState('quickView', ['navArr'])
 		},
 		beforeRouteEnter (to, from, next) {
 		    next(vm => {

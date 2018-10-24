@@ -14,9 +14,9 @@
 				</li>
 			</ul>
 		</div>
-		<div class="nav-operate" @click="addNav">
-			<i class="nav-operate-img"></i>
-			添加
+		<div class="nav-operate">
+			<i class="nav-operate-img" @click="addNavPage"></i>
+			<span @click="settingNavPage">设置</span>
 		</div>
 	</div>
 </template>
@@ -62,7 +62,6 @@
 			handlerClickNav(index, data) {
 				this.curIndex = index
 				this.$emit('click-nav', data)
-				this.$emit('no-nav-data', false)
 				this.$nextTick(() => {
 					this.$router.push({
 						name: 'quick-main-content',
@@ -74,8 +73,7 @@
 				})
 			},
 			loadFirstPageData() {
-				if (this.navArr.length >= 1) {
-					this.$emit('no-nav-data', false)
+				if (this.navArr.length > 0) {
 					this.$nextTick(() => {
 						this.$router.push({
 							name: 'quick-main-content',
@@ -85,12 +83,13 @@
 							}
 						})
 					})
-				} else {
-					this.$emit('no-nav-data', true)
 				}
 			},
-			addNav() {
-				this.$root.$emit('quick-view-nav-show-ui', true)
+			addNavPage() {
+				this.$root.$emit('quick-view-nav-show-ui', true, 'add')
+			},
+			settingNavPage() {
+				this.$root.$emit('quick-view-setting-nav-show-ui', true)
 			}
 		},
 		mounted() {

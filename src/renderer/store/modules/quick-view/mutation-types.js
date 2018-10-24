@@ -1,1 +1,5 @@
 export const ADD_NAV_TO_NAVARR = 'ADD_NAV_TO_NAVARR'
+
+export const DELETE_NAV_FROM_NAVARR = 'DELETE_NAV_FROM_NAVARR'
+
+export const UPDATE_NAV = 'UPDATE_NAV'
