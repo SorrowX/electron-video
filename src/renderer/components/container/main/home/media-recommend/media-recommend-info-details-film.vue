@@ -11,7 +11,13 @@
 		    @error="handleImgerror"
 		>
 		    <div class="content" v-show="filmsData.length > 0">
-		    	<div class="film" v-for="(film, index) in filmsData">
+		    	<div class="movie" v-for="(film, index) in filmsData">
+		    		<div>
+		    			<img :src="defaultBgImg" :data-src="film['imgUrl']" @click="play(film)">
+		    		</div>
+		    		<p>{{ film['filename'] }}</p>
+		    	</div>
+		    	<!-- <div class="film" v-for="(film, index) in filmsData">
 		    		<div class="film-cover">
 		    			<img :src="defaultBgImg" :data-src="film['imgUrl']" @click="play(film)">
 		    		</div>
@@ -26,7 +32,7 @@
 		    				</p>
 		    			</div>
 		    		</div>
-		    	</div>
+		    	</div> -->
 		    </div>
 		</base-lazy-load-img>
 	</div>
@@ -47,11 +53,15 @@
 		},
         computed: {
         	filmsData() {
-        		return this.films.map((film) => {
+        		let arr = this.films.map((film) => {
         			film['performer'] = '徐志伟'
         			film['introduce'] = '神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。'
         			return film
         		})
+        		if (arr.length >= 6) {
+        			// arr.length = 6
+        		}
+        		return arr
         	}
         },
         methods: {
@@ -94,13 +104,44 @@
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
+
+		justify-content: space-between;
 	}
 
+	/* 推荐电影样式 */
+	.movie {
+		margin: 1% 4% 20px 0;
+	}
+
+	.movie>div {
+		width: 180px;
+		height: 100px;
+		margin-bottom: 2%;
+		overflow: hidden;
+	}
+
+	.movie>div>img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.movie>div>img:hover {
+		cursor: pointer;
+	}
+
+	.movie>p {
+		width: 180px;
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    color: rgba(204,204,204,1);
+	}
+
+	/* 推荐电影 样式(这个和爱奇艺一样的ui,因为内容多,舍去) */
 	.content .film:nth-child(even) {
 		padding-left: 4%;
 	}
-
-	/* 推荐电影 样式 */
+	
 	.film {
 		width: 50%;
 		height: 170px;

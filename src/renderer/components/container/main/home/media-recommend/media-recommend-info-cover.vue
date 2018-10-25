@@ -22,12 +22,19 @@
                 this.$emit('is-open-detail-page', true)
 			},
 			handlerWheel(evt) {
-				if (evt.wheelDelta > 0) { // 向上是正数 x轴向左
-					this.$emit('switch-media', 'pre')
-				} else { // 表示向下是负数 x轴向右
-					this.$emit('switch-media', 'next')
+				this.lastTimeStamp = evt.timeStamp
+				if (this.lastTimeStamp - this.preTimeStamp > 500) {
+					this.preTimeStamp = this.lastTimeStamp
+					if (evt.wheelDelta > 0) { // 向上是正数 x轴向左
+						this.$emit('switch-media', 'pre')
+					} else { // 表示向下是负数 x轴向右
+						this.$emit('switch-media', 'next')
+					}
 				}
 			}
+		},
+		created() {
+			this.lastTimeStamp = this.preTimeStamp = 0
 		}
 	}
 </script>

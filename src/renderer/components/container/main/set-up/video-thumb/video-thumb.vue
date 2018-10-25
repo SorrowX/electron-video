@@ -17,6 +17,11 @@
 					<button @click="setErrorDefaultImgPath">浏览</button>
 				</div>
 
+				<div class="error-image-path">
+					<input v-model.trim="imgExtName" placeholder="选择 图片后缀名(eg: .jpg)" type="text">
+					<button>图片后缀</button>
+				</div>
+
 				<div class="image-num">
 					<input v-model.number="num" placeholder="输入 每次生成图片的个数" type="number">
 					<span>图片个数</span>
@@ -88,6 +93,7 @@
 				delayRequest: 1 * 1000,
 				imgTimeout: 3 * 1000,
 				forceUpdate: false,
+				imgExtName: '.jpg',
 
 				generateResultArr: [],
 				generateResult: {},
@@ -120,6 +126,7 @@
 					delayRequest: this.delayRequest,
 					imgTimeout: this.imgTimeout,
 					forceUpdate: this.forceUpdate,
+					imgExtName: this.imgExtName,
 					callback(ret) {
 						self.generateResultArr.push(ret)
 						self.scrollButtom()

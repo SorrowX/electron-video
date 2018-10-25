@@ -162,7 +162,7 @@ export async function loopGeneratPicture(options) {
 		try {
 			let imgPath = genImgResourcePath + '/' + ret[i]['filename'] + imgExtName
 			let imgPathArr = getImgPath(genImgResourcePath, ret[i]['filename'])
-			let genImgPath
+			let genImgPath, existRet
 
 			if (forceUpdate) {
 				genImgPath = await screenshot({
@@ -172,8 +172,9 @@ export async function loopGeneratPicture(options) {
 				})
 				await sleep(delayRequest)
 			} else {
-				if (imgPathIsExist(imgPathArr)) {
-					genImgPath = imgPath
+				existRet = imgPathIsExist(imgPathArr)
+				if (existRet['isExist']) {
+					genImgPath = existRet['path']
 				} else {
 					genImgPath = await screenshot({
 						videoUrl: ret[i]['videoUrl'],
@@ -210,9 +211,16 @@ export async function loopGeneratPicture(options) {
 	}
 
 	function imgPathIsExist(imgPathArr) {
+		let exitPath = ''
 		let ret = imgPathArr.every((imgPath) => {
+			if (fu.exist(imgPath)) {
+				exitPath = imgPath
+			}
 			return fu.exist(imgPath) == false
 		})
-		return ret === true ? false : true
+		return {
+			isExist: (ret === true ? false : true),
+			path: exitPath
+		}
 	}
 }

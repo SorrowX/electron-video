@@ -6,7 +6,11 @@
     	    @animationstart="handlerAnimationStart"
     	    @animationend="handlerAnimationEnd"
     	>
-    		<div class="media" v-for="(media, index) in arrMediaInfo">
+    		<div 
+    		    class="media" 
+    		    ref="mediaDoms"
+    		    v-for="(media, index) in arrMediaInfo" 
+            >
     			<media-recommend-info
     			    :mediaInfo="media"
     			    :mediaIndex="index"
@@ -54,12 +58,21 @@
 				curIndex: 0, // 所有媒体页面中的当前页面的索引
 			}
 		},
+		watch: {
+			arrMedia() { // 有新的数据,重置translatx值
+				this.curIndex = this.allMediaDomTranslateX = 0
+			}
+		},
 		computed: {
 			arrMediaInfo() {
-				return this.arrMedia.map((info) => {
+				let arr = this.arrMedia.map((info) => {
 					info['bgImg'] = info['imgUrl']
 					return info 
 				})
+				/*if (arr.length >= 3) {
+					arr.length = 3
+				}*/
+				return arr
 			}
 		},
 		methods: {
@@ -115,7 +128,7 @@
 		width: 93.8%;
 		height: 100%;
 		display: flex;
-		transition: all .65s;
+		transition: transform .65s;
 		transform: translate3d(0px, 0, 0); /* 控制左右滚动 */
 		background-color: rgba(27,34,38,.8);
 	}
@@ -126,6 +139,7 @@
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
+		transition: transform .35s;
 	}
 
 	.media-info {
@@ -133,7 +147,7 @@
 		flex-direction: column;
 		width: 100%;
 		height: 100%;
-		transition: all .35s;
+		transition: transform .35s;
 		transform: translate3d(0, 0px, 0); /* 控制单个媒体信息上下滚动 */
 	}
 

@@ -14,9 +14,9 @@
 				</li>
 			</ul>
 		</div>
-		<div class="nav-operate">
-			<i class="nav-operate-img" @click="addNavPage"></i>
-			<span @click="settingNavPage">设置</span>
+		<div class="nav-operate" @click="addNavPage">
+			<i class="nav-operate-img"></i>
+			<span @click.stop="settingNavPage">设置</span>
 		</div>
 	</div>
 </template>
