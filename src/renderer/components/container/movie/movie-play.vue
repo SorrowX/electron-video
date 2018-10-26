@@ -28,6 +28,9 @@
 				this.$nextTick(() => {
 	                this.$refs.videoDom.play()
 				})
+			},
+			getCurrentPlayTime() {
+				return this.$refs.videoDom.currentTime
 			}
 		}
 	}
@@ -41,6 +44,9 @@
 		position: sticky;
 		top: 0;
 		background-color: black;
+		position: sticky;
+		top: 0;
+		z-index: 100;
 	}
 
 	.play>video {

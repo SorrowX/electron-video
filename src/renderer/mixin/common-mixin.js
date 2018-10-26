@@ -1,4 +1,4 @@
-import { loopGeneratImg } from '../../api/api'
+import { loopGeneratImg, videoScreenshot } from '../../api/api'
 import { mapState, mapAction } from 'vuex'
 
 const defaultBgImg = require('../assets/bg/dark/hDefault.jpg')
@@ -55,11 +55,19 @@ export default {
 		},
 		/*
          * 播放视频
+         * media { Object } Object: { videoUrl, videoPoster } 必须包含这2个属性
 		*/
-		playVideo(videoUrl, videoPoster) {
+		playVideo(media) {
 			this.$root.$emit('window-bar-show-back-arrow', true)
 			let movieComponent = this.$root.appMovieComponent
-			movieComponent.play({ videoUrl, videoPoster })
+			movieComponent.play(media)
+		},
+		/*
+         * 视频截图
+         * options { Object } Object: { videoUrl, imgPath, timePoint }
+		*/
+		screenshot(options) {
+			return videoScreenshot(options)
 		}
 	}
 }

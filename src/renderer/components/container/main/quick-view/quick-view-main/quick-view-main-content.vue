@@ -19,6 +19,7 @@
 
 <script>
     import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
+    import CommonMixin from '@/mixin/common-mixin'
 
     const defaultBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
     const errorBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
@@ -26,6 +27,7 @@
 	export default {
 		name: 'QuickViewMainContent',
 		components: { BaseLazyLoadImg },
+		mixins: [ CommonMixin ],
 		props: {
 			arrMedia: {
 				type: Array,
@@ -41,12 +43,7 @@
 		},
 		methods: {
 			goPlayPage(media) {
-				this.$root.$emit('window-bar-show-back-arrow', true)
-				let movieComponent = this.$root.appMovieComponent
-				movieComponent.play({
-					videoUrl: media.videoUrl,
-					videoPoster: media.imgUrl
-				})
+				this.playVideo(media)
 			},
 			handleImgsuccess(el) {
 				el.classList.add('img-success')

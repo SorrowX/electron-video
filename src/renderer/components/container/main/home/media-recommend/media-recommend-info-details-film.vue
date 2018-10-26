@@ -2,7 +2,7 @@
 	<div class="recommend-film">
 		<div class="tag">推荐</div>
 		<base-lazy-load-img 
-	        mode="diy"
+	        mode="default"
             :time="300"
             :done="true"
             :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-	import CommonMixin from '../../../../../mixin/common-mixin'
+	import CommonMixin from '@/mixin/common-mixin'
 	import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
 
 	export default {
@@ -66,7 +66,7 @@
         },
         methods: {
             play(film) {
-            	this.playVideo(film['videoUrl'], film['imgUrl'])
+            	this.playVideo(film)
             },
 			handleImgsuccess(el) {
 				el.classList.add('img-success')

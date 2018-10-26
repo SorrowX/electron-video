@@ -9,7 +9,7 @@
 					    ref="moviePlayComponent"
 					>
 					</movie-play>
-					<movie-info></movie-info>
+					<movie-info :movieInfo="movieInfo"></movie-info>
 				</div>
 				<div class="recommend">
 					<movie-recommend></movie-recommend>
@@ -34,7 +34,8 @@
 				show: false,
 				fadeName: 'movie-fade-right',
 				videoUrl: '',
-				videoPoster: ''
+				videoPoster: '',
+				movieInfo: {}
 			}
 		},
 		methods: {
@@ -43,10 +44,14 @@
 			},
 			play(options) {
 				let { videoUrl, videoPoster } = options
+				this.movieInfo = options
 				this.isShow(true)
 				this.videoUrl = videoUrl
 				this.videoPoster = videoPoster
 				this.$refs.moviePlayComponent.play()
+			},
+			getCurPlayTime() {
+				return this.$refs.moviePlayComponent.getCurrentPlayTime()
 			}
 		},
 		mounted() {

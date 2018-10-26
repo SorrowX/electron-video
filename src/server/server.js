@@ -13,9 +13,11 @@ const server = http.createServer(function(request, response) {
 
     let correctUrl = getDecodeUrl(request.url)
     let pathname = correctUrl.slice(address.length)
-    // let pathname = url.parse(correctUrl).pathname
-    // let realpath = path.join('assets', path.normalize(pathname.replace(/\.\./g, '')))
     let realpath = path.normalize(pathname.replace(/\.\./g, '')).slice(1)
+    
+    if (realpath.indexOf('?') !== -1) {
+        realpath = realpath.slice(0, realpath.indexOf('?'))
+    }
     let ext = path.extname(realpath)
     ext = ext ? ext.slice(1) : 'unknown'
     let contentType = mime[ext] || 'text/plain'

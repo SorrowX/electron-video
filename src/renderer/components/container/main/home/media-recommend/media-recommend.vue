@@ -37,7 +37,7 @@
 <script>
     import MediaRecommendInfo from './media-recommend-info'
     import MediaRecommendOperation from './media-recommend-operation'
-    import CommonMixin from '../../../../../mixin/common-mixin'
+    import CommonMixin from '@/mixin/common-mixin'
 
     const components = { MediaRecommendInfo, MediaRecommendOperation }
     let animationPadding = false
@@ -105,7 +105,7 @@
                 console.log('是否收藏: ', isCollection)
 			},
 			handlerPlay(media) { // 处理 播放按钮
-				this.playVideo(media.videoUrl, media.imgUrl)
+				this.playVideo(media)
 			},
 			handlerNext() { // 处理 下一个按钮
 				this.scrollWhellMedia('next')
