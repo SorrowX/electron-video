@@ -2,7 +2,7 @@
 	<div class="media-operation">
 		<button class="media-library" @click="$emit('go-on-library')">进入片库</button>
 
-        <div class="media-next" @click="$emit('next')">
+        <div class="media-next" @click="$emit('next')" v-show="notLastOne">
             <i></i>
             下一个
         </div>
@@ -27,6 +27,12 @@
 <script>
 	export default {
 		name: 'MediaRecommendOperation',
+        props: {
+            notLastOne: {
+                type: Boolean,
+                default: true
+            }
+        },
 		data() {
 			return {
 				isOpenDetail: false,

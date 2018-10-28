@@ -16,7 +16,7 @@
 					    :class="{ 'active': curMediaIndex == index }"
 					>
 						<div class="like-thumb">
-							<img :src="defaultBgImg" :data-src="media['imgUrl']" alt="">
+							<img :src="defaultBgImg" :data-src="media['genImgPath']" alt="">
 							<div class="time">{{ getTime() }}</div>
 						</div>
 						<div class="like-info">

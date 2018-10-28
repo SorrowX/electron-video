@@ -61,5 +61,9 @@ server.listen(port, ip, function() {
     console.log(`资源服务器启动成功: ${address}`)
 })
 
+server.on('error', (err) => {
+    alert('服务器已挂', JSON.stringify(err, null, 4))
+});
+
 export default server
 

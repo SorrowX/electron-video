@@ -23,6 +23,9 @@ function createWindow () {
         minWidth: config['windowWidth'],
         minHeight: config['windowHeight'],
         frame: false,
+        webPreferences: {
+            webSecurity: false
+        }
     })
 
     mainWindow.loadURL(winURL)

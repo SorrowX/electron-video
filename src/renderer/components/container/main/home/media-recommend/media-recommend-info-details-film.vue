@@ -13,7 +13,7 @@
 		    <div class="content" v-show="filmsData.length > 0">
 		    	<div class="movie" v-for="(film, index) in filmsData">
 		    		<div>
-		    			<img :src="defaultBgImg" :data-src="film['imgUrl']" @click="play(film)">
+		    			<img :src="defaultBgImg" :data-src="film['genImgPath']" @click="play(film)">
 		    		</div>
 		    		<p>{{ film['filename'] }}</p>
 		    	</div>
@@ -59,7 +59,7 @@
         			return film
         		})
         		if (arr.length >= 6) {
-        			// arr.length = 6
+        			arr.length = 6
         		}
         		return arr
         	}

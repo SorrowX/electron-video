@@ -26,7 +26,9 @@
 		methods: {
 			play() {
 				this.$nextTick(() => {
-	                this.$refs.videoDom.play()
+	                this.$refs.videoDom.play().catch((e) => {
+	                	alert('播放失败！')
+	                })
 				})
 			},
 			getCurrentPlayTime() {

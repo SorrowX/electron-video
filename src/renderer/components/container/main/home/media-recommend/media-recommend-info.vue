@@ -4,12 +4,12 @@
 	    :style="{ 'transform': 'translate3d(0, ' + mediaInfoDomtranslateY + '%, 0)' }"
 	>
 		<media-recommend-info-cover
-		    :bgImg="mediaInfo['bgImg']"
+		    :bgImg="mediaInfo['genImgPath']"
 		    @switch-media="switchMedia"
 		>
 		</media-recommend-info-cover>
 		<media-recommend-info-details
-		    :bgImg="mediaInfo['bgImg']"
+		    :bgImg="mediaInfo['genImgPath']"
 		>
 		</media-recommend-info-details>
 	</div>

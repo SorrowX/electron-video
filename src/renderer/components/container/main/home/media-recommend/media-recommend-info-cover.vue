@@ -1,16 +1,18 @@
 <template>
 	<div class="media-cover" @mousewheel="handlerWheel">
 		<div class="cover">
-			<img :src="bgImg">
+			<img :src="bgImg" @error="handlerError">
 		</div>
 	</div>
 </template>
 
 <script>
     import { debounce } from '@/util/index'
+    import CommonMixin from '@/mixin/common-mixin'
 
 	export default {
 		name: 'MediaRecommendCover',
+		mixins: [ CommonMixin ],
 		props: {
 			bgImg: {
 				type: String,
@@ -31,6 +33,9 @@
 						this.$emit('switch-media', 'next')
 					}
 				}
+			},
+			handlerError(evt) {
+				evt.target.src = this.homeErrorBgImg
 			}
 		},
 		created() {

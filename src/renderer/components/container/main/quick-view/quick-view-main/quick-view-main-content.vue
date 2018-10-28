@@ -9,7 +9,7 @@
 	    <ul class="ul-list" v-if="arrMedia.length > 0">
 			<li v-for="(media, index) in arrMedia" @click="goPlayPage(media)">
 				<a href="#">
-					<img :src="defaultBgImg" :data-src="media['imgUrl']" alt="">
+					<img :src="defaultBgImg" :data-src="media['genImgPath']" alt="">
 				</a>
 				<p>{{ media['filename'] }}</p>
 			</li>

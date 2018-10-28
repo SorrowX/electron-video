@@ -3,6 +3,7 @@ import { mapState, mapAction } from 'vuex'
 
 const defaultBgImg = require('../assets/bg/dark/hDefault.jpg')
 const errorBgImg = require('../assets/bg/dark/hDefault.jpg')
+const homeErrorBgImg = require('../assets/bg/DefaultImage/Assets/Dark/Scale-200/home_item_default_cover.png')
 
 export default {
 	computed: {
@@ -11,7 +12,7 @@ export default {
 		])
 	},
 	data() {
-		return { defaultBgImg, errorBgImg }
+		return { defaultBgImg, errorBgImg, homeErrorBgImg }
 	},
 	methods: {
 		/*

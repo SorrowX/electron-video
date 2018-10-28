@@ -19,6 +19,7 @@
     			>
     		    </media-recommend-info>
     			<media-recommend-operation
+    			    :notLastOne="arrMediaInfo.length - 1 != index"
     			    @go-on-library="handlerGoOnLibrary"
     			    @next="handlerNext"
     			    @play="handlerPlay(media)"
