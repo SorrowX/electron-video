@@ -1,8 +1,7 @@
+import { getCollectVideoFromCache } from './cache'
+
 const state = {
-	windowSize: {
-		height: '1120px',
-		width: '660px'
-	}
+	videoCollection: getCollectVideoFromCache()
 }
 
 export default state

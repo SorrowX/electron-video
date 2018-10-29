@@ -1,14 +1,15 @@
 <template>
 	<div class="collection">
 		<collection-header></collection-header>
-		我是 我的收藏 页面
+		<collection-content></collection-content>
 	</div>
 </template>
 
 <script>
 	import CollectionHeader from './collection-header'
+	import CollectionContent from './collection-content'
 
-	const components = { CollectionHeader }
+	const components = { CollectionHeader, CollectionContent }
 
 	export default {
 		name: 'Collection',
@@ -18,12 +19,9 @@
 
 <style scoped>
 	.collection{
+		height: 100%;
 		display: flex;
 		flex-direction: column;
 		position: relative;
-
-		font-size: 20px;
-		color: #fff;
-		text-align: center;
 	}
 </style>

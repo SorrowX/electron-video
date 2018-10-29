@@ -7,8 +7,8 @@
             :done="true"
             :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
             :diy="{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }"
-		    @success="handleImgsuccess" 
-		    @error="handleImgerror"
+		    @success="handleImgSuccess" 
+		    @error="handleImgError"
 		>
 		    <div class="content" v-show="filmsData.length > 0">
 		    	<div class="movie" v-for="(film, index) in filmsData">
@@ -54,8 +54,8 @@
         computed: {
         	filmsData() {
         		let arr = this.films.map((film) => {
-        			film['performer'] = '徐志伟'
-        			film['introduce'] = '神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。'
+        			// film['performer'] = '徐志伟'
+        			// film['introduce'] = '神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。'
         			return film
         		})
         		if (arr.length >= 6) {
@@ -67,13 +67,7 @@
         methods: {
             play(film) {
             	this.playVideo(film)
-            },
-			handleImgsuccess(el) {
-				el.classList.add('img-success')
-			},
-			handleImgerror(el) {
-				el.src = this.errorBgImg
-			}
+            }
         },
 		mounted() {
 			this.getRandomVideoData((data) => {

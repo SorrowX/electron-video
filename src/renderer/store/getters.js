@@ -1,6 +1,3 @@
-/**
- * 获取window信息
- */
-export const windowSizeInfo = function(state) {
-	return state.windowSize
+export const getVideoCollection = function(state) {
+	return state.videoCollection
 }

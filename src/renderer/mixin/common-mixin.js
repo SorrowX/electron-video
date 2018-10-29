@@ -1,5 +1,5 @@
 import { loopGeneratImg, videoScreenshot } from '../../api/api'
-import { mapState, mapAction } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 const defaultBgImg = require('../assets/bg/dark/hDefault.jpg')
 const errorBgImg = require('../assets/bg/dark/hDefault.jpg')
@@ -7,6 +7,9 @@ const homeErrorBgImg = require('../assets/bg/DefaultImage/Assets/Dark/Scale-200/
 
 export default {
 	computed: {
+		...mapState([
+			'videoCollection'
+		]),
 		...mapState('quickView', [
 			'navArr'
 		])
@@ -69,6 +72,38 @@ export default {
 		*/
 		screenshot(options) {
 			return videoScreenshot(options)
-		}
+		},
+		/*
+         * 操作视频(收藏还是取消收藏)
+         * videoData { Object } Object: { videoUrl, imgPath, timePoint }
+         * type { Boolean } true: 收藏; false: 取消收藏
+		*/
+		operateVideo(videoData, type) {
+			if (type === true) {
+				this.collectVideo(videoData)
+			} else {
+				this.cancelCollectVideo(videoData)
+			}
+		},
+		/*
+         * 处理图片加载情况
+		*/
+		handleImgSuccess(el) {
+			el.classList.add('img-success')
+		},
+		handleImgError(el) {
+			el.src = this.errorBgImg
+		},
+		/*
+         * 随机生成视频时间(ui好看点)
+		*/
+		getRandomNumber() {
+			let arr = [0,1,2,3,4,5,6,7,8,9]
+			return Math.floor(Math.random() * arr.length)
+		},
+		getTime() {
+			return `${this.getRandomNumber()}${this.getRandomNumber()}:${this.getRandomNumber()}${this.getRandomNumber()}`
+		},
+		...mapActions(['collectVideo', 'cancelCollectVideo'])
 	}
 }

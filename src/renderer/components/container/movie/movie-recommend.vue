@@ -7,8 +7,8 @@
 		        :time="300"
 		        :done="true"
 		        :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
-			    @success="handleImgsuccess" 
-			    @error="handleImgerror">
+			    @success="handleImgSuccess" 
+			    @error="handleImgError">
 				<ul v-if="arrMedia.length > 0">
 					<li 
 					    v-for="(media, index) in arrMedia" 
@@ -45,23 +45,10 @@
 			}
 		},
 		methods:{
-			handleImgsuccess(el) {
-				el.classList.add('img-success')
-			},
-			handleImgerror(el) {
-				el.src = this.errorBgImg
-			},
 			play(data, index) {
 				this.curMediaIndex = index
 				data.videoPoster = data.imgUrl
 				this.$parent.play(data)
-			},
-			getRandomNumber() {
-				let arr = [0,1,2,3,4,5,6,7,8,9]
-				return Math.floor(Math.random() * arr.length)
-			},
-			getTime() {
-				return `${this.getRandomNumber()}${this.getRandomNumber()}:${this.getRandomNumber()}${this.getRandomNumber()}`
 			},
 			randomLoadData(navArr) {
 				if (navArr.length === 0) return

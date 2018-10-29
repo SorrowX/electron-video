@@ -4,8 +4,8 @@
         :time="300"
         :done="true"
         :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
-	    @success="handleImgsuccess" 
-	    @error="handleImgerror">
+	    @success="handleImgSuccess" 
+	    @error="handleImgError">
 	    <ul class="ul-list" v-if="arrMedia.length > 0">
 			<li v-for="(media, index) in arrMedia" @click="goPlayPage(media)">
 				<a href="#">
@@ -21,9 +21,6 @@
     import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
     import CommonMixin from '@/mixin/common-mixin'
 
-    const defaultBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
-    const errorBgImg = require('../../../../../assets/bg/dark/hDefault.jpg')
-
 	export default {
 		name: 'QuickViewMainContent',
 		components: { BaseLazyLoadImg },
@@ -36,20 +33,9 @@
 				}
 			}
 		},
-		data() {
-			return {
-				defaultBgImg
-			}
-		},
 		methods: {
 			goPlayPage(media) {
 				this.playVideo(media)
-			},
-			handleImgsuccess(el) {
-				el.classList.add('img-success')
-			},
-			handleImgerror(el) {
-				el.src = errorBgImg
 			}
 		}
 	}
