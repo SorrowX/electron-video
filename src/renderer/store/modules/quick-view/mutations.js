@@ -31,6 +31,16 @@ const mutations = {
 			navArr.splice(index, 1)
 			navArr.splice(index, 0, { tag, videoDirPath, imgDirPath })
 		}
+	},
+
+	/**
+	 * 根据oldIdx找到nav然后更新到newIdx位置
+	 */
+	[types.UPDATE_NAV_BY_INDEX](state, { oldIdx, newIdx }) {
+		let navArr = state.navArr
+		if (newIdx < 0 || newIdx > navArr.length - 1) return
+		let nav = navArr.splice(oldIdx, 1)
+	    navArr.splice(newIdx, 0, nav[0])
 	}
 }
 

@@ -2,7 +2,8 @@ import * as types from './mutation-types'
 import { 
 	addNavToNavArrInCache, 
 	deleteNavFromNavArrInCache,
-	updateNavInCache
+	updateNavInCache,
+	updateNavByIndexInCache
 } from './cache'
 
 export const addNavToNavArr = function({ commit, state }, navInfo) {
@@ -18,4 +19,9 @@ export const deleteNavFromNavArr = function({ commit, state }, tagName) {
 export const updateNav = function({ commit, state }, newNavInfo) {
 	commit(types.UPDATE_NAV, newNavInfo)
 	updateNavInCache(newNavInfo)
+}
+
+export const updateNavByIndex = function({ commit, state }, { oldIdx, newIdx }) {
+	commit(types.UPDATE_NAV_BY_INDEX, { oldIdx, newIdx })
+	updateNavByIndexInCache({ oldIdx, newIdx })
 }

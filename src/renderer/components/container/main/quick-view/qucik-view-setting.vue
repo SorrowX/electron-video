@@ -5,9 +5,17 @@
 				<div class="setting">
 					<h2 class="title">导航操作</h2>
 					<ul class="nav-list-ul" v-show="navArr.length > 0">
-						<li v-for="(nav, index) in navArr">
+						<li 
+						    v-for="(nav, index) in navArr"
+						    :key="nav['tag']"
+						>
 							{{ nav['tag'] }}
 							<p>
+								<input 
+								    type="number" 
+								    :value="index + 1"
+								    @change="changeHandler(index, $event)" 
+								>
 								<span @click="updateNav(nav)">修改</span>
 								<span @click="delNav(nav)">删除</span>
 							</p>
@@ -45,7 +53,17 @@
 			updateNav(nav) {
 				this.$root.$emit('quick-view-nav-show-ui', true, 'update', nav)
 			},
-			...mapActions('quickView', ['deleteNavFromNavArr'])
+			changeHandler(navIndex, evt) {
+				let newIdx = Number(evt.target.value) - 1
+				let oldIdx = navIndex
+				let navArr = this.navArr
+				if (newIdx < 0 || newIdx > navArr.length - 1) {
+					evt.target.value = oldIdx + 1
+					return
+				}
+				this.updateNavByIndex({oldIdx, newIdx})
+			},
+			...mapActions('quickView', ['deleteNavFromNavArr', 'updateNavByIndex'])
 		},
 		mounted() {
 			this.$root.$on('quick-view-setting-nav-show-ui', (bool) => {
@@ -97,7 +115,7 @@
         width: 100%;
         height: 28px;
         line-height: 28px;
-        padding: 0 20% 0 3%;
+        padding: 0 30% 0 3%;
         position: relative;
         font-size: 13px;
         color: rgba(76,174,80,.8);
@@ -108,7 +126,7 @@
 
 	.nav-list-ul li p {
 		height: 100%;
-		width: 20%;
+		width: 30%;
 		position: absolute;
 		right: 0;
 		top: 0;
@@ -122,6 +140,15 @@
 
 	.nav-list-ul li span:hover {
 		cursor: pointer;
+	}
+
+	/* input 样式 */
+	.nav-list-ul li p input {
+		width: 50px;
+		padding: 1px;
+		border: 1px solid rgba(255,255,255,.1);
+		background-color: transparent;
+		color: rgba(76,174,80,.8);
 	}
 
 	/* 提示样式 */

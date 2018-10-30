@@ -48,3 +48,14 @@ export function updateNavInCache(newNavInfo) {
 	}
 	return local.setItem(QUICK_VIEW_NAV_ARR, navArr)
 }
+
+/**
+ * 根据oldIdx找到nav然后更新到newIdx位置
+ */
+export function updateNavByIndexInCache({ oldIdx, newIdx }) {
+	let navArr = localNavArrInfo()
+	if (newIdx < 0 || newIdx > navArr.length - 1) return
+	let nav = navArr.splice(oldIdx, 1)
+    navArr.splice(newIdx, 0, nav[0])
+    return local.setItem(QUICK_VIEW_NAV_ARR, navArr)
+}
