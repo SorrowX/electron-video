@@ -13,7 +13,7 @@
 	import HomeNav from './home-nav'
 	import MediaRecommend from './media-recommend/media-recommend'
 	import { loopGeneratImg } from '../../../../../api/api'
-	import CommonMixin from '../../../../mixin/common-mixin'
+	import CommonMixin from '@/mixin/common-mixin'
 
 	const components = { HomeHeader, HomeNav, MediaRecommend }
 

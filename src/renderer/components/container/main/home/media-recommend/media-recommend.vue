@@ -19,6 +19,7 @@
     			>
     		    </media-recommend-info>
     			<media-recommend-operation
+	    			:mediaInfo="media"
     			    :notLastOne="arrMediaInfo.length - 1 != index"
     			    @go-on-library="handlerGoOnLibrary"
     			    @next="handlerNext"
@@ -103,7 +104,6 @@
 				this.$refs.recommendInfoComp[this.curIndex].openDetail(isShowNextPage)
 			},
 			handlerCollection(isCollection) { // 处理 收藏按钮
-                console.log('是否收藏: ', isCollection, this.arrMediaInfo[this.curIndex])
                 this.operateVideo(this.arrMediaInfo[this.curIndex], isCollection)
 			},
 			handlerPlay(media) { // 处理 播放按钮

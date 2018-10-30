@@ -14,8 +14,8 @@
 					截图
 				</span>
 
-				<span ref="syncLookDom">
-					<i class="sync-see" @click="showQrcode"></i>
+				<span ref="syncLookDom" @click="showQrcode">
+					<i class="sync-see"></i>
 					同步看
 				</span>
 
@@ -24,8 +24,8 @@
 					播放
 				</span>
 
-				<span>
-					<i class="collection"></i>
+				<span @click="collection">
+					<i :class="[isCollection === false ? 'cancel-collection' : 'collection']"></i>
 					收藏
 				</span>
 
@@ -74,7 +74,8 @@
 					'left': '0px',
 					'top': '0px',
 					'display': 'none'
-				}
+				},
+				isCollection: false
 			}
 		},
 		methods: {
@@ -97,9 +98,11 @@
 				shell.openItem(this.movieInfo['name'])
 			},
 			showQrcode(evt) {
-				this.setQrcodeStyle(evt.target, () => {
-					this.makeCode()
-				})
+				if (evt.target.nodeName === 'I') {
+					this.setQrcodeStyle(evt.target, () => {
+						this.makeCode()
+					})
+				}
 			},
 			setQrcodeStyle(dom, callback) {
 				if (this.qrcodeStyle['display'] === 'none') {
@@ -131,10 +134,23 @@
 					this.qrcode.clear()
 					this.qrcode.makeCode(this.movieInfo['videoUrl'])
 				}
-			}
+			},
+			collection() {
+                this.isCollection = !this.isCollection
+                this.operateVideo(this.movieInfo, this.isCollection)
+            },
+            updateCollectUi(media) {
+            	this.isCollection = this.videoIsInCollect(media)
+            }
 		},
 		mounted() {
             this.qrcode = null
+
+            this.$watch('videoCollection', () => {
+            	this.updateCollectUi(this.movieInfo)
+            }, {
+                immediate: true
+            })
 		}
 	}
 </script>
@@ -217,8 +233,12 @@
 		background-image: url(../../../assets/media-recommend/play_count.png);
 	}
 
-	.operation .collection{
+	.operation .cancel-collection{
 		background-image: url(../../../assets/play-page/favor_normal.scale-200.png);
+	}
+
+	.operation .collection{
+		background-image: url(../../../assets/play-page/favor_Indeterminate.scale-200.png);
 	}
 
 	.operation .down{

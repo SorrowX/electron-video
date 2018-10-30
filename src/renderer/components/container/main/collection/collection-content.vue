@@ -1,6 +1,6 @@
 <template>
 	<div class="collection-content">
-		<div class="collection-list">
+		<div class="collection-list" v-show="arrData.length > 0">
 			<base-lazy-load-img 
 			    mode="default"
 		        :time="300"
@@ -9,10 +9,32 @@
 			    @success="handleImgSuccess" 
 			    @error="handleImgError">
 			    <ul>
-    				<li v-for="(media, index) in videoCollection" @click="playVideo(media)">
+    				<li 
+    				    v-for="(media, index) in arrData" 
+    				    :key="media['filename']"
+    				    :class="[media['checked'] ? 'li-selected' : '']"
+    				    @click="play(media, $event)"
+    				>
     					<div class="cover">
     						<img :src="defaultBgImg" :data-src="media['genImgPath']" alt="">
     						<span>{{ getTime() }}</span>
+    						<div 
+    						    class="choice" 
+    						    :class="[media['checked'] ? 'choice-select' : '']"
+    						    v-show="showSelectUI"
+    						>
+    							<input 
+    							    type="checkbox" 
+    							    class="collection-checkbox"
+    							    :id="media['filename']" 
+    							    v-model="media['checked']"
+    							>
+    							<label 
+    							    :for="media['filename']"
+    							    :class="[media['checked'] ? 'active' : '']"
+    							>
+    							</label>
+    						</div>
     					</div>
     					<p class="title"> {{ media['filename'] }} </p>
     					<p class="tag"> 推荐 </p>
@@ -20,19 +42,69 @@
     			</ul>
 			</base-lazy-load-img>
 		</div>
+        <base-empty-tip 
+            v-show="arrData.length === 0"
+            :title="tipTitle"
+            :tips="tips"
+        >
+        </base-empty-tip>
 	</div>
 </template>
 
 <script>
 	import CommonMixin from '../../../../mixin/common-mixin'
+	import { extend } from '../../../../util/index'
 	import BaseLazyLoadImg from '../../../base/base-lazy-load-img'
+	import BaseEmptyTip from '../../../base/base-empty-tip'
 
 	export default {
 		name: 'CollectionContent',
-		components: { BaseLazyLoadImg },
+		components: { BaseLazyLoadImg, BaseEmptyTip },
 		mixins: [ CommonMixin ],
+		data() {
+			return {
+				showSelectUI: false,
+				arrData: [],
+				tipTitle: '暂无收藏',
+				tips: [
+				    '可以进入视频播放页面,添加收藏',
+				    '进入首页,也可以对视频进行收藏'
+				]
+			}
+		},
 		methods: {
-
+            play(media, $event) {
+            	if ($event.target.nodeName === 'IMG') {
+	            	this.playVideo(media)
+            	}
+            },
+            openSelectUI(bool) {
+                this.showSelectUI = bool
+                this.arrData.forEach((media) => {
+            		media.checked = false
+            	})
+            },
+            deleteCollectionVideo() {
+            	let delArr = this.arrData.filter((media) => {
+            		return media.checked == true
+            	})
+            	if (Array.isArray(delArr)) {
+            		delArr.forEach((media) => {
+                        this.operateVideo(media, false)
+            		})
+            	}
+            }
+		},
+		mounted() {
+			this.$watch('videoCollection', () => {
+				this.arrData = this.videoCollection.map((media) => {
+					let copy = extend({}, media)
+					copy.checked = false
+					return copy
+				})
+			}, {
+				immediate: true
+			})
 		}
 	}
 </script>
@@ -71,6 +143,12 @@
 		cursor: pointer;
 	}
 
+	/* li边框变绿 */
+	.li-selected {
+		border: 2px solid rgba(11,190,6,1)!important;
+	}
+
+	/* 封面样式 */
 	.cover {
 		width: 100%;
 		height: 96px;
@@ -96,6 +174,45 @@
 		text-align: center;
 	}
 
+	/* 复选框 样式 */
+	.choice {
+		width: 16px;
+		height: 16px;
+		position: absolute;
+		right: 1px;
+		top: 1px;
+		background-color: rgba(31,31,31,1);
+	}
+
+	/* 选中后背景变绿 */
+	.choice-select {
+		background-color: rgba(11,190,6,1)!important;
+	}
+
+	.collection-checkbox {
+		display: none;
+	}
+
+	.collection-checkbox+label {
+	    padding: 8px;
+	    position: relative;
+	}
+
+	.collection-checkbox:checked+label:after {
+	    content: '\2714';
+	    position: absolute;
+	    top: 5px;
+	    left: 2px;
+	    font-size: 14px;
+	    color: rgba(11,190,6,1);
+	}
+
+	/* 选中后字体变白 */
+	.collection-checkbox:checked+label.active:after {
+		color: #fff!important;
+	}
+
+	/* 文字样式 */
 	.collection-list ul li p {
 		overflow: hidden;
 		text-overflow: ellipsis;

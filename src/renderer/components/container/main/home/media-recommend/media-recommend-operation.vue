@@ -25,12 +25,21 @@
 </template>
 
 <script>
+    import CommonMixin from '@/mixin/common-mixin'
+
 	export default {
 		name: 'MediaRecommendOperation',
+        mixins: [ CommonMixin ],
         props: {
             notLastOne: {
                 type: Boolean,
                 default: true
+            },
+            mediaInfo: {
+                type: Object,
+                default: function() {
+                    return {}
+                }
             }
         },
 		data() {
@@ -48,7 +57,14 @@
                 this.isCollection = !this.isCollection
                 this.$emit('collection', this.isCollection)
             }
-		}
+		},
+        mounted() {
+            this.$watch('videoCollection', () => {
+                this.isCollection = this.videoIsInCollect(this.mediaInfo)
+            }, {
+                immediate: true
+            })
+        }
 	}
 </script>
 

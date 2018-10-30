@@ -66,3 +66,10 @@ export function setZoomFactor(devScaleFactor, devInnerHeight) {
 
     return require('electron').webFrame.getZoomFactor()
 }
+
+export function extend (to, from) {
+    for (const key in from) {
+        to[key] = from[key]
+    }
+    return to
+}

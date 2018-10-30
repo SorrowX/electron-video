@@ -75,15 +75,26 @@ export default {
 		},
 		/*
          * 操作视频(收藏还是取消收藏)
-         * videoData { Object } Object: { videoUrl, imgPath, timePoint }
+         * meida { Object }
          * type { Boolean } true: 收藏; false: 取消收藏
 		*/
-		operateVideo(videoData, type) {
+		operateVideo(meida, type) {
 			if (type === true) {
-				this.collectVideo(videoData)
+				this.collectVideo(meida)
 			} else {
-				this.cancelCollectVideo(videoData)
+				this.cancelCollectVideo(meida)
 			}
+		},
+		/*
+         * 视频是否在收藏中
+         * media { Object }
+         * return Boolean false: 不在 true:在
+		*/
+		videoIsInCollect(media) {
+            let i = this.videoCollection.findIndex((video) => {
+            	return video.filename === media.filename
+            })
+            return i === -1 ? false : true
 		},
 		/*
          * 处理图片加载情况

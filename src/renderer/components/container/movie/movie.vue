@@ -9,7 +9,11 @@
 					    ref="moviePlayComponent"
 					>
 					</movie-play>
-					<movie-info :movieInfo="movieInfo"></movie-info>
+					<movie-info 
+					    :movieInfo="movieInfo"
+					    ref="movieInfoComponent"
+					>
+					</movie-info>
 				</div>
 				<div class="recommend">
 					<movie-recommend></movie-recommend>
@@ -49,6 +53,7 @@
 				this.videoUrl = videoUrl
 				this.videoPoster = videoPoster
 				this.$refs.moviePlayComponent.play()
+				this.$refs.movieInfoComponent.updateCollectUi(this.movieInfo)
 			},
 			getCurPlayTime() {
 				return this.$refs.moviePlayComponent.getCurrentPlayTime()

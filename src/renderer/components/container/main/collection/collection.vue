@@ -1,7 +1,11 @@
 <template>
 	<div class="collection">
-		<collection-header></collection-header>
-		<collection-content></collection-content>
+		<collection-header
+		    @open-select-collection="openSelectUI"
+		    @delete-collection="deleteCollectionVideo"
+		>
+		</collection-header>
+		<collection-content ref="collContentComp"></collection-content>
 	</div>
 </template>
 
@@ -13,7 +17,15 @@
 
 	export default {
 		name: 'Collection',
-		components
+		components,
+		methods: {
+			openSelectUI(bool) {
+				this.$refs.collContentComp.openSelectUI(bool)
+			},
+			deleteCollectionVideo() {
+				this.$refs.collContentComp.deleteCollectionVideo()
+			}
+		}
 	}
 </script>
 
