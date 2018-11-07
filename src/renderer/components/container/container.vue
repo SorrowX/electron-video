@@ -2,13 +2,6 @@
 	<div class="container">
         <app-main></app-main>
         <app-movie></app-movie>
-
-        <!-- 主页面/视频播放页面 -->
-        <!-- <transition name="fade" mode="out-in">
-            <keep-alive exclude="Movie">
-                <router-view></router-view>
-            </keep-alive>
-        </transition> -->
     </div>
 </template>
 
@@ -18,12 +11,7 @@
 
 	export default {
 		name: 'Container',
-        components: { AppMain, AppMovie },
-        data() {
-            return {
-                transitionName: 'movie-fade-right'
-            }
-        }
+        components: { AppMain, AppMovie }
 	}
 </script>
 

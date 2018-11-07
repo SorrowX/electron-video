@@ -1,14 +1,15 @@
 <template>
 	<div class="channel">
 		<channel-header></channel-header>
-		我是 频道 页面
+		<channel-content></channel-content>
 	</div>
 </template>
 
 <script>
     import ChannelHeader from './channel-header'
+    import ChannelContent from './channel-content'
 
-    const components = { ChannelHeader }
+    const components = { ChannelHeader, ChannelContent }
 
 	export default {
 		name: 'Channel',
@@ -18,12 +19,9 @@
 
 <style scoped>
 	.channel{
+		height: 100%;
 		display: flex;
 		flex-direction: column;
 		position: relative;
-
-		font-size: 20px;
-		color: #fff;
-		text-align: center;
 	}
 </style>
