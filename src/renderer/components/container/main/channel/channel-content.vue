@@ -1,13 +1,13 @@
 <template>
 	<div class="channel-content">
-		<channel-content-nav></channel-content-nav>
-		<!-- <channel-content-movie></channel-content-movie> -->
+		<!-- <channel-content-nav></channel-content-nav> -->
+		<channel-content-movie></channel-content-movie>
 	</div>
 </template>
 
 <script>
     import ChannelContentNav from './channel-content-nav'
-    import ChannelContentMovie from './channel-content-movie'
+    import ChannelContentMovie from './channel-content-movie/channel-content-movie'
     const components = { ChannelContentNav, ChannelContentMovie }
 	export default {
 		name: 'ChannelContent',

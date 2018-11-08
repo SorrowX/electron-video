@@ -4,44 +4,44 @@
 			<div class="movie-list">
 				<ul class="movie-list-ul">
 					<li>
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
+						<img src="../../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
 						<i>11-06期</i>
 						<p>关于毒液你不知道的事关于毒液你不知道的事关于毒液你不知道的事</p>
 						<span>飞碟一分钟第三季飞碟一分钟第三季飞碟一分钟第三季</span>
 					</li>
 
 					<li>
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
+						<img src="../../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
 						<p>关于毒液你不知道的事</p>
 						<span>飞碟一分钟第三季</span>
 					</li>
 
 					<li>
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
+						<img src="../../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
 						<p>关于毒液你不知道的事</p>
 						<span>飞碟一分钟第三季</span>
 					</li>
 
 					<li>
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
+						<img src="../../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
 						<p>关于毒液你不知道的事</p>
 						<span>飞碟一分钟第三季</span>
 					</li>
 
 					<li>
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
+						<img src="../../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
 						<p>关于毒液你不知道的事</p>
 						<span>飞碟一分钟第三季</span>
 					</li>
 
 					<li>
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
+						<img src="../../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
 						<p>关于毒液你不知道的事</p>
 						<span>飞碟一分钟第三季</span>
 					</li>
 
 					<li>
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
+						<img src="../../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg" alt="">
 						<p>关于毒液你不知道的事</p>
 						<span>飞碟一分钟第三季</span>
 					</li>
