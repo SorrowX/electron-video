@@ -69,8 +69,9 @@
 			}
 		},
 		methods: {
-			async getRenderData() {
-				let dataArr = await this.getVideoDataByTagPromise(this.tag)
+			async updateRenderData(tag) {
+				tag = tag || this.tag
+				let dataArr = await this.getVideoDataByTagPromise(tag)
 				if (dataArr.length >= 3) {
 					let arr = getRandomItemFromArr(dataArr, 3)
 					this.renderData.bannerData = arr[0]
@@ -82,7 +83,7 @@
 					this.renderData.bannerData = dataArr[0]
 					this.renderData.recommendData = [dataArr[0], dataArr[0]]
 				}
-				// console.log('renderData: ', this.renderData)
+				// console.log('头部renderData: ', this.renderData)
 			},
 			play(media) {
 				if (media['videoUrl']) {
@@ -94,7 +95,7 @@
 			}
 		},
 		mounted() {
-			this.getRenderData()
+			this.updateRenderData()
 		}
 	}
 </script>

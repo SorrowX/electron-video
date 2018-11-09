@@ -47,14 +47,29 @@
                 }
             },
             goBack() {
-                this.isShowBack = false // 返回箭头隐藏
                 let movieComponent = this.$root.appMovieComponent
-                movieComponent.isShow(false)
+                let channelMovieComponent = this.$root.channelMovieComponent
+                let movieComponentIsShow = movieComponent.show
+                let channelMovieComponentIsShow = channelMovieComponent.show
+
+                if (movieComponentIsShow) {
+                    movieComponent.isShow(false)
+                    if (!channelMovieComponentIsShow) {
+                        this.isShowBack = false // 返回箭头隐藏
+                    }
+                    return
+                }
+
+                if (channelMovieComponentIsShow) {
+                    channelMovieComponent.isShow(false)
+                    this.isShowBack = false // 返回箭头隐藏
+                }
             }
         },
         mounted() {
-            this.$root.$on('window-bar-show-back-arrow', (bool) => { // 让外部告诉当前组件是否显示 回退箭头
+            this.$root.$on('window-bar-show-back-arrow', (bool, goBackType) => { // 让外部告诉当前组件是否显示 回退箭头
                 this.isShowBack = bool
+                this._goBackType = goBackType
             })
         }
 	}

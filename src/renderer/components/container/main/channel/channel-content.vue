@@ -1,7 +1,13 @@
 <template>
 	<div class="channel-content">
-		<channel-content-channel></channel-content-channel>
-		<channel-content-movie></channel-content-movie>
+		<channel-content-channel
+		    @show-details="showDetails"
+		>
+		</channel-content-channel>
+		<channel-content-movie 
+		    ref="channelMovieComp"
+		>
+		</channel-content-movie>
 	</div>
 </template>
 
@@ -11,7 +17,18 @@
     const components = { ChannelContentChannel, ChannelContentMovie }
 	export default {
 		name: 'ChannelContent',
-		components
+		components,
+		data() {
+			return {
+				channelTag: ''
+			}
+		},
+		methods: {
+			showDetails(channel) {
+				this.channelTag = channel.tag
+				this.$refs.channelMovieComp.isShow(true, channel.tag)
+			}
+		}
 	}
 </script>
 

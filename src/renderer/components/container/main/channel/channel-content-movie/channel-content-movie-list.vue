@@ -33,7 +33,7 @@
 			}
 		},
 		methods: {
-			async getRenderListData() {
+			async updateRenderListData() {
 				let ret = []
 				let navArr = this.navArr, 
 				    i = 0, 
@@ -60,7 +60,7 @@
 			
 		},
 		mounted() {
-			this.getRenderListData()
+			this.updateRenderListData()
 		}
 	}
 </script>
@@ -80,7 +80,8 @@
 		justify-content: space-between;
 		align-items: center;
 		position: sticky;
-		top: 0;
+		top: -1px;
+		left: 0;
 		z-index: 10;
 		font-size: 16px;
 		color: rgba(204,204,204,1);
