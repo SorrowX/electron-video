@@ -17,6 +17,8 @@
 				    ref="movieListComp"
 				>
 				</channel-content-movie-list>
+
+				<channel-content-movie-footer></channel-content-movie-footer>
 			</main>
 		</div>
 	</transition>
@@ -26,13 +28,15 @@
     import ChannelContentMovieHeader from './channel-content-movie-header'
     import ChannelContentMovieRecommend from './channel-content-movie-recommend'
     import ChannelContentMovieList from './channel-content-movie-list'
+    import ChannelContentMovieFooter from './channel-content-movie-footer'
     import CommonMixin from '@/mixin/common-mixin'
     import { getRandomItemFromArr } from '@/util/index'
 
     const components = { 
     	ChannelContentMovieHeader,
     	ChannelContentMovieRecommend,
-    	ChannelContentMovieList
+    	ChannelContentMovieList,
+    	ChannelContentMovieFooter
     }
 
 	export default {

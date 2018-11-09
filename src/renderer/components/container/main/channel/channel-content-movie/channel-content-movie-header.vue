@@ -1,5 +1,5 @@
 <template>
-	<div class="channel-content-movie-header">
+	<header class="channel-content-movie-header">
 		<div class="header-left" @click="play(renderData['bannerData'])">
 			<div class="bg">
 				<img :src="renderData['bannerData']['genImgPath']">
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</header>
 </template>
 
 <script>
