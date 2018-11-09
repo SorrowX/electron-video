@@ -1,4 +1,5 @@
 import { loopGeneratImg, videoScreenshot } from '../../api/api'
+import { extend } from '../util/index'
 import { mapState, mapActions } from 'vuex'
 
 const defaultBgImg = require('../assets/bg/dark/hDefault.jpg')
@@ -16,7 +17,11 @@ export default {
 		])
 	},
 	data() {
-		return { defaultBgImg, errorBgImg, homeErrorBgImg }
+		return { 
+			defaultBgImg, 
+			errorBgImg, 
+			homeErrorBgImg
+		}
 	},
 	methods: {
 		/*
@@ -52,11 +57,18 @@ export default {
 		*/
 		getVideoDataByTag(tagName, callback) {
 			let nav = this.navArr.find(nav => nav.tag === tagName)
-			if (len > 0) {
+			if (nav) {
 				this.loadVideoData(nav['videoDirPath'], nav['imgDirPath'], callback)
 			} else {
 				callback && callback([])
 			}
+		},
+		getVideoDataByTagPromise(tagName) {
+			return new Promise((resolve, reject) => {
+				this.getVideoDataByTag(tagName, (data) => {
+					return resolve(data)
+				})
+			})
 		},
 		/*
          * 播放视频
