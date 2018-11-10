@@ -50,7 +50,7 @@
                 let movieComponent = this.$root.appMovieComponent
                 let channelMovieComponent = this.$root.channelMovieComponent
                 let movieComponentIsShow = movieComponent.show
-                let channelMovieComponentIsShow = channelMovieComponent.show
+                let channelMovieComponentIsShow = channelMovieComponent && channelMovieComponent.show
 
                 if (movieComponentIsShow) {
                     movieComponent.isShow(false)

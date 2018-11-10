@@ -1,22 +1,6 @@
 <template>
 	<div class="channel-content-channel">
-		<main class="channel-content-channel-main">
-			<!-- <dl>
-				<dt>常用频道</dt>
-				<dd v-for="(channel, index) in allChannel">
-					<img :src="channel['thumb']">
-					{{ channel['tag'] }}
-				</dd>
-			</dl> -->
-
-			<!-- <dl>
-				<dt>全部频道</dt>
-				<dd v-for="(channel, index) in allChannel">
-					<img :src="channel['thumb']">
-					{{ channel['tag'] }}
-				</dd>
-			</dl> -->
-
+		<main class="channel-content-channel-main" v-if="allChannel.length > 0">
 			<base-lazy-load-img 
 			    mode="diy"
 	            :time="300"
@@ -25,11 +9,12 @@
 	            :diy="{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }"
 			    @success="handleImgSuccess" 
 			    @error="handleImgError">
-			    <dl>
+			    <dl v-show="useChannel.length > 0">
     				<dt>常用频道</dt>
     				<dd 
-    				    v-for="(channel, index) in allChannel"
+    				    v-for="(channel, index) in useChannel"
     				    @click="showDetails(channel)"
+    				    :key="channel['thumb']"
     				>
     					<img :src="defaultBgImg" :data-src="channel['thumb']">
     					<span>{{ channel['tag'] }}</span>
@@ -57,6 +42,17 @@
     			</dl>
 			</base-lazy-load-img>
 		</main>
+		<base-loading 
+		    v-show="loading"
+		    size="min" 
+		>
+		</base-loading>
+		<base-empty-tip 
+		    v-show="allChannel.length === 0"
+		    :title="tipTitle"
+		    :tips="tips"
+		>
+		</base-empty-tip>
 	</div>
 </template>
 
@@ -64,31 +60,27 @@
 	import CommonMixin from '@/mixin/common-mixin'
 	import { getRandomItemFromArr } from '@/util/index'
 	import BaseLazyLoadImg from '@/components/base/base-lazy-load-img'
-
-	const defaultThumb = require('../../../../assets/logo.png')
+	import BaseLoading from '@/components/base/base-loading'
+	import BaseEmptyTip from '@/components/base/base-empty-tip'
 
 	export default {
 		name: 'ChannelContentChannel',
 		mixins: [ CommonMixin ],
-		components: { BaseLazyLoadImg },
+		components: { BaseLazyLoadImg, BaseLoading, BaseEmptyTip },
 		data() {
 			return {
 				allChannel: [],
-				defaultBgImg: defaultThumb
-			}
-		},
-		computed: {
-			useChannel() {
-				let arr = this.allChannel.slice()
-				if (arr.length >= 4) {
-					return arr.length = 4
-				} else {
-					return []
-				}
+				useChannel: [],
+				loading: false,
+				tipTitle: '暂无频道',
+				tips: [
+				    '进入‘快速查看’页面,对其进行添加导航'
+				]
 			}
 		},
 		methods: {
 			async getAllChannelData() {
+				this.loading = true
 				let ret = []
 				let navArr = this.navArr, 
 				    i = 0, 
@@ -107,10 +99,23 @@
                     ret.push(obj)
 				}
 				this.allChannel = ret
+				this.loading = false
 				// console.log('频道数据: ', ret)
 			},
 			showDetails(channel) {
+				this.addUseChannel(channel)
 				this.$emit('show-details', channel)
+			},
+			addUseChannel(channel) {
+				let i = this.useChannel.findIndex((c) => {
+					return c == channel
+				})
+				if (i === -1) {
+					this.useChannel.push(channel)
+				} else {
+					this.useChannel.splice(i, 1)
+					this.useChannel.unshift(channel)
+				}
 			}
 		},
 		mounted() {

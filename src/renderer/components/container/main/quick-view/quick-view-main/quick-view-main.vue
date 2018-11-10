@@ -28,8 +28,8 @@
 
 <script>
     import { loopGeneratImg } from '../../../../../../api/api'
-    import BaseLoading from '../../../../base/base-loading'
-    import CommonMixin from '../../../../../mixin/common-mixin'
+    import BaseLoading from '@/components/base/base-loading'
+    import CommonMixin from '@/mixin/common-mixin'
     import QuickViewMainContent from './quick-view-main-content'
     import QuickViewMainEmpty from './quick-view-main-empty'
 
