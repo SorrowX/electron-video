@@ -1,11 +1,15 @@
 import { 
 	getCollectVideoFromCache,
-	getVideoRecordFromCache
+	getVideoRecordFromCache,
+	getStorageFileNameInCache,
+	getCurStorageFileNameInCache
 } from './cache'
 
 const state = {
 	videoCollection: getCollectVideoFromCache(),
-	videoRecord: getVideoRecordFromCache()
+	videoRecord: getVideoRecordFromCache(),
+	storageFileNames: getStorageFileNameInCache(),
+	curStorageFileName: getCurStorageFileNameInCache()
 }
 
 export default state

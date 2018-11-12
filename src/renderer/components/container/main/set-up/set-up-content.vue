@@ -6,14 +6,17 @@
 		</video-thumb-option>
 
 		<zoom-option></zoom-option>
+
+		<save-storage-data></save-storage-data>
 	</div>
 </template>
 
 <script>
     import VideoThumbOption from './set-up-content-video-thumb-option'
     import ZoomOption from './set-up-content-zoom-option'
+    import SaveStorageData from './set-up-content-save-storage-data'
 
-    const components = { VideoThumbOption, ZoomOption }
+    const components = { VideoThumbOption, ZoomOption, SaveStorageData }
 
 	export default {
 		name: 'setUpContent',

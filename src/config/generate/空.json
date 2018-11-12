@@ -1,0 +1,17 @@
+{
+    "__collect_video_arr__": [],
+    "__cur_storage_file_name_str__": "空",
+    "__quick_view_nav_arr__": [
+        {
+            "tag": "http",
+            "videoDirPath": "D:\\http",
+            "imgDirPath": "D:\\http\\img"
+        }
+    ],
+    "__storage_file-names_arr__": [
+        "推荐",
+        "空"
+    ],
+    "__video_record_obj__": {},
+    "__window_current_zoom_factor__": 1.2
+}

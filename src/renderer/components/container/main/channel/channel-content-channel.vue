@@ -1,6 +1,9 @@
 <template>
 	<div class="channel-content-channel">
-		<main class="channel-content-channel-main" v-if="allChannel.length > 0">
+		<main 
+		    class="channel-content-channel-main" 
+		    v-if="allChannel.length > 0 && navArr.length > 0"
+		>
 			<base-lazy-load-img 
 			    mode="diy"
 	            :time="300"
@@ -48,7 +51,7 @@
 		>
 		</base-loading>
 		<base-empty-tip 
-		    v-show="allChannel.length === 0"
+		    v-show="navArr.length == 0"
 		    :title="tipTitle"
 		    :tips="tips"
 		>

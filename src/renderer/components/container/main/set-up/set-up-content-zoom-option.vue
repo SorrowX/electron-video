@@ -1,7 +1,7 @@
 <template>
 	<div class="zoom">
 		<div class="title">缩放</div>
-		<div class="">
+		<div>
 			<p>
 			    控制页面缩放 当前比例: {{ zoomRatio }}%
 			    <button @click="setZoom('subtract')">-</button>

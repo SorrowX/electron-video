@@ -1,7 +1,7 @@
 <template>
     <div class="media-recommend">
     	<div class="all-media" 
-    	    v-show="arrMediaInfo.length > 0"
+    	    v-show="arrMediaInfo.length > 0 && navArr.length > 0"
     	    :style="{ 'transform': 'translate3d(' + allMediaDomTranslateX + '%, 0, 0)' }"
     	    @animationstart="handlerAnimationStart"
     	    @animationend="handlerAnimationEnd"
@@ -30,7 +30,7 @@
     			</media-recommend-operation>
     		</div>
     	</div>
-    	<div v-show="arrMediaInfo.length === 0" class="tip">
+    	<div v-show="navArr.length === 0" class="tip">
     		<p>当前页面暂无数据, 请进入‘快速查看’页面,进行添加导航！</p>
     	</div>
     </div>
