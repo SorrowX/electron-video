@@ -120,7 +120,6 @@ async function sleep(ms) {
  *    options.imgTimeout: { Number } 生成每个图片的超时时间
  *    options.imgExtName: { String } 生成每个图片的后缀名
  *    options.existImg: { Array } 按照给出的图片后缀寻找该图片是否存在本地文件中
- *    options.delayRequest: { Number } 当前视频生成完毕后, 等待多长时间 操作下一个视频(单位毫秒 该选项主要是为了缓解服务器压力)
  * @return
  *    promise 
  *        resolve imgPath: { 生成好的图片地址 }
@@ -139,7 +138,6 @@ export async function loopGeneratPicture(options) {
 		genImgResourcePath,
 		errorImgPath = '',
 		imgTimeout = 3 * 1000,
-		delayRequest = 1 * 1000,
 		imgExtName = '.png',
 		existImg = ['.png', '.jpg'],
 		forceUpdate = false,
@@ -166,23 +164,31 @@ export async function loopGeneratPicture(options) {
 			let genImgPath, existRet
 
 			if (forceUpdate) {
-				genImgPath = await screenshot({
-					videoUrl: ret[i]['videoUrl'],
-					imgPath: imgPath,
-					timeout: imgTimeout
-				})
-				await sleep(delayRequest)
+				try {
+					genImgPath = await screenshot({
+						videoUrl: ret[i]['name'],
+						imgPath: imgPath,
+						timeout: imgTimeout
+					})
+				} catch(e) {
+					handlerError(ret[i], e)
+					continue
+				}
 			} else {
 				existRet = imgPathIsExist(imgPathArr)
 				if (existRet['isExist']) {
 					genImgPath = existRet['path']
 				} else {
-					genImgPath = await screenshot({
-						videoUrl: ret[i]['videoUrl'],
-						imgPath: imgPath,
-						timeout: imgTimeout
-					})
-					await sleep(delayRequest) // 延迟1s, 缓解服务器压力
+					try {
+						genImgPath = await screenshot({
+							videoUrl: ret[i]['name'],
+							imgPath: imgPath,
+							timeout: imgTimeout
+						})
+					} catch(e) {
+						handlerError(ret[i], e)
+						continue
+					}
 				}
 			}
 			
@@ -191,23 +197,27 @@ export async function loopGeneratPicture(options) {
 			++successNum
 			callback({ state: 'success', successNum, failNum, totalNum, fileData: ret[i] })
 		} catch(e) {
-			if (!fu.exist(imgPath)) {
-				fu.touch(imgPath)
-			}
-			if (errorImgPath) {
-				 fu.copy(errorImgPath, imgPath)
-			}
-			ret[i]['genImgPath'] = imgPath
-			ret[i]['imgUrl'] = encode(imgPath)
-			++failNum
-			callback({ state: 'fail', successNum, failNum, totalNum, fileData: ret[i] })
-			console.error(`视频${ret[i]['filename']}生成图片失败,视频地址: ${ret[i]['videoUrl']}`, e)
+			handlerError(ret[i], e)
 		}
 	}
 	ret.successNum = successNum
 	ret.failNum = failNum
 	ret.totalNum = totalNum
 	return ret
+
+	function handlerError(retItem, err) {
+		if (!fu.exist(imgPath)) {
+			fu.touch(imgPath)
+		}
+		if (errorImgPath) {
+			 fu.copy(errorImgPath, imgPath)
+		}
+		retItem['genImgPath'] = imgPath
+		retItem['imgUrl'] = encode(imgPath)
+		++failNum
+		callback({ state: 'fail', successNum, failNum, totalNum, fileData: retItem })
+		console.error(`[loopGeneratPicture function]: 视频${retItem['filename']}生成图片失败,视频地址: ${retItem['videoUrl']}`, err)
+	}
 
 	function getImgPath(genImgResourcePath, filename) {
 		let imgPathArr = []

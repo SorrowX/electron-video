@@ -27,11 +27,6 @@
 					<span>图片个数</span>
 				</div>
 
-				<div class="image-delay-request">
-					<input v-model.number="delayRequest" placeholder="输入 请求服务器的时长" type="number">
-					<span>延迟请求/ms</span>
-				</div>
-
 				<div class="image-timeout">
 					<input v-model.number="imgTimeout" placeholder="输入 每张图片的最长耗时时间" type="number">
 					<span>图片耗时/ms</span>
@@ -90,7 +85,6 @@
 				genImgResourcePath: '',
 				errorImgPath: '',
 				num: 10000,
-				delayRequest: 1 * 1000,
 				imgTimeout: 3 * 1000,
 				forceUpdate: false,
 				imgExtName: '.jpg',
@@ -123,7 +117,6 @@
 					genImgResourcePath,
 					errorImgPath,
 					num: this.num,
-					delayRequest: this.delayRequest,
 					imgTimeout: this.imgTimeout,
 					forceUpdate: this.forceUpdate,
 					imgExtName: this.imgExtName,
@@ -135,7 +128,6 @@
 					this.generateResult = data
 					this.genOver = !(this.waiting = false)
 					self.scrollButtom()
-					console.log(123, data)
 				})
 			},
 			setPath(type) {
