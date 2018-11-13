@@ -27,17 +27,16 @@ export default {
 		/*
          * 数据视频资源路径和图片资源路径获取数据
 		*/
-		loadVideoData(videoDirPath, imgDirPath, callback) {
+		loadVideoData(videoDirPath, imgDirPath, callback, processCb) {
 			loopGeneratImg({
 				videoResourcePath: videoDirPath,
 				genImgResourcePath: imgDirPath,
 				num: 0,
-				delayRequest: 1000,
-				imgTimeout: 1000,
-				imgExtName: '.png'
+				imgTimeout: 5000,
+				imgExtName: '.jpg',
+				callback: processCb
 			}).then((data) => {
 				callback && callback(data)
-				this.arrMedia = data
 			})
 		},
 		/*

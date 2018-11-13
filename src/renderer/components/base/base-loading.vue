@@ -3,8 +3,9 @@
 		<div>
 			<div class="load-effect" :style="loadEffectDivStyle">
 				<div v-for="num in 4"><span :style="spanStyle"></span></div>
-			</div>
-		</div>
+            </div>
+        </div>
+        <div class="tip"> {{ speedProgress }}% </div>
 	</div>
 </template>
 
@@ -15,7 +16,11 @@
 			size: {
 				type: String,
 				default: 'min' // min | middle | max
-			}
+			},
+            speedProgress: {
+                type: Number,
+                default: 0
+            }
 		},
 		computed: {
 			loadEffectDivStyle() {
@@ -45,12 +50,26 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+        position: relative;
 	}
 
 	.load-effect {
         width: 30px;
         height: 30px;
         position: relative;
+    }
+
+    .tip {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 13px;
+        color: rgba(51,190,9,1);
     }
 
     .load-effect div {

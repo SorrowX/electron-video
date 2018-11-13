@@ -1,13 +1,16 @@
 <template>
 	<div class="set-up-content">
 		<video-thumb-option 
-		    @video-thumb-page="handlerVideoThumbBtn"
+		    @video-thumb-page="changeOperateComponent"
 		>
 		</video-thumb-option>
 
 		<zoom-option></zoom-option>
 
-		<save-storage-data></save-storage-data>
+		<save-storage-data
+		    @operate-storage-page="changeOperateComponent"
+		>
+		</save-storage-data>
 	</div>
 </template>
 
@@ -26,8 +29,8 @@
 			}
 		},
 		methods: {
-			handlerVideoThumbBtn(compName) {
-                this.$emit('video-thumb-page', compName)
+			changeOperateComponent(compName) {
+                this.$emit('change-operate-component', compName)
 			}
 		}
 	}

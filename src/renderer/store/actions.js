@@ -3,10 +3,7 @@ import {
 	collectVideoToCache, 
 	cancelCollectVideoInCache,
 	addVideoRecordToCache,
-	deleteVideoRecordByKeyInCache,
-	addStorageFileNameToCache,
-	setCurStorageFileNameToCache,
-	deleteStorageFileNameFromCache
+	deleteVideoRecordByKeyInCache
 } from './cache'
 import { 
 	createEmptyStorageDataFile,
@@ -31,21 +28,4 @@ export const addVideoRecord = function({ commit, state }, videoData) {
 export const deleteVideoRecordByKey = function({ commit, state }, key) {
 	commit(types.DELETE_VIDEO_RECORD_BY_KEY, key)
 	deleteVideoRecordByKeyInCache(key)
-}
-
-export const addStorageFileName = function({ commit, state }, fileName) {
-	commit(types.ADD_STORAGE_FILE_NAME, fileName)
-	addStorageFileNameToCache(fileName)
-	createEmptyStorageDataFile(fileName)
-}
-
-export const deleteStorageFileName = function({ commit, state }, fileName) {
-	commit(types.DELETE_STORAGE_FILE_NAME, fileName)
-	deleteStorageFileNameFromCache(fileName)
-	delStorageFileByName(fileName)
-}
-
-export const setCurStorageFileName = function({ commit, state }, fileName) {
-	commit(types.SET_CURRENT_STORAGE_FILE_NAME, fileName)
-	setCurStorageFileNameToCache(fileName)
 }

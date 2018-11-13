@@ -2,9 +2,7 @@ import { local } from '../../shared/storage'
 import { getTime } from '../util/index'
 import { 
 	COLLECT_VIDEO_KEY,
-	VIDEO_RECORD_KEY,
-	STORAGE_FILE_NAMES_KEY,
-	CURRENT_STORAGE_FILE_NAME_KEY
+	VIDEO_RECORD_KEY
 } from '../constant/index'
 
 export const getCollectVideoFromCache = function() {
@@ -59,38 +57,4 @@ export const deleteVideoRecordByKeyInCache = function(key) {
 		delete videoRecordSet[key]
 	}
 	return local.setItem(VIDEO_RECORD_KEY, videoRecordSet)
-}
-
-export const getStorageFileNameInCache = function() {
-	return local.getItem(STORAGE_FILE_NAMES_KEY, [])
-}
-
-export const addStorageFileNameToCache = function(fileName) {
-	let storageFileNames = getStorageFileNameInCache()
-	
-	let i = storageFileNames.indexOf(fileName)
-	if (i === -1) {
-		storageFileNames.push(fileName)
-	}
-	
-	return local.setItem(STORAGE_FILE_NAMES_KEY, storageFileNames)
-}
-
-export const deleteStorageFileNameFromCache = function(fileName) {
-	let storageFileNames = getStorageFileNameInCache()
-	
-	let i = storageFileNames.indexOf(fileName)
-	if (i != -1) {
-		storageFileNames.splice(i, 1)
-	}
-	
-	return local.setItem(STORAGE_FILE_NAMES_KEY, storageFileNames)
-}
-
-export const getCurStorageFileNameInCache = function() {
-	return local.getItem(CURRENT_STORAGE_FILE_NAME_KEY, '')
-}
-
-export const setCurStorageFileNameToCache = function(fileName) {
-	return local.setItem(CURRENT_STORAGE_FILE_NAME_KEY, fileName)
 }

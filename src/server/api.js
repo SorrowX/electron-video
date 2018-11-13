@@ -155,8 +155,12 @@ export async function loopGeneratPicture(options) {
 	}
 
 	let i = 0, len = ret.length
-	let successNum = 0, failNum = 0, totalNum = len
-	let imgPath
+	let successNum = 0, 
+	    failNum = 0, 
+	    totalNum = len,
+	    speedProgress = 0,
+	    imgPath
+
 	for (; i < len; i++) {
 		try {
 		    imgPath = genImgResourcePath + '/' + ret[i]['filename'] + imgExtName
@@ -195,7 +199,8 @@ export async function loopGeneratPicture(options) {
 			ret[i]['genImgPath'] = genImgPath
 			ret[i]['imgUrl'] = encode(genImgPath)
 			++successNum
-			callback({ state: 'success', successNum, failNum, totalNum, fileData: ret[i] })
+			speedProgress = Math.ceil((successNum + failNum)/totalNum * 100)
+			callback({ state: 'success', successNum, failNum, totalNum, speedProgress, fileData: ret[i] })
 		} catch(e) {
 			handlerError(ret[i], e)
 		}
@@ -215,7 +220,8 @@ export async function loopGeneratPicture(options) {
 		retItem['genImgPath'] = imgPath
 		retItem['imgUrl'] = encode(imgPath)
 		++failNum
-		callback({ state: 'fail', successNum, failNum, totalNum, fileData: retItem })
+		speedProgress = Math.ceil((successNum + failNum)/totalNum * 100)
+		callback({ state: 'fail', successNum, failNum, totalNum, speedProgress, fileData: retItem })
 		console.error(`[loopGeneratPicture function]: 视频${retItem['filename']}生成图片失败,视频地址: ${retItem['videoUrl']}`, err)
 	}
 

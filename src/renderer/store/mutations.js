@@ -42,28 +42,6 @@ const mutations = {
 		if (videoRecordSet.hasOwnProperty(key)) {
 			delete videoRecordSet[key]
 		}
-	},
-
-	[types.ADD_STORAGE_FILE_NAME](state, fileName) {
-		let storageFileNames = state.storageFileNames
-		
-		let i = storageFileNames.indexOf(fileName)
-		if (i === -1) {
-			storageFileNames.push(fileName)
-		}
-	},
-
-	[types.DELETE_STORAGE_FILE_NAME](state, fileName) {
-		let storageFileNames = state.storageFileNames
-		
-		let i = storageFileNames.indexOf(fileName)
-		if (i != -1) {
-			storageFileNames.splice(i, 1)
-		}
-	},
-
-	[types.SET_CURRENT_STORAGE_FILE_NAME](state, fileName) {
-		state.curStorageFileName = fileName
 	}
 }
 

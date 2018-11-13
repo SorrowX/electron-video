@@ -10,8 +10,9 @@
 
 <script>
 	import VideoThumb from './video-thumb/video-thumb'
+	import OperateStorage from './operate-storage/operate-storage'
 
-	const components = { VideoThumb } 
+	const components = { VideoThumb, OperateStorage } 
 
 	export default {
 		name: 'SetUpOperation',

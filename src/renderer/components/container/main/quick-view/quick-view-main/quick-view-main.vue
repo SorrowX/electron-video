@@ -18,7 +18,8 @@
 
 				<base-loading 
 				    v-if="loading"
-				    size="min" 
+				    size="min"
+				    :speedProgress="speedProgress"
 				>
 				</base-loading>
 			</transition>
@@ -54,7 +55,8 @@
 		data() {
 			return {
 				arrMedia: [],
-				loading: true
+				loading: true,
+				speedProgress: 0
 			}
 		},
 		beforeRouteEnter (to, from, next) {
@@ -83,6 +85,9 @@
 					(data) => {
 						this.loading = false
 						this.arrMedia = data
+					},
+					(processData) => {
+						this.speedProgress = processData['speedProgress']
 					}
 				)
 			}

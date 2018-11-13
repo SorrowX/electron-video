@@ -3,7 +3,7 @@
 		<set-up-header></set-up-header>
 		<main class="set-up-main">
 			<set-up-content
-			    @video-thumb-page="changeCompent"
+			    @change-operate-component="changeCompent"
 			></set-up-content>
 		</main>
 		<set-up-operation ref="operationComp"></set-up-operation>
@@ -24,6 +24,7 @@
 			}
 		},
 		methods: {
+			// 根据组件名动态切换组件
 			changeCompent(comp) {
 				this.$refs.operationComp.changePage(comp)
 			}
