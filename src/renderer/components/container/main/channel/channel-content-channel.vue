@@ -105,6 +105,7 @@
                     ret.push(obj)
 				}
 				this.allChannel = ret
+				this.useChannel = []
 				this.loading = false
 			},
 			showDetails(channel) {
