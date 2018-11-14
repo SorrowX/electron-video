@@ -90,8 +90,8 @@ export function screenshot(options) {
 }
 
 const cache = {}
-async function getFileResource(folderPath) {
-	if (cache[folderPath]) {
+async function getFileResource(folderPath, direct) {
+	if (!direct && cache[folderPath]) {
 		return Promise.resolve(cache[folderPath])
 	} else {
 		let resource = await getResource(folderPath, function(item) {
@@ -101,14 +101,6 @@ async function getFileResource(folderPath) {
 		return Promise.resolve(resource)
 	}
 }
-async function sleep(ms) {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			return resolve()
-		}, ms || 1000)
-	})
-}
-
 /**
  * 根据指定的视频文件夹和图片路径文件夹,生成所有视频的一帧图片
  * @param 
@@ -132,6 +124,8 @@ async function sleep(ms) {
         }).then((data) => { console.log(data) }).catch((e) => { console.log(e) })
 */
 export async function loopGeneratPicture(options) {
+	console.log('执行loopGeneratPicture方法')
+	console.log('--------------------------')
 	let {
 		num = 0,
 		videoResourcePath,
@@ -144,7 +138,7 @@ export async function loopGeneratPicture(options) {
 		callback = function() {}
 	} = options
 
-	await getFileResource(videoResourcePath) // 获取视频资源且放入缓存中
+	await getFileResource(videoResourcePath, true) // 获取视频资源且放入缓存中
 	let resource = cache[videoResourcePath]
 
 	let ret

@@ -6,7 +6,7 @@
 			</div>
 			<main class="main-content">
 				<div class="content">
-					<media-recommend-info-details-film></media-recommend-info-details-film>
+					<media-recommend-info-details-film :show="show"></media-recommend-info-details-film>
 				</div>
 			</main>
 		</div>
@@ -26,6 +26,10 @@
 			bgImg: {
 				type: String,
 				default: ''
+			},
+			show: {
+				type: Boolean,
+				default: false
 			}
 		}
 	}

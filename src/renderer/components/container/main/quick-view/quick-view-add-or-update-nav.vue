@@ -113,20 +113,20 @@
 					return
 				}
 
+				let nav = {
+					tag: this.tag,
+					videoDirPath: this.videoDirPath,
+					imgDirPath: this.imgDirPath
+				}
+
 				if (this.operateType === 'add') {
-					this.addNavToNavArr({
-						tag: this.tag,
-						videoDirPath: this.videoDirPath,
-						imgDirPath: this.imgDirPath
-					})
-					this.$emit('commit')
+					this.addNavToNavArr(nav)
+					this.$emit('update-quick-view-main-content', nav)
 				} else {
-					this.updateNav({
-						oldTag: this.oldTag,
-						tag: this.tag,
-						videoDirPath: this.videoDirPath,
-						imgDirPath: this.imgDirPath
-					})
+					this.updateNav(Object.assign({
+						oldTag: this.oldTag
+					}, nav))
+					this.$emit('update-quick-view-main-content', nav)
 				}
 
 				this.show = false

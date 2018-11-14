@@ -36,7 +36,7 @@ export default {
 				imgExtName: '.jpg',
 				callback: processCb
 			}).then((data) => {
-				callback && callback(data)
+				callback && callback(data || [])
 			})
 		},
 		/*
@@ -50,6 +50,19 @@ export default {
 			} else {
 				callback && callback([])
 			}
+		},
+		/*
+         * 根据导航获取视频数据
+		*/
+		loadDataByNav(nav, callback, processCb) {
+			this.loadVideoData(
+				nav['videoDirPath'], 
+				nav['imgDirPath'],
+				(data) => {
+					callback && callback(data || [])
+				},
+				processCb
+			)
 		},
 		/*
          * 根据导航tag获取视频数据

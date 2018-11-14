@@ -1,5 +1,5 @@
 <template>
-	<div class="quick-view-tip" v-show="navArr.length === 0">
+	<div class="quick-view-tip" v-show="show">
 		<div class="content">
 			<p v-for="(tip, index) in tipArr">
 			    {{ index + 1 }}: {{ tip }}
@@ -9,8 +9,6 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
-
 	export default {
 		name: 'QuickViewTip',
 		props: {
@@ -29,10 +27,7 @@
 					]
 				}
 			}
-		},
-		computed: {
-			...mapState('quickView', ['navArr'])
-		},
+		}
 	}
 </script>
 

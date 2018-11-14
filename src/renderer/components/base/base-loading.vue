@@ -5,7 +5,7 @@
 				<div v-for="num in 4"><span :style="spanStyle"></span></div>
             </div>
         </div>
-        <div class="tip"> {{ speedProgress }}% </div>
+        <div class="tip"> {{ speedProgressTip }} </div>
 	</div>
 </template>
 
@@ -18,8 +18,8 @@
 				default: 'min' // min | middle | max
 			},
             speedProgress: {
-                type: Number,
-                default: 0
+                type: [Number, String],
+                default: ''
             }
 		},
 		computed: {
@@ -38,7 +38,14 @@
 					max: { width: '7px', height: '7px' },
 				}
 				return sty[this.size]
-			}
+			},
+            speedProgressTip() {
+                if (typeof this.speedProgress === 'number') {
+                    return this.speedProgress + '%'
+                } else {
+                    return this.speedProgress
+                }
+            }
 		}
 	}
 </script>

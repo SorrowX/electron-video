@@ -17,22 +17,6 @@
 		    		</div>
 		    		<p>{{ film['filename'] }}</p>
 		    	</div>
-		    	<!-- <div class="film" v-for="(film, index) in filmsData">
-		    		<div class="film-cover">
-		    			<img :src="defaultBgImg" :data-src="film['imgUrl']" @click="play(film)">
-		    		</div>
-		    		<div class="film-info">
-		    			<div class="information">
-		    				<span class="title">{{ film['filename'] }}</span> 
-		    				<span class="performer">{{ film['performer'] }}</span>
-		    			</div>
-		    			<div class="introduce">
-		    				<p>
-		    					{{ film['introduce'] }}
-		    				</p>
-		    			</div>
-		    		</div>
-		    	</div> -->
 		    </div>
 		</base-lazy-load-img>
 	</div>
@@ -40,22 +24,37 @@
 
 <script>
 	import CommonMixin from '@/mixin/common-mixin'
-	import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
+	import BaseLazyLoadImg from '@/components/base/base-lazy-load-img'
 
 	export default {
 		name: 'MediaRecommendInfoDetailsFilm',
 		mixins: [ CommonMixin ],
 		components: { BaseLazyLoadImg },
+		props: {
+		    show: {
+				type: Boolean,
+				default: false
+			}
+		},
 		data() {
 			return {
 				films: []
 			}
 		},
+		watch: {
+			show(val) {
+				if (val) {
+					this.getRandomVideoData((data) => {
+						this.films = data
+					})
+				} else {
+					this.films = []
+				}
+			}
+		},
         computed: {
         	filmsData() {
         		let arr = this.films.map((film) => {
-        			// film['performer'] = '徐志伟'
-        			// film['introduce'] = '神经大条且长相平凡的林真心（宋芸桦饰），每天眼珠都是跟着校内风云人物欧阳非凡（李玉玺饰）转动，而徐太宇（王大陆饰）身为学校头号痞子，则一心要把上亮丽的校花陶敏敏（简廷芮饰）。'
         			return film
         		})
         		if (arr.length >= 6) {
@@ -68,12 +67,7 @@
             play(film) {
             	this.playVideo(film)
             }
-        },
-		mounted() {
-			this.getRandomVideoData((data) => {
-				this.films = data
-			})
-		}
+        }
 	}
 </script>
 

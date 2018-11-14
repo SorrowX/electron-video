@@ -3,8 +3,8 @@
     	<div class="all-media" 
     	    v-show="arrMediaInfo.length > 0 && navArr.length > 0"
     	    :style="{ 'transform': 'translate3d(' + allMediaDomTranslateX + '%, 0, 0)' }"
-    	    @animationstart="handlerAnimationStart"
-    	    @animationend="handlerAnimationEnd"
+    	    @animationstart.self="handlerAnimationStart"
+    	    @animationend.self="handlerAnimationEnd"
     	>
     		<div 
     		    class="media" 
@@ -67,14 +67,10 @@
 		},
 		computed: {
 			arrMediaInfo() {
-				let arr = this.arrMedia.map((info) => {
+				return this.arrMedia.map((info) => {
 					info['bgImg'] = info['imgUrl']
 					return info 
 				})
-				/*if (arr.length >= 3) {
-					arr.length = 3
-				}*/
-				return arr
 			}
 		},
 		methods: {

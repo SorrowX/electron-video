@@ -38,6 +38,19 @@
 		name: 'MovieRecommend',
 		mixins: [ CommonMixin ],
 		components: { BaseLazyLoadImg },
+		props: {
+			show: {
+				type: Boolean,
+				default: false
+			}
+		},
+		watch: {
+			show(val) {
+				if (val) {
+					this.loadRandomData(this.navArr)
+				}
+			}
+		},
 		data() {
 			return {
 				arrMedia: [],
@@ -50,23 +63,17 @@
 				data.videoPoster = data.imgUrl
 				this.$parent.play(data)
 			},
-			randomLoadData(navArr) {
-				if (navArr.length === 0) return
+			loadRandomData(navArr) {
+				if (navArr && navArr.length === 0) return
 				let nav = navArr[Math.floor(Math.random() * navArr.length)]
                 this.loadVideoData(
                 	nav['videoDirPath'], 
                 	nav['imgDirPath'], 
                 	(data) => {
-                    	this.arrMedia = data
+                    	this.arrMedia = data || []
                     }
                 )
 			}
-		},
-		mounted() {
-			this.$watch('navArr', (val) => {
-				this.randomLoadData(val)
-			})
-			this.randomLoadData(this.navArr)
 		}
 	}
 </script>

@@ -17,7 +17,7 @@
 					</movie-info>
 				</div>
 				<div class="recommend">
-					<movie-recommend></movie-recommend>
+					<movie-recommend :show="show"></movie-recommend>
 				</div>
 			</div>
 		</div>

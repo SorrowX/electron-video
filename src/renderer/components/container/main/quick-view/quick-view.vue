@@ -2,16 +2,28 @@
 	<div class="quick-view">
 		<quick-view-header></quick-view-header>
 
-		<quick-view-nav ref="navComponent"></quick-view-nav>
+		<quick-view-nav 
+		    ref="navComponent"
+		    @click-nav="updateQuickViewMainData"
+		>
+		</quick-view-nav>
 
-		<quick-view-tip></quick-view-tip>
+		<quick-view-main
+		    :show="navArr.length > 0"
+		    ref="viewMainComponent"
+		></quick-view-main>
 
-		<quick-view-add-or-update-nav @commit="commitHandler"></quick-view-add-or-update-nav>
+		<quick-view-tip
+		    :show="navArr.length === 0"
+		></quick-view-tip>
+
+		<!-- 导航添加修改设置相关组件 -->
+		<quick-view-add-or-update-nav 
+		    @update-quick-view-main-content="updateQuickViewMainData"
+		>
+		</quick-view-add-or-update-nav>
 
 		<qucik-view-setting></qucik-view-setting>
-
-		<!-- <quick-view-main></quick-view-main> -->
-		<router-view></router-view>
 	</div>
 </template>
 
@@ -37,16 +49,22 @@
 		name: 'QuickView',
 		components,
 		computed: {
-			...mapState('quickView', [
-				'navArr'
-			])
+			...mapState('quickView', ['navArr'])
 		},
 		methods: {
-			// 创建一个新的tag后跳转到这个tag
-			commitHandler() {
-				let len = this.navArr.length - 1
-				this.$refs.navComponent.handlerClickNav(len, this.navArr[len])
+			// 根据nav载入数据
+			updateQuickViewMainData(nav) {
+				this.$refs.navComponent.correctNavIndex(nav)
+				this.$refs.viewMainComponent.loadData(nav)
+			},
+			loadDefaultData() {
+				if (this.navArr.length > 0) {
+					this.updateQuickViewMainData(this.navArr[0])
+				}
 			}
+		},
+		mounted() {
+			this.loadDefaultData()
 		}
 	}
 </script>

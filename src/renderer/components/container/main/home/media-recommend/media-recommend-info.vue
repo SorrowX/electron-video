@@ -9,6 +9,7 @@
 		>
 		</media-recommend-info-cover>
 		<media-recommend-info-details
+		    :show="showDetailsComponent"
 		    :bgImg="mediaInfo['genImgPath']"
 		>
 		</media-recommend-info-details>
@@ -38,20 +39,22 @@
 		},
 		data() {
 			return {
-				mediaInfoDomtranslateY: 0
+				mediaInfoDomtranslateY: 0,
+				showDetailsComponent: false
 			}
 		},
 		methods: {
 			openDetail(isShowNextPage) {
 				if (isShowNextPage) {
 					this.mediaInfoDomtranslateY = -100
+					this.showDetailsComponent = true
 				} else {
 					this.mediaInfoDomtranslateY = 0
+					this.showDetailsComponent = false
 				}
 			},
 			switchMedia(type) {
 				this.$emit('scroll-whell', type)
-
 			}
 		}
 	}

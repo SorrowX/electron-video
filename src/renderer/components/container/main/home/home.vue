@@ -1,9 +1,17 @@
 <template>
 	<div class="home">
 		<home-header></home-header>
-		<home-nav @click-nav="navHandler"></home-nav>
+
+		<home-nav 
+		    @click-nav="loadData"
+		>
+		</home-nav>
+
 		<div class="home-content">
-            <media-recommend :arrMedia="arrMedia"></media-recommend>
+            <media-recommend 
+                :arrMedia="arrMedia"
+            >
+            </media-recommend>
 		</div>
 	</div>
 </template>
@@ -27,24 +35,25 @@
 			}
 		},
 		methods: {
-			navHandler(nav) {
-				this.loadVideoData(
-					nav['videoDirPath'], 
-					nav['imgDirPath'],
+			loadData(nav) {
+				this.loadDataByNav(
+					nav,
 					(data) => {
 						this.arrMedia = data
 					}
 				)
 			}
 		},
+		activated() {
+            // console.log('Home activated')
+		},
+		deactivated() {
+			// console.log('Home deactivated')
+		},
 		mounted() {
-            this.$watch('navArr', (navArr) => {
-            	if (navArr.length > 0) {
-            		this.navHandler(navArr[0])
-            	}
-            }, {
-            	immediate: true
-            })
+			if (Array.isArray(this.navArr)) {
+	            this.loadData(this.navArr[0])
+            }
 		}
 	}
 </script>

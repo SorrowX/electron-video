@@ -1,8 +1,8 @@
 <template>
-	<div class="quick-view-main" v-show="navArr && navArr.length > 0">
-		<div class="header">
+	<div class="quick-view-main" v-show="show">
+		<header>
 			导入视频, 快速查看
-		</div>
+		</header>
 		<main>
 			<transition mode="out-in">
 				<quick-view-main-content 
@@ -43,59 +43,39 @@
 			QuickViewMainEmpty
 		},
 		props: {
-			videoDirPath: {
-				type: String,
-				default: ''
-			},
-			imgDirPath: {
-				type: String,
-				default: ''
+			nav: [ Object ], // 导航对象
+			show: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {
 			return {
-				arrMedia: [],
+				arrMedia: [], // 渲染数据
 				loading: true,
-				speedProgress: 0
+				speedProgress: 0 // load进度
 			}
 		},
-		beforeRouteEnter (to, from, next) {
-		    next(vm => {
-			    vm.loadData()
-		    })
-		},
-		beforeRouteUpdate (to, from, next) {
-		    next()
-		},
-		beforeRouteLeave (to, from, next) {
-		    next()
+		watch: {
+			nav(curNav) {
+				this.loadData(curNav)
+			}
 		},
 		methods: {
-			loadData() {
-				if (!this.videoDirPath ||
-					!this.imgDirPath
-				) {
-					return
-				}
-
+			loadData(nav) {
+				nav = nav || this.nav
 				this.loading = true
-				this.loadVideoData(
-					this.videoDirPath,
-					this.imgDirPath,
+				this.loadDataByNav(
+					nav,
 					(data) => {
 						this.loading = false
-						this.arrMedia = data
+						this.arrMedia = data || []
 					},
 					(processData) => {
 						this.speedProgress = processData['speedProgress']
 					}
 				)
 			}
-		},
-		mounted() {
-			this.$watch('videoDirPath', (path) => {
-				this.loadData()
-			})
 		}
 	}
 </script>
@@ -111,7 +91,7 @@
         overflow: auto;
 	}
 
-	.header {
+	.quick-view-main header {
 		height: 65px;
 		flex: none;
 		display: flex;
@@ -121,7 +101,7 @@
 		color: #fff;
 	}
 
-	main {
+	.quick-view-main main {
 		height: 100%;
 		flex-grow: 1;
 	}

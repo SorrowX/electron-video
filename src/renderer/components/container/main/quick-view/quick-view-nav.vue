@@ -59,30 +59,14 @@
 
 				scrollDom.scrollTo(curScrollLeft, scrollDom.scrollTop)
 			},
-			handlerClickNav(index, data) {
+			handlerClickNav(index, nav) {
 				this.curIndex = index
-				this.$emit('click-nav', data)
-				this.$nextTick(() => {
-					this.$router.push({
-						name: 'quick-main-content',
-						params: {
-							videopath: data.videoDirPath,
-							imgpath: data.imgDirPath,
-						}
-					})
-				})
+				this.$emit('click-nav', nav)
 			},
-			loadFirstPageData() {
-				if (this.navArr.length > 0) {
-					this.$nextTick(() => {
-						this.$router.push({
-							name: 'quick-main-content',
-							params: {
-								videopath: this.navArr[0].videoDirPath,
-								imgpath: this.navArr[0].imgDirPath,
-							}
-						})
-					})
+			correctNavIndex(nav) {
+				let i = this.navArr.indexOf(nav)
+				if (i != -1) {
+					this.curIndex = i
 				}
 			},
 			addNavPage() {
@@ -91,9 +75,6 @@
 			settingNavPage() {
 				this.$root.$emit('quick-view-setting-nav-show-ui', true)
 			}
-		},
-		mounted() {
-			this.loadFirstPageData()
 		}
 	}
 </script>

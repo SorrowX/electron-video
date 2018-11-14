@@ -6,8 +6,13 @@
         :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
 	    @success="handleImgSuccess" 
 	    @error="handleImgError">
-	    <ul class="ul-list" v-if="arrMedia.length > 0">
-			<li v-for="(media, index) in arrMedia" @click="goPlayPage(media)">
+	    <ul class="ul-list" v-if="arrMediaInfo.length > 0">
+			<li 
+			    v-for="(media, index) in arrMediaInfo" 
+			    @click="goPlayPage(media)"
+			    :key="media['filename']"
+			    @contextmenu="registerRightKeyMenu(media)"
+			>
 				<a href="#">
 					<img :src="defaultBgImg" :data-src="media['genImgPath']" alt="">
 				</a>
@@ -18,8 +23,11 @@
 </template>
 
 <script>
+	import { remote } from 'electron'
+	const { Menu, MenuItem } = remote
     import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
     import CommonMixin from '@/mixin/common-mixin'
+    import fu from '../../../../../../server/fu'
 
 	export default {
 		name: 'QuickViewMainContent',
@@ -33,9 +41,66 @@
 				}
 			}
 		},
+		data() {
+			return {
+				arrMediaInfo: this.arrMedia
+			}
+		},
 		methods: {
 			goPlayPage(media) {
 				this.playVideo(media)
+			},
+			registerRightKeyMenu(media) {
+			    let self = this
+			    let menuArr = [
+				    {
+				        label: '播放视频',
+				        callback: function() {
+				        	self.goPlayPage(media)
+				        }
+				    },
+			        {
+			            label: '永久删除',
+			            callback: function() {
+			            	let i = self.arrMediaInfo.indexOf(media)
+			            	if (i != -1) {
+			            		fu.delete(media.name)
+			            		fu.delete(media.genImgPath)
+				            	self.arrMediaInfo.splice(i, 1)
+			            	}
+			            }
+			        },
+			        {
+			            label: '视频目录',
+			            callback: function() {
+			                self.openDir(media.name)
+			            }
+			        },
+			        {
+			            label: '图片目录',
+			            callback: function() {
+			                self.openDir(media.genImgPath)
+			            }
+			        }
+			    ]
+			    let menu = new Menu()
+			    menuArr.forEach(item => {
+			        let name = item['label']
+			        let callback = item['callback']
+			        menu.append(
+			            new MenuItem({
+			                label: name,
+			                click() {
+			                    callback()
+			                }
+			            })
+			        )
+			    })
+			    menu.popup({ window: remote.getCurrentWindow() })
+			},
+			openDir(path) {
+				const { shell } = require('electron')
+				shell.showItemInFolder(path)
 			}
 		}
 	}
