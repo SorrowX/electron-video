@@ -4,6 +4,7 @@
 
 		<home-nav 
 		    @click-nav="loadData"
+		    ref="homeNavComponent"
 		>
 		</home-nav>
 
@@ -55,6 +56,7 @@
 			this.getFirstNavRenderData()
             this.$root.$on(REFRESH_VUEX_STATE_MESSAGE, () => {
 				this.getFirstNavRenderData()
+				this.$refs.homeNavComponent.correctNavIndex(0)
             })
 		}
 	}

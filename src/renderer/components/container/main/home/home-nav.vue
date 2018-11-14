@@ -59,6 +59,9 @@
 			handlerClickNav(index, item) {
 				this.curIndex = index
 				this.$emit('click-nav', item)
+			},
+			correctNavIndex(index) {
+				this.curIndex = index
 			}
 		}
 	}

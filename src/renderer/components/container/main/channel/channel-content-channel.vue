@@ -67,6 +67,7 @@
 	import BaseLazyLoadImg from '@/components/base/base-lazy-load-img'
 	import BaseLoading from '@/components/base/base-loading'
 	import BaseEmptyTip from '@/components/base/base-empty-tip'
+	import { REFRESH_VUEX_STATE_MESSAGE } from '@/constant/index'
 
 	export default {
 		name: 'ChannelContentChannel',
@@ -124,6 +125,9 @@
 		},
 		mounted() {
 			this.getAllChannelData()
+            this.$root.$on(REFRESH_VUEX_STATE_MESSAGE, () => {
+				this.getAllChannelData()
+            })
 		}
 	}
 </script>
