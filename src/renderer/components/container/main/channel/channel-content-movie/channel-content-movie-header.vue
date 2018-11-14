@@ -83,7 +83,6 @@
 					this.renderData.bannerData = dataArr[0]
 					this.renderData.recommendData = [dataArr[0], dataArr[0]]
 				}
-				// console.log('头部renderData: ', this.renderData)
 			},
 			play(media) {
 				if (media['videoUrl']) {
@@ -93,9 +92,6 @@
 			jumpNav(nav) {
 				console.log('跳转到快速查看页面: ', nav)
 			}
-		},
-		mounted() {
-			this.updateRenderData()
 		}
 	}
 </script>

@@ -53,9 +53,9 @@
 				}
 			},
 			play(options) {
-				let { videoUrl, videoPoster } = options
+				let { videoUrl, videoPoster, name } = options
 				this.movieInfo = options
-				this.videoUrl = videoUrl
+				this.videoUrl = name || videoUrl
 				this.videoPoster = videoPoster
 				this.isShow(true)
 

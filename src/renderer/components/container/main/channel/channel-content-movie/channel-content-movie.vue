@@ -51,22 +51,24 @@
 		},
 		methods: {
 			updateRecommendData() {
-				let randomArr = getRandomItemFromArr(this.videoCollection, 7)
+				let randomArr = getRandomItemFromArr(this.videoCollection, 20)
 				this.recommendObjArr = [randomArr]
 			},
 			isShow(bool, tag) {
 				if (bool === true) {
 					this.$root.$emit('window-bar-show-back-arrow', bool, 'channel-movie')
-					this.$refs.movieHeaderComp.updateRenderData(tag) // 更新头部数据
-					this.updateRecommendData() // 更新推荐数据
-					this.$refs.movieListComp.updateRenderListData() // 更新列表数据
+					this.updateRenderData(tag)
 				}
 				this.show = bool
+			},
+			async updateRenderData(tag) {
+                await this.$refs.movieHeaderComp.updateRenderData(tag) // 更新头部数据
+                this.updateRecommendData() // 更新推荐数据
+                await this.$refs.movieListComp.updateRenderData() // 更新列表数据
 			}
 		},
 		mounted() {
 			this.$root.channelMovieComponent = this
-			this.updateRecommendData()
 		}
 	}
 </script>

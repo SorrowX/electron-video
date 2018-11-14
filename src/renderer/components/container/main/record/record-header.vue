@@ -16,7 +16,7 @@
 </script>
 
 <style scoped>
-	.record-header{
+	.record-header {
 	    flex: none;
 		width: 100%;
 		height: 39px;

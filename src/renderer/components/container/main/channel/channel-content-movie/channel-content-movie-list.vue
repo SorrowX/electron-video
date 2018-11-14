@@ -33,7 +33,7 @@
 			}
 		},
 		methods: {
-			async updateRenderListData() {
+			async updateRenderData() {
 				let ret = []
 				let navArr = this.navArr, 
 				    i = 0, 
@@ -54,13 +54,9 @@
 					}
                     ret.push(obj)
 				}
-				// console.log('hi: ', ret)
 				return this.listData = ret
 			}
 			
-		},
-		mounted() {
-			this.updateRenderListData()
 		}
 	}
 </script>

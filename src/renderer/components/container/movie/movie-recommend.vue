@@ -47,7 +47,9 @@
 		watch: {
 			show(val) {
 				if (val) {
-					this.loadRandomData(this.navArr)
+					this.getRandomVideoData((data) => {
+						this.arrMedia = data
+					})
 				}
 			}
 		},
@@ -62,17 +64,6 @@
 				this.curMediaIndex = index
 				data.videoPoster = data.imgUrl
 				this.$parent.play(data)
-			},
-			loadRandomData(navArr) {
-				if (navArr && navArr.length === 0) return
-				let nav = navArr[Math.floor(Math.random() * navArr.length)]
-                this.loadVideoData(
-                	nav['videoDirPath'], 
-                	nav['imgDirPath'], 
-                	(data) => {
-                    	this.arrMedia = data || []
-                    }
-                )
 			}
 		}
 	}

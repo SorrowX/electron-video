@@ -45,11 +45,13 @@
     			</dl>
 			</base-lazy-load-img>
 		</main>
+
 		<base-loading 
 		    v-show="loading"
 		    size="min" 
 		>
 		</base-loading>
+
 		<base-empty-tip 
 		    v-show="navArr.length == 0"
 		    :title="tipTitle"
@@ -103,7 +105,6 @@
 				}
 				this.allChannel = ret
 				this.loading = false
-				// console.log('频道数据: ', ret)
 			},
 			showDetails(channel) {
 				this.addUseChannel(channel)

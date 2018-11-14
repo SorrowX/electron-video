@@ -93,18 +93,20 @@
                         this.operateVideo(media, false)
             		})
             	}
+            },
+            getRenderData() {
+            	if (Object.keys(this.videoCollection).length === 0) {
+            		return this.arrData = []
+            	}
+            	this.arrData = this.videoCollection.map((media) => {
+            		let copy = extend({}, media)
+            		copy.checked = false
+            		return copy
+            	})
             }
 		},
-		mounted() {
-			this.$watch('videoCollection', () => {
-				this.arrData = this.videoCollection.map((media) => {
-					let copy = extend({}, media)
-					copy.checked = false
-					return copy
-				})
-			}, {
-				immediate: true
-			})
+		activated() {
+            this.getRenderData()
 		}
 	}
 </script>

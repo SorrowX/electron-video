@@ -54,7 +54,6 @@
 			},
 			setVideoPlayTime(second) {
 				this.currentTime = second
-				// this.$refs.videoDom.currentTime = second
 			},
 			addOneVideoRecord(media) {
 				media = extend({}, media) || extend({}, this.movieInfo)

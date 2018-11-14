@@ -4,6 +4,7 @@
 		    @show-details="showDetails"
 		>
 		</channel-content-channel>
+
 		<channel-content-movie 
 		    ref="channelMovieComp"
 		>
@@ -18,14 +19,8 @@
 	export default {
 		name: 'ChannelContent',
 		components,
-		data() {
-			return {
-				channelTag: ''
-			}
-		},
 		methods: {
 			showDetails(channel) {
-				this.channelTag = channel.tag
 				this.$refs.channelMovieComp.isShow(true, channel.tag)
 			}
 		}

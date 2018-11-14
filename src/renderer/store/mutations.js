@@ -8,7 +8,7 @@ const mutations = {
 			return video['filename'] === videoData['filename']
 		})
 		if (i === -1) {
-			videoCollection.push(videoData)
+			videoCollection.unshift(videoData)
 		}
 	},
 

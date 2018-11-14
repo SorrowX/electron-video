@@ -6,23 +6,31 @@
 			        {{ mediaArr['time'] }}
 			        <span class="delete" @click="delectRecord(mediaArr['time'])"></span>
 			    </dt>
-			    <dd 
-			        class="dd-media" 
-			        v-for="(media, index) in mediaArr" 
-			        :key="media['filename']"
-			        @click="playVideo(media)"
-			    >
-			    	<div class="cover">
-			    		<img :src="media['genImgPath']" alt="">
-			    		<div class="progress-slot">
-				    		<i class="progress" :style="{ width: getProgressPercentage(media['videoInfo']) }"></i>
-			    		</div>
-			    	</div>
-			    	<p class="title">
-			    		{{ media['filename'] }}
-			    	</p>
-			    	<p class="tag"> 观看时长至 {{ getTimeStrBySecond(media['videoInfo']['curTime']) }} </p>
-			    </dd>
+		    	<base-lazy-load-img 
+		    	    mode="default"
+		            :time="300"
+		            :done="true"
+		            :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
+		    	    @success="handleImgSuccess" 
+		    	    @error="handleImgError">
+				    <dd 
+				        class="dd-media" 
+				        v-for="(media, index) in mediaArr" 
+				        :key="media['filename']"
+				        @click="playVideo(media)"
+				    >
+				    	<div class="cover">
+				    		<img :src="defaultBgImg" :data-src="media['genImgPath']" alt="">
+				    		<div class="progress-slot">
+					    		<i class="progress" :style="{ width: getProgressPercentage(media['videoInfo']) }"></i>
+				    		</div>
+				    	</div>
+				    	<p class="title">
+				    		{{ media['filename'] }}
+				    	</p>
+				    	<p class="tag"> 观看时长至 {{ getTimeStrBySecond(media['videoInfo']['curTime']) }} </p>
+				    </dd>
+			    </base-lazy-load-img>
 		    </dl>
 		</div>
 
@@ -36,11 +44,11 @@
 </template>
 
 <script>
-	import { extend, getTime, getTimeStrBySecond } from '../../../../util/index'
-	import CommonMixin from '../../../../mixin/common-mixin'
-	import { ADD_VIDEO_RECORD, DELETE_VIDEO_RECORD_BY_KEY } from '../../../../store/mutation-types'
-	import BaseLazyLoadImg from '../../../base/base-lazy-load-img'
-	import BaseEmptyTip from '../../../base/base-empty-tip'
+	import { ADD_VIDEO_RECORD, DELETE_VIDEO_RECORD_BY_KEY } from '@/store/mutation-types'
+	import { extend, getTime, getTimeStrBySecond } from '@/util/index'
+	import BaseLazyLoadImg from '@/components/base/base-lazy-load-img'
+	import BaseEmptyTip from '@/components/base/base-empty-tip'
+	import CommonMixin from '@/mixin/common-mixin'
 
 	export default {
 		name: 'RecordContent',
@@ -67,7 +75,10 @@
 					return '0%'
 				}
 			},
-			initData() {
+			getRenderData() {
+				if (this.videoRecord.length === 0) {
+					return this.records = []
+				}
 				let newkeys = []
 				let keys = Object.keys(this.videoRecord)
 				newkeys = keys.map((key) => {
@@ -84,14 +95,16 @@
 				this.deleteVideoRecordByKey(key)
 			}
 		},
+		activated() {
+            this.getRenderData()
+		},
 		mounted() {
-			this.initData()
 			this.$store.subscribe((mutation, state) => {
 			    if (
 			    	mutation.type == ADD_VIDEO_RECORD ||
 			    	mutation.type== DELETE_VIDEO_RECORD_BY_KEY
 			    ) {
-			    	this.initData()
+			    	this.getRenderData()
 			    }
 			})
 		}
@@ -112,7 +125,7 @@
 		padding-right: 12px;
 	}
 
-	.record-list>dl>dt {
+	.record-list dl dt {
 		height: 64px;
 		display: flex;
 		justify-content: space-between;
@@ -137,7 +150,7 @@
 		cursor: pointer;
 	}
 
-	.record-list>dl>dd {
+	.record-list dl dd {
 		width: 180px;
 		height: 167px;
 		display: inline-block;
@@ -147,7 +160,7 @@
 		border: 2px solid transparent;
 	}
 
-	.record-list>dl>dd:hover {
+	.record-list dl dd:hover {
 		border: 2px solid rgba(49,56,59,.8);
 		cursor: pointer;
 	}
@@ -201,6 +214,4 @@
 		font-weight: 300;
 		color: rgba(137,137,138,1);
 	}
-
-	
 </style>

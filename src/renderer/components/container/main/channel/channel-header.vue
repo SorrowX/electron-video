@@ -18,7 +18,7 @@
 </script>
 
 <style scoped>
-	.channel-header{
+	.channel-header {
 	    flex: none;
 	    display: flex;
 	    flex-direction: row;
