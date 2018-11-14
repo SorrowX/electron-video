@@ -35,6 +35,10 @@
 
 <script>
     import { mapState, mapActions } from 'vuex'
+    import { 
+    	QUICK_VIEW_NAV_SHOW_UI_MESSAGE, 
+    	QUICK_VIEW_SETTING_NAV_SHOW_UI_MESSAGE 
+    } from '@/constant/index'
 
 	export default {
 		name: 'QucikViewSetting',
@@ -51,7 +55,7 @@
 				this.deleteNavFromNavArr(nav['tag'])
 			},
 			updateNav(nav) {
-				this.$root.$emit('quick-view-nav-show-ui', true, 'update', nav)
+				this.$root.$emit(QUICK_VIEW_NAV_SHOW_UI_MESSAGE, true, 'update', nav)
 			},
 			changeHandler(navIndex, evt) {
 				let newIdx = Number(evt.target.value) - 1
@@ -66,7 +70,7 @@
 			...mapActions('quickView', ['deleteNavFromNavArr', 'updateNavByIndex'])
 		},
 		mounted() {
-			this.$root.$on('quick-view-setting-nav-show-ui', (bool) => {
+			this.$root.$on(QUICK_VIEW_SETTING_NAV_SHOW_UI_MESSAGE, (bool) => {
                 this.show = bool
 			})
 		}

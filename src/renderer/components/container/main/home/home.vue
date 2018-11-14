@@ -22,6 +22,7 @@
 	import MediaRecommend from './media-recommend/media-recommend'
 	import { loopGeneratImg } from '../../../../../api/api'
 	import CommonMixin from '@/mixin/common-mixin'
+	import { REFRESH_VUEX_STATE_MESSAGE } from '@/constant/index'
 
 	const components = { HomeHeader, HomeNav, MediaRecommend }
 
@@ -52,7 +53,7 @@
 		},
 		mounted() {
 			this.getFirstNavRenderData()
-            this.$root.$on('refresh-vuex-state', () => {
+            this.$root.$on(REFRESH_VUEX_STATE_MESSAGE, () => {
 				this.getFirstNavRenderData()
             })
 		}

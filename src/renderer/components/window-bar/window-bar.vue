@@ -29,11 +29,13 @@
 </template>
 
 <script>
+    import { WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE } from '@/constant/index'
+    
 	export default {
 		name: 'TheWindowBar',
         data() {
             return {
-                isShowBack: false
+                isShowBack: false // 返回箭头是否隐藏
             }
         },
         methods: {
@@ -55,21 +57,20 @@
                 if (movieComponentIsShow) {
                     movieComponent.isShow(false)
                     if (!channelMovieComponentIsShow) {
-                        this.isShowBack = false // 返回箭头隐藏
+                        this.isShowBack = false
                     }
                     return
                 }
 
                 if (channelMovieComponentIsShow) {
                     channelMovieComponent.isShow(false)
-                    this.isShowBack = false // 返回箭头隐藏
+                    this.isShowBack = false 
                 }
             }
         },
         mounted() {
-            this.$root.$on('window-bar-show-back-arrow', (bool, goBackType) => { // 让外部告诉当前组件是否显示 回退箭头
+            this.$root.$on(WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE, (bool) => { // 让外部告诉当前组件是否显示 回退箭头
                 this.isShowBack = bool
-                this._goBackType = goBackType
             })
         }
 	}

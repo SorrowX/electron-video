@@ -1,6 +1,8 @@
-import { loopGeneratImg, videoScreenshot } from '../../api/api'
 import { extend } from '../util/index'
 import { mapState, mapActions } from 'vuex'
+import { loopGeneratImg, videoScreenshot } from '../../api/api'
+import { WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE } from '@/constant/index'
+import { INSIDE_SWITCH_NAV_MESSAGE } from '@/constant/index'
 
 const defaultBgImg = require('../assets/bg/dark/hDefault.jpg')
 const errorBgImg = require('../assets/bg/dark/hDefault.jpg')
@@ -24,6 +26,14 @@ export default {
 		}
 	},
 	methods: {
+		/*
+         * 根据左侧导航名内部切换对应的组件
+         * @params
+         * navName { String } Home|Channel|Subscribe|Record|Collection|QuickView|Vip|PersonalCenter|HelpFeedback|SetUp
+		*/
+		insideSwitchNav(navName) {
+			this.$root.$emit(INSIDE_SWITCH_NAV_MESSAGE, navName)
+		},
 		/*
          * 数据视频资源路径和图片资源路径获取数据
 		*/
@@ -87,7 +97,7 @@ export default {
          * media { Object } Object: { videoUrl, videoPoster } 必须包含这2个属性
 		*/
 		playVideo(media) {
-			this.$root.$emit('window-bar-show-back-arrow', true)
+			this.$root.$emit(WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE, true)
 			let movieComponent = this.$root.appMovieComponent
 			movieComponent.play(media)
 		},

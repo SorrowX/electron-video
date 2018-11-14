@@ -31,6 +31,7 @@
     import ChannelContentMovieFooter from './channel-content-movie-footer'
     import CommonMixin from '@/mixin/common-mixin'
     import { getRandomItemFromArr } from '@/util/index'
+    import { WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE } from '@/constant/index'
 
     const components = { 
     	ChannelContentMovieHeader,
@@ -40,13 +41,18 @@
     }
 
 	export default {
-		name: 'ChannelContentNav',
+		name: 'ChannelContentMovie',
 		mixins: [ CommonMixin ],
 		components,
 		data() {
 			return {
 				show: false,
                 recommendObjArr: []
+			}
+		},
+		watch: {
+			show(bool) {
+				this.$root.$emit(WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE, bool)
 			}
 		},
 		methods: {
@@ -56,7 +62,6 @@
 			},
 			isShow(bool, tag) {
 				if (bool === true) {
-					this.$root.$emit('window-bar-show-back-arrow', bool, 'channel-movie')
 					this.updateRenderData(tag)
 				}
 				this.show = bool

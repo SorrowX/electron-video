@@ -40,7 +40,8 @@
     	delStorageFileByName,
     	getStorageFileNames,
     	refreshData,
-    } from '../../../../../store/local'
+    } from '@/store/local'
+    import { REFRESH_VUEX_STATE_MESSAGE } from '@/constant/index'
 
     const storageDataResultDefaultTip = '存储完数据后,所有UI会恢复到初始状态,可以更换数据源来恢复UI.'
     const operateFileDefaultTip = '请对存储文件进行操作.'
@@ -93,7 +94,7 @@
 			},
 			refreshStorageAndVuexData(fileName) {
 				refreshData(fileName)
-				this.$root.$emit('refresh-vuex-state')
+				this.$root.$emit(REFRESH_VUEX_STATE_MESSAGE)
 			}
 		},
 		mounted() {

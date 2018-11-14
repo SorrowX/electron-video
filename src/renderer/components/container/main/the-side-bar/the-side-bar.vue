@@ -37,7 +37,10 @@
 </template>
 
 <script>
-	let sideBarDomMinWidth = 43, sideBarDomMaxWidth = 183, transitionTime = .4
+    import { INSIDE_SWITCH_NAV_MESSAGE } from '@/constant/index'
+	let sideBarDomMinWidth = 43, 
+        sideBarDomMaxWidth = 183, 
+        transitionTime = .4
 
 	export default {
 		name: 'TheSideBar',
@@ -124,9 +127,28 @@
                     this.curNavIdx = index + this.topNavArr.length
                     this.$emit('click-side-bar-nav', this.curNavIdx, this.bottomNavArr[index])
                 }
-
+            },
+            insideSwitchNav(name) {
+                let i
+                i = this.topNavArr.findIndex((navObj) => {
+                    return navObj['name'] == name
+                })
+                if (i != -1) {
+                    return this.handlerClickNav('top', i)
+                }
+                i = this.topNavArr.findIndex((navObj) => {
+                    return navObj['name'] == name
+                })
+                if (i != -1) {
+                    return this.handlerClickNav('bottom', i)
+                }
             }
-		}
+		},
+        mounted() {
+            this.$root.$on(INSIDE_SWITCH_NAV_MESSAGE, (navName) => {
+                this.insideSwitchNav(navName)
+            })
+        }
 	}
 </script>
 

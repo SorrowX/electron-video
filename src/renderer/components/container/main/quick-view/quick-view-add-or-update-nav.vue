@@ -49,6 +49,7 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
+	import { QUICK_VIEW_NAV_SHOW_UI_MESSAGE } from '@/constant/index'
 
 	export default {
 		name: 'QuickViewAddOrUpdateNav',
@@ -135,7 +136,7 @@
 		},
 		mounted() {
 			// 监听 quick-view-nav.vue 组件发来的消息(是否显示该组件)
-			this.$root.$on('quick-view-nav-show-ui', (bool, operateType, nav) => {
+			this.$root.$on(QUICK_VIEW_NAV_SHOW_UI_MESSAGE, (bool, operateType, nav) => {
                 this.initData(bool, operateType, nav)
 			})
 		}

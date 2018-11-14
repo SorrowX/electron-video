@@ -202,6 +202,6 @@
 		background-color: rgba(0,0,0,.5);
 		line-height: 20px;
 		text-align: center;
-		color: rgba(51,190,9,1);
+		color: rgba(204,204,204,1);
 	}
 </style>

@@ -4,7 +4,13 @@
 			<dt>
 				<span>{{ obj['tag'] }}</span>
 				<i></i>
-				<span class="more" v-show="obj['rows'] == 2">更多</span>
+				<span 
+				    class="more" 
+				    v-show="obj['rows'] == 2"
+				    @click.stop="jumpQuickViewComponent(obj['tag'])"
+				>
+			        更多
+			    </span>
 			</dt>
 			<dd>
 				<channel-content-movie-recommend
@@ -20,6 +26,10 @@
 	import CommonMixin from '@/mixin/common-mixin'
 	import { getRandomItemFromArr } from '@/util/index'
 	import ChannelContentMovieRecommend from './channel-content-movie-recommend'
+	import { 
+		SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE,
+		WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE
+	} from '@/constant/index'
 
 	const components = { ChannelContentMovieRecommend }
 
@@ -55,6 +65,14 @@
                     ret.push(obj)
 				}
 				return this.listData = ret
+			},
+			jumpQuickViewComponent(navName) {
+				let navObj = this.navArr.find((nav) => {
+					return nav['tag'] = navName
+				})
+				this.insideSwitchNav('QuickView')
+				this.$root.$emit(SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE, navObj)
+				this.$parent.show = false
 			}
 			
 		}
@@ -95,6 +113,10 @@
 	.channel-content-movie-list .more {
 		font-size: 13px;
 		color: rgba(102,102,102,1);
+	}
+
+	.channel-content-movie-list .more:hover {
+		cursor: pointer;
 	}
 
 	.channel-content-movie-list>dl>dd {

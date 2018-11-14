@@ -35,6 +35,10 @@
 	import QucikViewSetting from './qucik-view-setting'
 	import QuickViewMain from './quick-view-main/quick-view-main'
 	import { mapState, mapActions } from 'vuex'
+	import { 
+		REFRESH_VUEX_STATE_MESSAGE,
+		SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE 
+	} from '@/constant/index'
 
 	const components = { 
 		QuickViewHeader, 
@@ -53,9 +57,9 @@
 		},
 		methods: {
 			// 根据nav载入数据
-			updateQuickViewMainData(nav) {
-				this.$refs.navComponent.correctNavIndex(nav)
-				this.$refs.viewMainComponent.loadData(nav)
+			updateQuickViewMainData(navObj) {
+				this.$refs.navComponent.correctNavIndex(navObj)
+				this.$refs.viewMainComponent.loadData(navObj)
 			},
 			loadFirstNavData() {
 				if (this.navArr.length > 0) {
@@ -65,9 +69,12 @@
 		},
 		mounted() {
 			this.loadFirstNavData()
-            this.$root.$on('refresh-vuex-state', () => {
+            this.$root.$on(REFRESH_VUEX_STATE_MESSAGE, () => {
 				this.loadFirstNavData()
             })
+	        this.$root.$on(SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE, (navObj) => {
+				this.updateQuickViewMainData(navObj)
+	        })
 		}
 	}
 </script>

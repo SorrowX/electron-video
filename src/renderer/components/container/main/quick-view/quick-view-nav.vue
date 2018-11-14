@@ -23,6 +23,10 @@
 
 <script>
     import { mapState } from 'vuex'
+    import { 
+    	QUICK_VIEW_NAV_SHOW_UI_MESSAGE,
+    	QUICK_VIEW_SETTING_NAV_SHOW_UI_MESSAGE 
+    } from '@/constant/index'
 
 	export default {
 		name: 'QuickViewNav',
@@ -70,10 +74,10 @@
 				}
 			},
 			addNavPage() {
-				this.$root.$emit('quick-view-nav-show-ui', true, 'add')
+				this.$root.$emit(QUICK_VIEW_NAV_SHOW_UI_MESSAGE, true, 'add')
 			},
 			settingNavPage() {
-				this.$root.$emit('quick-view-setting-nav-show-ui', true)
+				this.$root.$emit(QUICK_VIEW_SETTING_NAV_SHOW_UI_MESSAGE, true)
 			}
 		}
 	}

@@ -27,7 +27,7 @@
 					<div 
 					    class="nav-item" 
 					    v-for="nav in navArr"
-					    @click="jumpNav(nav)"
+					    @click="jumpQuickViewComponent(nav)"
 					>
 						{{ nav['tag'] }}
 					</div>
@@ -40,13 +40,14 @@
 <script>
 	import CommonMixin from '@/mixin/common-mixin'
 	import { getRandomItemFromArr } from '@/util/index'
+	import { SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE } from '@/constant/index'
 
 	const defaultBannerData = {
-		genImgPath: require('../../../../../assets/bg/dark/hDefault_big.jpg'),
+		genImgPath: require('@/assets/bg/dark/hDefault_big.jpg'),
 		filename: '影片名称'
 	}
 	let defaultRecommendData = Object.assign({}, defaultBannerData)
-	defaultRecommendData.genImgPath = require('../../../../../assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg')
+	defaultRecommendData.genImgPath = require('@/assets/bg/DefaultImage/Assets/Dark/focusDefault.jpg')
 
 	export default {
 		name: 'ChannelContentMovieHeader',
@@ -89,8 +90,10 @@
 					this.playVideo(media)
 				}
 			},
-			jumpNav(nav) {
-				console.log('跳转到快速查看页面: ', nav)
+			jumpQuickViewComponent(navObj) {
+				this.insideSwitchNav('QuickView')
+				this.$root.$emit(SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE, navObj)
+				this.$parent.show = false
 			}
 		}
 	}
