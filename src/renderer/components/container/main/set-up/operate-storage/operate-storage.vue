@@ -71,7 +71,7 @@
 			createFileAndSaveData() {
 				let storageFileName = this.storageFileName
                 createLocalStorageDataFile(storageFileName)
-                refreshData()
+                this.refreshStorageAndVuexData()
                 this.updateFileNames()
                 this.storageDataResultTip = `local storage 数据已存入 ${storageFileName} 文件中,且UI已经恢复初始状态.`
 			},
@@ -80,7 +80,7 @@
 				this.operateFileTip = `当前 local storage 数据已存入 ${fileName} 文件中.`
 			},
 			switchStorageData(fileName) {
-				refreshData(fileName)
+				this.refreshStorageAndVuexData(fileName)
 				this.operateFileTip = `UI数据来源已更换为 ${fileName} 文件中的数据.`
 			},
 			deleteStorageFile(fileName) {
@@ -90,6 +90,10 @@
 			},
 			updateFileNames() {
 				this.allStorageFileNames = getStorageFileNames()
+			},
+			refreshStorageAndVuexData(fileName) {
+				refreshData(fileName)
+				this.$root.$emit('refresh-vuex-state')
 			}
 		},
 		mounted() {

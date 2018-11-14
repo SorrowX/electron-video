@@ -42,18 +42,19 @@
 						this.arrMedia = data
 					}
 				)
+			},
+			getFirstNavRenderData() {
+				let navArr = this.navArr
+				if (Array.isArray(navArr) && navArr.length > 0) {
+		            this.loadData(navArr[0])
+	            }
 			}
 		},
-		activated() {
-            // console.log('Home activated')
-		},
-		deactivated() {
-			// console.log('Home deactivated')
-		},
 		mounted() {
-			if (Array.isArray(this.navArr)) {
-	            this.loadData(this.navArr[0])
-            }
+			this.getFirstNavRenderData()
+            this.$root.$on('refresh-vuex-state', () => {
+				this.getFirstNavRenderData()
+            })
 		}
 	}
 </script>

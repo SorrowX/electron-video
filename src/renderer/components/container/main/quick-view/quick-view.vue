@@ -57,14 +57,17 @@
 				this.$refs.navComponent.correctNavIndex(nav)
 				this.$refs.viewMainComponent.loadData(nav)
 			},
-			loadDefaultData() {
+			loadFirstNavData() {
 				if (this.navArr.length > 0) {
 					this.updateQuickViewMainData(this.navArr[0])
 				}
 			}
 		},
 		mounted() {
-			this.loadDefaultData()
+			this.loadFirstNavData()
+            this.$root.$on('refresh-vuex-state', () => {
+				this.loadFirstNavData()
+            })
 		}
 	}
 </script>
