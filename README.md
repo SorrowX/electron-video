@@ -15,7 +15,7 @@
 2. 基础搜索组件ui编写完毕
 3. 基础logo组件编写完毕
 ```
-#### 今日成果如下
+#### 具体效果如下
 ![页面基础骨架1](./dist/screenshot/1.png)
 ![页面基础骨架2](./dist/screenshot/2.png)
 
@@ -25,7 +25,7 @@
 2. 编写了添加快速查看nav的组件
 3. vuex存储系统的分类编写
 ```
-#### 今日成果如下
+#### 具体效果如下
 ![组件](./dist/screenshot/3.png)
 ![组件](./dist/screenshot/4.png)
 ![组件](./dist/screenshot/5.png)
@@ -44,6 +44,19 @@
 ``` bash
 1. 今天编写了视频播放页 截图,打开视频目录,使用电脑默认程序打开视频功能
 ```
+
+### 2018年11月14日
+``` bash
+1. 写了好多,懒得说的了,看图就明白了
+2. 下图效果的ui及功能逻辑都编写完毕
+```
+#### 具体效果如下
+![组件](./dist/screenshot/10.png)
+![组件](./dist/screenshot/11.png)
+![组件](./dist/screenshot/12.png)
+![组件](./dist/screenshot/13.png)
+![组件](./dist/screenshot/14.png)
+![组件](./dist/screenshot/15.png)
 
 #### Build Setup
 
