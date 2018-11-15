@@ -22,19 +22,31 @@ button:hover {
     opacity: 0;
 }
 
+/*  image-rendering属性： 在浏览器对图片进行比例缩放时，设置其缩放使用的算法，从而得到最终想要的图片结果 
+        auto
+        使用默认算法，即将图片色彩进行平滑缩放，不同的浏览器采用的算法不一，如：firefox 3.0后的gecko使用双线性插值（bilinear interpolation）算法
+        crisp-edges
+        使用算法达达到在绽放时保持对比度和边缘，在加工时不平滑色彩和使用模糊
+        pixelated
+        当图片放大时，单纯地去放大像素点，缩小时与auto效果一样
+*/
+img,
+background-image {
+    image-rendering: pixelated;
+}
+
 /* 图片加载成功的样式 */
+/*animation: name duration timing-function delay iteration-count direction fill-mode play-state;*/
+/*animation-name: keyframename|none; animation-name 属性为 @keyframes 动画指定名称。*/
+/*animation-duration: time; animation-duration属性定义动画完成一个周期需要多少秒或毫秒。*/
+/*animation-timing-function: value; animation-timing-function使用的数学函数，称为三次贝塞尔曲线，速度曲线*/
+/*animation-delay: time; animation-delay 属性定义动画什么时候开始*/
+/*animation-iteration-count: value; animation-iteration-count属性定义动画应该播放多少次。*/
+/*animation-direction: normal|reverse|alternate|alternate-reverse|initial|inherit; animation-direction 属性定义是否循环交替反向播放动画。*/
+/*animation-fill-mode: none|forwards|backwards|both|initial|inherit; animation-fill-mode 属性规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式。both: 动画遵循 forwards 和 backwards 的规则。也就是说，动画会在两个方向上扩展动画属性。*/
+/*animation-play-state: paused|running; animation--play-state属性指定动画是否正在运行或已暂停。*/
 .img-success {
     animation: fadeIn 1s ease-out 0.1s 1 both;
-
-    /*animation: name duration timing-function delay iteration-count direction fill-mode play-state;*/
-    /*animation-name: keyframename|none; animation-name 属性为 @keyframes 动画指定名称。*/
-    /*animation-duration: time; animation-duration属性定义动画完成一个周期需要多少秒或毫秒。*/
-    /*animation-timing-function: value; animation-timing-function使用的数学函数，称为三次贝塞尔曲线，速度曲线*/
-    /*animation-delay: time; animation-delay 属性定义动画什么时候开始*/
-    /*animation-iteration-count: value; animation-iteration-count属性定义动画应该播放多少次。*/
-    /*animation-direction: normal|reverse|alternate|alternate-reverse|initial|inherit; animation-direction 属性定义是否循环交替反向播放动画。*/
-    /*animation-fill-mode: none|forwards|backwards|both|initial|inherit; animation-fill-mode 属性规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式。both: 动画遵循 forwards 和 backwards 的规则。也就是说，动画会在两个方向上扩展动画属性。*/
-    /*animation-play-state: paused|running; animation--play-state属性指定动画是否正在运行或已暂停。*/
 }
 
 @keyframes fadeIn {
