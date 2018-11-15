@@ -55,11 +55,12 @@ export function getResource(folderPath, match) {
 export function screenshot(options) {
 	let { videoUrl, imgPath, timePoint, timeout = 1000 * 3 } = options
 
-	let videoScreenshotInstance = null
+	let videoScreenshotInstance = null,
+	    tick = null
 
 	return Promise.race([
 		new Promise(function(resolve, reject) {
-			setTimeout(() => {
+			tick = setTimeout(() => {
 				videoScreenshotInstance.destroy()
 				videoScreenshotInstance = null
 				reject(new Error('generate img timeout!'))
@@ -70,6 +71,7 @@ export function screenshot(options) {
 				url: videoUrl,
 				timePoint: timePoint,
 				callback(res) {
+					clearTimeout(tick)
 					if (res.code === 0) {
 						VideoScreenshot.fileOrBlobToDataURL(res.thumb, (data) => {
 							let base64 = data.replace(/^data:image\/\w+;base64,/, '')
