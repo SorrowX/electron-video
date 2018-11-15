@@ -1,5 +1,5 @@
-const ip = require('ip')
-const path = require('path')
+import ip from 'ip'
+import path from 'path'
 import { encode } from '../server/util'
 
 export function getLocalIp() {

@@ -1,6 +1,7 @@
 import path from 'path'
 import fu from '../../server/fu'
 import { local } from '../../shared/storage'
+import { getDocumentGenFileDir } from '../../shared/util'
 import store from './index'
 import { 
 	QUICK_VIEW_NAV_ARR,
@@ -9,7 +10,8 @@ import {
 	WINDOW_ZOOM_FACTOR
 } from '../constant/index'
 
-const genFilePath = `${path.resolve(__dirname, '../../')}\\config\\generate\\`
+const app = require('electron').remote.app
+const genFilePath = app.getPath('documents') + '\\AQY Files\\storage\\'
 const genFileSuffix = '.json'
 const defaultStorageFileName = '默认'
 
