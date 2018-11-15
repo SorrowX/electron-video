@@ -44,7 +44,7 @@
 			}
 		},
 		methods: {
-			openDetail(isShowNextPage) {
+			openMore(isShowNextPage) {
 				if (isShowNextPage) {
 					this.mediaInfoDomtranslateY = -100
 					this.showDetailsComponent = true

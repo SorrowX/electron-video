@@ -12,7 +12,7 @@
     const components = { WindowBar, Container }
     
 	export default {
-	    name: 'electron-video',
+	    name: 'ElectronVideo',
         components
 	}
 </script>

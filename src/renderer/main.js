@@ -29,7 +29,6 @@ window.vm = new Vue({
 	components: { App },
 	router,
 	store,
-	render: h => h(App),
 	mounted() {
 		this.$closeWin = function() {
 		    ipc.send('window-close')
@@ -42,5 +41,6 @@ window.vm = new Vue({
 		this.$maxWin = function() {
 		    ipc.send('window-max')
 		}
-	}
+	},
+	render: h => h(App)
 }).$mount('#app')

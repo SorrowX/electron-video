@@ -25,7 +25,7 @@
     			    @next="handlerNext"
     			    @play="handlerPlay(media)"
     			    @collection="handlerCollection"
-    			    @open-detail="handlerOpenDetail"
+    			    @open-more="handlerOpenMore"
     			>
     			</media-recommend-operation>
     		</div>
@@ -96,8 +96,8 @@
 
 				this.allMediaDomTranslateX = -100 * this.curIndex
 			},
-			handlerOpenDetail(isShowNextPage) { // 处理是否展开 详情按钮
-				this.$refs.recommendInfoComp[this.curIndex].openDetail(isShowNextPage)
+			handlerOpenMore(isShowNextPage) { // 处理是否展开 更多按钮
+				this.$refs.recommendInfoComp[this.curIndex].openMore(isShowNextPage)
 			},
 			handlerCollection(isCollection) { // 处理 收藏按钮
                 this.operateVideo(this.arrMediaInfo[this.curIndex], isCollection)

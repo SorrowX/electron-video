@@ -18,8 +18,8 @@
         </div>
 
 		<button class="media-detail" @click="openDetail">
-			详情
-			<i :class="[ isOpenDetail === false ? 'arrow-down' : 'arrow-up' ]"></i>
+			更多
+			<i :class="[ isOpenMore === false ? 'arrow-down' : 'arrow-up' ]"></i>
 		</button>
 	</div>
 </template>
@@ -44,14 +44,14 @@
         },
 		data() {
 			return {
-				isOpenDetail: false,
+				isOpenMore: false,
                 isCollection: false
 			}
 		},
 		methods: {
 			openDetail() {
-				this.isOpenDetail = !this.isOpenDetail
-				this.$emit('open-detail', this.isOpenDetail)
+				this.isOpenMore = !this.isOpenMore
+				this.$emit('open-more', this.isOpenMore)
 			},
             collection() {
                 this.isCollection = !this.isCollection
@@ -78,12 +78,13 @@
     	outline: none;
     	color: #fff;
         font-style: normal;
-    	background-color: rgba(221,221,221,.45);
+        letter-spacing: 2px;
+        font-family: inherit;
+        background-color: rgba(40,155,0,.9);
     }
 
     /* 进入片库样式 */
 	.media-library {
-        /*top: 38px;*/
 	    top: 8.5%;
 	    padding: 4px 10px;
 	    border-radius: 50px;
@@ -113,7 +114,6 @@
 
     /* 下一个 样式 */
     .media-next {
-        /*top: 120px;*/
         top: 27%;
     }
 
@@ -123,18 +123,18 @@
 
     /* 播放 样式 */
     .media-play {
-        /*top: 190px;*/
         top: 43%;
         margin-right: 2.5px;
     }
 
     .media-play>i {
+        background-color: rgba(40,155,0,.9);
+        border-radius: 50%;
         background-image: url(../../../../../assets/media-recommend/play_count.png);
     }
 
     /* 收藏 样式 */
     .media-collection {
-        /*top: 262px;*/
         top: 58%;
         margin-right: 3px;
     }
@@ -152,9 +152,9 @@
     	display: flex;
     	justify-content: center;
     	align-items: center;
-        /*bottom: 65px;*/
     	bottom: 14%;
     	padding: 4px 6px;
+        border-radius: 3px;
     }
 
     .media-detail>i {

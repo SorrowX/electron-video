@@ -8,7 +8,7 @@
 <script>
     import AppMain from '@/components/container/main/main'
     import AppMovie from '@/components/container/movie/movie'
-
+    
 	export default {
 		name: 'Container',
         components: { AppMain, AppMovie }
