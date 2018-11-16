@@ -1,15 +1,14 @@
 <template>
     <div class="media-recommend">
     	<div class="all-media" 
-    	    v-show="arrMediaInfo.length > 0 && navArr.length > 0"
+    	    v-show="dynamicCalcRenderMediaData.length > 0 && navArr.length > 0"
     	    :style="{ 'transform': 'translate3d(' + allMediaDomTranslateX + '%, 0, 0)' }"
-    	    @animationstart.self="handlerAnimationStart"
-    	    @animationend.self="handlerAnimationEnd"
+    	    ref="allMediaDom"
     	>
     		<div 
     		    class="media" 
     		    ref="mediaDoms"
-    		    v-for="(media, index) in arrMediaInfo" 
+    		    v-for="(media, index) in dynamicCalcRenderMediaData" 
             >
     			<media-recommend-info
     			    :mediaInfo="media"
@@ -20,7 +19,7 @@
     		    </media-recommend-info>
     			<media-recommend-operation
 	    			:mediaInfo="media"
-    			    :notLastOne="arrMediaInfo.length - 1 != index"
+    			    :notLastOne="dynamicCalcRenderMediaData.length - 1 != index"
     			    @go-on-library="handlerGoOnLibrary"
     			    @next="handlerNext"
     			    @play="handlerPlay(media)"
@@ -40,9 +39,15 @@
     import MediaRecommendInfo from './media-recommend-info'
     import MediaRecommendOperation from './media-recommend-operation'
     import CommonMixin from '@/mixin/common-mixin'
+    import { 
+    	SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE
+    } from '@/constant/index'
+    import fu from '../../../../../../server/fu'
 
     const components = { MediaRecommendInfo, MediaRecommendOperation }
-    let animationPadding = false
+    const ALL_MEDIA_COUNTS = 2
+    let waiting = false // 等待更新数据
+    const tickTime = 1 * 1000
 
 	export default {
 		name: 'MediaRecommend',
@@ -52,55 +57,73 @@
 			arrMedia: {
 				type: Array,
 				default: function() { return [] }
-			}
+			},
+			nav: [Object, String]
 		},
 		data() {
 			return {
 				allMediaDomTranslateX: 0,
 				curIndex: 0, // 所有媒体页面中的当前页面的索引
+				dynamicCalcRenderMediaData: [] // 左右滑动时,始终保持3条数据以提高性能
 			}
 		},
 		watch: {
 			arrMedia() { // 有新的数据,重置translatx值
 				this.curIndex = this.allMediaDomTranslateX = 0
-			}
-		},
-		computed: {
-			arrMediaInfo() {
-				return this.arrMedia.map((info) => {
-					info['bgImg'] = info['imgUrl']
-					return info 
-				})
+				this.initialData()
 			}
 		},
 		methods: {
-			handlerAnimationStart() {
-				animationPadding = true
-			},
-			handlerAnimationEnd() {
-				animationPadding = false
-			},
-			scrollWhellMedia(type) {
-				if (animationPadding) return
-				let len = this.arrMediaInfo.length
+			scrollWhellMedia(direction) {
+				if (waiting) return
 
-				if (type === 'pre') { // 前一个
+				this.$refs.allMediaDom.style.transition = 'transform .65s'
+
+			    let len = this.arrMedia.length
+				if (direction === 'pre') { // 前一个
 					this.curIndex--
-					if (this.curIndex <= 0) 
+					if (this.curIndex <= 0) {
 						this.curIndex = 0
+					}
 				} else { // 下一个
 					this.curIndex++
-					if (this.curIndex >= len) 
+					if (this.curIndex >= len - 1) {
 						this.curIndex = len - 1
+					}
 				}
 
-				this.allMediaDomTranslateX = -100 * this.curIndex
+				this.allMediaDomTranslateX =  -100 * this.curIndex
+				
+				this.updateRenderData(direction, this.curIndex)
+			},
+			updateRenderData(direction, curIndex) {
+				waiting = true
+				setTimeout(() => {
+					this.$refs.allMediaDom.style.transition = 'transform 0s'
+
+					let len = this.dynamicCalcRenderMediaData.length
+					if (direction === 'next') {
+						let lastMedia = this.dynamicCalcRenderMediaData[len - 1]
+						let i = this.arrMedia.indexOf(lastMedia)
+						let pushMedia = this.arrMedia[i + 1]
+						if (pushMedia) {
+							this.dynamicCalcRenderMediaData.push(pushMedia)
+						}
+					} else if (direction === 'pre') {
+						this.dynamicCalcRenderMediaData = this.dynamicCalcRenderMediaData.slice(0, curIndex + ALL_MEDIA_COUNTS)
+					}
+
+					this.$nextTick(() => {
+						waiting = false
+					})
+
+				}, tickTime)
 			},
 			handlerOpenMore(isShowNextPage) { // 处理是否展开 更多按钮
 				this.$refs.recommendInfoComp[this.curIndex].openMore(isShowNextPage)
 			},
 			handlerCollection(isCollection) { // 处理 收藏按钮
-                this.operateVideo(this.arrMediaInfo[this.curIndex], isCollection)
+                this.operateVideo(this.dynamicCalcRenderMediaData[this.curIndex], isCollection)
 			},
 			handlerPlay(media) { // 处理 播放按钮
 				this.playVideo(media)
@@ -109,7 +132,28 @@
 				this.scrollWhellMedia('next')
 			},
 			handlerGoOnLibrary() { // 处理 进入片库按钮
-				console.log('进入片库')
+				this.insideSwitchNav('QuickView')
+
+				let navObj
+				if (typeof this.nav === 'string') {
+					navObj = this.navArr.find((nav) => {
+						return nav['tag'] = this.nav
+					})
+				} else {
+					navObj = this.nav
+				}
+				
+				this.$root.$emit(SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE, navObj)
+			},
+			initialData() {
+				let arr = this.arrMedia.map((info) => {
+					info['bgImg'] = info['imgUrl']
+					return info 
+				})
+				if (arr.length > ALL_MEDIA_COUNTS) {
+					arr.length = ALL_MEDIA_COUNTS
+				}
+				return this.dynamicCalcRenderMediaData = arr
 			}
 		}
 	}

@@ -114,7 +114,6 @@ export default {
 	     *      processCb: '获取每个数据的回调(含有进度条)',
 	     *      direct: Boolean 是否直接从文件夹中获取还是videoCache缓存中获取
          *   }
-         *    
 		*/
 		loadDataByNav(options) {
 			let { nav, callback, processCb, direct } = options

@@ -11,6 +11,7 @@
 		<div class="home-content">
             <media-recommend 
                 :arrMedia="arrMedia"
+                :nav="curNav"
             >
             </media-recommend>
 		</div>
@@ -33,11 +34,13 @@
 		components,
 		data() {
 			return {
-				arrMedia: []
+				arrMedia: [],
+				curNav: ''
 			}
 		},
 		methods: {
 			loadData(nav) {
+				this.curNav = nav
 				this.loadDataByNav({
 					nav,
 					callback: (data) => {

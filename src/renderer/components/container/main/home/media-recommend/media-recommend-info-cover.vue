@@ -9,6 +9,7 @@
 <script>
     import { debounce } from '@/util/index'
     import CommonMixin from '@/mixin/common-mixin'
+    const DELAY_TIME = 1 * 1000
 
 	export default {
 		name: 'MediaRecommendCover',
@@ -25,7 +26,7 @@
 			},
 			handlerWheel(evt) {
 				this.lastTimeStamp = evt.timeStamp
-				if (this.lastTimeStamp - this.preTimeStamp > 500) {
+				if (this.lastTimeStamp - this.preTimeStamp > DELAY_TIME) {
 					this.preTimeStamp = this.lastTimeStamp
 					if (evt.wheelDelta > 0) { // 向上是正数 x轴向左
 						this.$emit('switch-media', 'pre')
