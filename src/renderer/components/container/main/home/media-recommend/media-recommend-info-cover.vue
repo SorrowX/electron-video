@@ -3,6 +3,19 @@
 		<div class="cover">
 			<img :src="bgImg" @error="handlerError">
 		</div>
+		<div class="media-info">
+			<div class="info">
+				<div class="title">
+					<p>{{ mediaInfo['filename'] }}</p>
+					<span>2761</span>
+				</div>
+
+				<div class="score">
+					<span>评分</span>
+					<span>8.5</span>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -18,6 +31,12 @@
 			bgImg: {
 				type: String,
 				default: ''
+			},
+			mediaInfo: {
+				type: Object,
+				default: function() {
+					return {}
+				}
 			}
 		},
 		methods: {
@@ -64,5 +83,65 @@
 		width: 100%;
         height: 100%;
         background-repeat: no-repeat;
+	}
+
+	.media-info {
+		width: 68%;
+		position: absolute;
+		bottom: 7%;
+		left: 4.5%;
+	}
+
+	.info {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.title p {
+		font-size: 14px;
+	    color: #fff;
+	    letter-spacing: 2px;
+	    font-style: normal;
+	    margin-right: 20px;
+	    max-width: 350px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	}
+
+	.title span {
+		color: #fff;
+	}
+
+	.score {
+		width: 80px;
+		height: 28px;
+		border-radius: 3px;
+		display: flex;
+	}
+	.score>span {
+		display: inline-block;
+		width: 36px;
+		height: 28px;
+		text-align: center;
+		line-height: 28px;
+		color: #fff;
+
+	}
+	.score>span:nth-child(1) {
+		background-color: rgba(255,110,30,1);
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
+	}
+	.score>span:nth-child(2) {
+		background-color: rgba(0,0,0,.5);
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
 	}
 </style>

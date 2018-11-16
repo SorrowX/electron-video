@@ -5,6 +5,7 @@
 	>
 		<media-recommend-info-cover
 		    :bgImg="mediaInfo['genImgPath']"
+		    :mediaInfo="mediaInfo"
 		    @switch-media="switchMedia"
 		>
 		</media-recommend-info-cover>
