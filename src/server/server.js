@@ -63,6 +63,7 @@ server.listen(port, ip, function() {
 
 server.on('error', (err) => {
     alert('服务器已挂', JSON.stringify(err, null, 4))
+    console.error(JSON.stringify(err, null, 4))
 });
 
 export default server

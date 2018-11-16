@@ -8,6 +8,8 @@ const defaultBgImg = require('../assets/bg/dark/hDefault.jpg')
 const errorBgImg = require('../assets/bg/dark/hDefault.jpg')
 const homeErrorBgImg = require('../assets/bg/DefaultImage/Assets/Dark/Scale-200/home_item_default_cover.png')
 
+let videoCache = {} // 视频缓存
+
 export default {
 	computed: {
 		...mapState([
@@ -36,59 +38,111 @@ export default {
 		},
 		/*
          * 数据视频资源路径和图片资源路径获取数据
+         * @params
+         *  options: {
+	     *     videoDirPath: '视频目录地址'，
+	     *     imgDirPath: '图片目录地址'，
+	     *     callback: '获取完数据的回调'，
+	     *     processCb: '获取每个数据的回调(含有进度条)',
+	     *     direct: Boolean 是否直接从文件夹中获取还是videoCache缓存中获取(默认 false 从缓存中获取)
+         *  }
 		*/
-		loadVideoData(videoDirPath, imgDirPath, callback, processCb) {
-			loopGeneratImg({
-				videoResourcePath: videoDirPath,
-				genImgResourcePath: imgDirPath,
-				num: 0,
-				imgTimeout: 5000,
-				imgExtName: '.jpg',
-				callback: processCb
-			}).then((data) => {
-				callback && callback(data || [])
-			})
+		loadVideoData(options) {
+			let { 
+				videoDirPath, 
+				imgDirPath, 
+				callback = function() {}, 
+				processCb = function() {}, 
+				direct = false 
+			} = options
+			if (direct) {
+				loopGeneratImg({
+					videoResourcePath: videoDirPath,
+					genImgResourcePath: imgDirPath,
+					num: 0,
+					imgTimeout: 5000,
+					imgExtName: '.jpg',
+					callback: processCb
+				}).then((data) => {
+					videoCache[videoDirPath] = data
+					callback && callback(data || [])
+				})
+			} else {
+				if (videoCache[videoDirPath]) {
+					callback && callback(videoCache[videoDirPath] || [])
+				} else {
+					loopGeneratImg({
+						videoResourcePath: videoDirPath,
+						genImgResourcePath: imgDirPath,
+						num: 0,
+						imgTimeout: 5000,
+						imgExtName: '.jpg',
+						callback: processCb
+					}).then((data) => {
+						videoCache[videoDirPath] = data
+						callback && callback(data || [])
+					})
+				}
+			}
 		},
 		/*
          * 根据导航随机获取视频数据
+         * @params
+         *   callback: 拿到数据后的回调
+         *   direct： false表示从缓存中获取
 		*/
-		getRandomVideoData(callback) {
+		getRandomVideoData(callback, direct) {
 			let len = this.navArr.length
 			if (len > 0) {
 				let nav = this.navArr[Math.floor(Math.random() * len)]
-				this.loadVideoData(nav['videoDirPath'], nav['imgDirPath'], callback)
+				this.loadVideoData({
+					videoDirPath: nav['videoDirPath'],
+					imgDirPath: nav['imgDirPath'],
+					callback,
+					direct
+				})
 			} else {
 				callback && callback([])
 			}
 		},
 		/*
          * 根据导航获取视频数据
+         * @params
+         *   options: {
+	     *      nav: [Object|String] 导航对象或者导航tag名  
+	     *      callback: '获取完数据的回调'，
+	     *      processCb: '获取每个数据的回调(含有进度条)',
+	     *      direct: Boolean 是否直接从文件夹中获取还是videoCache缓存中获取
+         *   }
+         *    
 		*/
-		loadDataByNav(nav, callback, processCb) {
-			this.loadVideoData(
-				nav['videoDirPath'], 
-				nav['imgDirPath'],
-				(data) => {
-					callback && callback(data || [])
-				},
-				processCb
-			)
+		loadDataByNav(options) {
+			let { nav, callback, processCb, direct } = options
+			let navObj
+			if (typeof nav == 'string') {
+				navObj = this.navArr.find(o => o.tag === nav)
+			} else {
+				navObj = nav
+			}
+
+			this.loadVideoData({
+				videoDirPath: navObj['videoDirPath'], 
+				imgDirPath: navObj['imgDirPath'],
+				callback,
+				processCb,
+				direct
+			})
 		},
 		/*
          * 根据导航tag获取视频数据
 		*/
-		getVideoDataByTag(tagName, callback) {
-			let nav = this.navArr.find(nav => nav.tag === tagName)
-			if (nav) {
-				this.loadVideoData(nav['videoDirPath'], nav['imgDirPath'], callback)
-			} else {
-				callback && callback([])
-			}
-		},
 		getVideoDataByTagPromise(tagName) {
 			return new Promise((resolve, reject) => {
-				this.getVideoDataByTag(tagName, (data) => {
-					return resolve(data)
+				this.loadDataByNav({
+					nav: tagName, 
+					callback: (data) => {
+						return resolve(data)
+					}
 				})
 			})
 		},

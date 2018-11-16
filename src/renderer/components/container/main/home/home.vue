@@ -38,12 +38,12 @@
 		},
 		methods: {
 			loadData(nav) {
-				this.loadDataByNav(
+				this.loadDataByNav({
 					nav,
-					(data) => {
+					callback: (data) => {
 						this.arrMedia = data
 					}
-				)
+				})
 			},
 			getFirstNavRenderData() {
 				let navArr = this.navArr

@@ -65,16 +65,17 @@
 			loadData(nav) {
 				nav = nav || this.nav
 				this.loading = true
-				this.loadDataByNav(
+				this.loadDataByNav({
 					nav,
-					(data) => {
+					callback: (data) => {
 						this.loading = false
 						this.arrMedia = data || []
 					},
-					(processData) => {
+					processCb: (processData) => {
 						this.speedProgress = processData['speedProgress']
-					}
-				)
+					},
+					direct: true
+				})
 			}
 		}
 	}
