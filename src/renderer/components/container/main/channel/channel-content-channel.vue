@@ -100,7 +100,7 @@
 						let randomArr = getRandomItemFromArr(dataArr, 1)
 						obj.thumb = randomArr[0]['genImgPath']
 					} else {
-						obj.thumb = defaultThumb
+						obj.thumb = this.defaultBgImg
 					}
                     ret.push(obj)
 				}
