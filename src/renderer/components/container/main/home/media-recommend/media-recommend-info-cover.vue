@@ -7,7 +7,10 @@
 			<div class="info">
 				<div class="title">
 					<p>{{ mediaInfo['filename'] }}</p>
-					<span>2761</span>
+					<span>
+						<i class="hot"></i>
+					    2761
+					</span>
 				</div>
 
 				<div class="score">
@@ -115,7 +118,18 @@
 	    white-space: nowrap;
 	}
 
+	.hot {
+		display: block;
+		width: 18px;
+		height: 18px;
+		margin-right: 6px;
+		background-image: url(../../../../../assets/media-recommend/hot_count.png);
+		background-size: contain;
+	}
+
 	.title span {
+		display: flex;
+		align-items: center;
 		color: #fff;
 	}
 

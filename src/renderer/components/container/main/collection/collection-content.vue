@@ -93,6 +93,7 @@
                         this.operateVideo(media, false)
             		})
             	}
+            	this.getRenderData()
             },
             getRenderData() {
             	if (Object.keys(this.videoCollection).length === 0) {
