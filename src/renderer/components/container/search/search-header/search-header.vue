@@ -33,12 +33,11 @@
 <style scoped>
 	.search-header {
 		height: 52px;
-		flex: none;
 		display: flex;
-		padding-left: 32px;
-		padding-right: 19px;
 		justify-content: space-between;
 		align-items: center;
+		padding-left: 32px;
+		padding-right: 19px;
 		background-color: rgba(39,45,49,1);
 	}
 

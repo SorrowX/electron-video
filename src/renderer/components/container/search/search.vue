@@ -2,11 +2,8 @@
 	<transition name="search-fade">
 		<div class="search-page" v-show="show">
 			<search-header @search="handleSearch"></search-header>
-			<transition mode="out-in">
-				<keep-alive>
-					<component :is="currentComponent" ref="comps"></component>
-				</keep-alive>	
-			</transition>
+			<search-record></search-record>
+			<search-content ref="searchContentComp"></search-content>
 		</div>
 	</transition>
 </template>
@@ -41,13 +38,15 @@
 				this.show = bool
 			},
 			handleSearch(key) {
-				this.changeComponent(key)
-			},
-			changeComponent(key) {
+				let show = this.$refs.searchContentComp.show
 				if (key.replace(/\s*/g, '') === '') {
-					this.currentComponent = 'SearchRecord'
-				} else {
-					this.currentComponent = 'SearchContent'
+					if (show) {
+						this.$refs.searchContentComp.isShow(false)
+					}
+					return
+				}
+				if (!show) {
+					this.$refs.searchContentComp.isShow(true)
 				}
 			}
 		},
@@ -75,14 +74,12 @@
 	.search-page {
 	    height: 100%;
 	    width: 100%;
-	    display: flex;
-	    flex-direction: column;
 	    position: absolute;
 	    left: 0;
 	    top: 0;
 	    z-index: 99999;
-	    /*overflow: auto;*/
 	    background-color: rgba(27,34,38,1);
+	    /*overflow: auto;*/
 	    /*background-color: rgba(52,62,70,.8);*/
 	}
 </style>

@@ -55,6 +55,7 @@
 		width: 33.5%;
 		overflow: auto;
 		padding-left: 2.5%;
+		padding-bottom: 52px;
     }
 
     /* 滚动条控制样式 */

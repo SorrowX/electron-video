@@ -1,28 +1,13 @@
 <template>
 	<div class="search-record">
-		<div class="record-operat">
-			<p>最近搜索</p>
-			<div class="operat">
-				<i class="clear"></i>
-				清空
-			</div>
-		</div>
-		<div class="record-list">
-			<span>寻梦环游记</span>
-			<span>我能说</span>
-			<span>三块广告牌</span>
-			<span>至暗时刻</span>
-			<span>相爱相亲</span>
-			<span>勇往直前</span>
-			<span>釜山行</span>
-			<span>铁雨</span>
-			<span>华盛顿邮报</span>
-			<span>天才少女</span>
-			<span>西虹市首富</span>
-			<span>我不是药神</span>
-			<span>熊出没之雪岭熊风</span>
-			<span>欢乐喜剧人</span>
-			<span>唐伯虎冲上云霄</span>
+        <div class="record-operat">
+            <p>最近搜索</p>
+            <div class="operat">
+                <i class="clear"></i>
+                清空
+            </div>
+        </div>
+        <div class="record-list">
             <span>寻梦环游记</span>
             <span>我能说</span>
             <span>三块广告牌</span>
@@ -31,7 +16,20 @@
             <span>勇往直前</span>
             <span>釜山行</span>
             <span>铁雨</span>
-		</div>
+            <span>华盛顿邮报</span>
+            <span>天才少女</span>
+            <span>西虹市首富</span>
+            <span>我不是药神</span>
+            <span>熊出没之雪岭熊风</span>
+            <span>欢乐喜剧人</span>
+            <span>唐伯虎冲上云霄</span>
+            <span>寻梦环游记</span>
+            <span>我能说</span>
+            <span>三块广告牌</span>
+            <span>至暗时刻</span>
+            <span>相爱相亲</span>
+            <span>勇往直前</span>
+        </div>
 	</div>
 </template>
 
@@ -44,11 +42,17 @@
 <style scoped>
     .search-record {
         flex: 1;
+        width: 100%;
+        height: 100%;
     	padding: 30px 32px 0 32px;
     	font-family:"Microsoft YaHei";
         overflow: auto;
-    	/*border: 1px solid red;*/
     }
+
+    /* 滚动条控制样式 */
+    .search-record::-webkit-scrollbar {
+        display: none;
+    } 
 
     .record-operat {
     	display: flex;
