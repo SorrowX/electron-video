@@ -6,9 +6,14 @@
         :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
 	    @success="handleImgSuccess" 
 	    @error="handleImgError">
-	    <ul class="ul-list" v-if="arrMediaInfo.length > 0">
+	    <transition-group 
+	        v-if="arrMedia.length > 0"
+	        class="ul-list" 
+	        tag="ul" 
+	        name="group-fade"
+	    >
 			<li 
-			    v-for="(media, index) in arrMediaInfo" 
+			    v-for="(media, index) in arrMedia" 
 			    @click="goPlayPage(media)"
 			    :key="media['filename']"
 			    @contextmenu="registerRightKeyMenu(media)"
@@ -18,7 +23,7 @@
 				</a>
 				<p>{{ media['filename'] }}</p>
 			</li>
-		</ul>
+	    </transition-group>
 	</base-lazy-load-img>
 </template>
 
@@ -34,7 +39,7 @@
 		components: { BaseLazyLoadImg },
 		mixins: [ CommonMixin ],
 		props: {
-			arrMedia: {
+			arrMedia: { // 子组件修改会影响父组件(避免直接赋值arrMedia)
 				type: Array,
 				default: function() {
 					return []
@@ -43,7 +48,6 @@
 		},
 		data() {
 			return {
-				arrMediaInfo: this.arrMedia
 			}
 		},
 		methods: {
@@ -62,11 +66,11 @@
 			        {
 			            label: '永久删除',
 			            callback: function() {
-			            	let i = self.arrMediaInfo.indexOf(media)
+			            	let i = self.arrMedia.indexOf(media)
 			            	if (i != -1) {
 			            		fu.delete(media.name)
 			            		fu.delete(media.genImgPath)
-				            	self.arrMediaInfo.splice(i, 1)
+				            	self.arrMedia.splice(i, 1)
 			            	}
 			            }
 			        },
@@ -107,6 +111,16 @@
 </script>
 
 <style scoped>
+
+    .group-fade-enter, 
+    .group-fade-leave-to {
+        opacity: 0;
+    }
+
+    .group-fade-leave-active {
+    	position: absolute;
+    }
+
 	.ul-list {
 		display: flex;
 		flex-wrap: wrap;
@@ -117,6 +131,7 @@
 		width: 180px;
 		margin-right: 1.5%;
 		margin-bottom: 3%;
+		transition: transform 1s;
 	}
 
 	.ul-list li a {

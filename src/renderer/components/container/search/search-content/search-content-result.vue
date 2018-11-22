@@ -1,0 +1,365 @@
+<template>
+	<div class="search-content-result">
+		<div class="title">
+			<p>相关</p>
+		</div>
+
+		<div class="result">
+			<div class="cover">
+				<img src="../../../../assets/bg/DefaultImage/Assets/Dark/vDefault_big.jpg" alt="">
+			</div>
+			<div class="info">
+				<p class="name">蚂蚁</p>
+				<p>导演: 测试数据</p>
+				<p>主演: 徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊</p>
+				<p>上映时间：2015</p>
+				<p>来源<i class="source-logo"></i></p>
+				<button>立即观看</button>
+			</div>
+		</div>
+		<div class="result-list">
+			<ul>
+				<li>
+					<div class="li-cover">
+						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+					</div>
+					<div class="li-info">
+						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+						<p>来源: 爱奇艺</p>
+						<p>发布时间: 2018-07-15</p>
+					</div>
+				</li>
+				<li>
+					<div class="li-cover">
+						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+					</div>
+					<div class="li-info">
+						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+						<p>来源: 爱奇艺</p>
+						<p>发布时间: 2018-07-15</p>
+					</div>
+				</li>
+				<li>
+					<div class="li-cover">
+						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+					</div>
+					<div class="li-info">
+						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+						<p>来源: 爱奇艺</p>
+						<p>发布时间: 2018-07-15</p>
+					</div>
+				</li>
+				<li>
+					<div class="li-cover">
+						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+					</div>
+					<div class="li-info">
+						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+						<p>来源: 爱奇艺</p>
+						<p>发布时间: 2018-07-15</p>
+					</div>
+				</li>
+				<li>
+					<div class="li-cover">
+						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+					</div>
+					<div class="li-info">
+						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+						<p>来源: 爱奇艺</p>
+						<p>发布时间: 2018-07-15</p>
+					</div>
+				</li>
+				<li>
+					<div class="li-cover">
+						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+					</div>
+					<div class="li-info">
+						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+						<p>来源: 爱奇艺</p>
+						<p>发布时间: 2018-07-15</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+        <div class="nav-search-result">
+        	<div class="nav-title">
+        		以下是 xxx 导航中的数据
+        	</div>
+
+        	<div class="result-list">
+        		<ul>
+        			<li>
+        				<div class="li-cover">
+        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+        				</div>
+        				<div class="li-info">
+        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+        					<p>来源: 爱奇艺</p>
+        					<p>发布时间: 2018-07-15</p>
+        				</div>
+        			</li>
+        			<li>
+        				<div class="li-cover">
+        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+        				</div>
+        				<div class="li-info">
+        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+        					<p>来源: 爱奇艺</p>
+        					<p>发布时间: 2018-07-15</p>
+        				</div>
+        			</li>
+        			<li>
+        				<div class="li-cover">
+        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+        				</div>
+        				<div class="li-info">
+        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+        					<p>来源: 爱奇艺</p>
+        					<p>发布时间: 2018-07-15</p>
+        				</div>
+        			</li>
+        			<li>
+        				<div class="li-cover">
+        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+        				</div>
+        				<div class="li-info">
+        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+        					<p>来源: 爱奇艺</p>
+        					<p>发布时间: 2018-07-15</p>
+        				</div>
+        			</li>
+        			<li>
+        				<div class="li-cover">
+        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+        				</div>
+        				<div class="li-info">
+        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+        					<p>来源: 爱奇艺</p>
+        					<p>发布时间: 2018-07-15</p>
+        				</div>
+        			</li>
+        			<li>
+        				<div class="li-cover">
+        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
+        				</div>
+        				<div class="li-info">
+        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
+        					<p>来源: 爱奇艺</p>
+        					<p>发布时间: 2018-07-15</p>
+        				</div>
+        			</li>
+        		</ul>
+        	</div>
+        </div>
+
+        <footer class="search-footer">
+        	<span>悦享品质</span>
+        	<span>Always Fun, Always Fine</span>
+        </footer>
+	</div>
+</template>
+
+<script>
+    import CommonMixin from '@/mixin/common-mixin'
+
+	export default {
+		name: 'SearchContentResult',
+        mixins: [ CommonMixin ],
+        data() {
+            return {
+                renderData: {
+                    navRet: [],
+                    keyRet: [],
+                    result: null
+                }
+            }
+        },
+        methods: {
+            getRenderData(key) {
+                this.searchResourcesByKey(key).then((ret) => {
+                    this.renderData = ret
+                })
+
+            }
+        },
+        mounted() {
+            console.log('mounted')
+            this.$root.$on('xxx', (key) => {
+                console.log('收到key: ', key)
+
+            })
+        }
+	}
+</script>
+
+<style scoped>
+    .search-content-result {
+		width: 66.5%;
+		overflow: auto;
+		padding-left: 4%;
+		font-family:"Microsoft YaHei";
+    }
+
+    /* 滚动条控制样式 */
+	.search-content-result::-webkit-scrollbar {
+		width: 3px;
+	}
+
+    .title {
+    	height: 49px;
+    	display: flex;
+    	align-items: flex-end;
+    	position: sticky;
+    	top: 0;
+    	background: rgba(27,34,38,1);
+    }
+
+    .title>p {
+    	font-size: 21px;
+    	color: rgba(11,190,6,1);
+    }
+
+    .result {
+    	width: 100%;
+    	display: flex;
+    	padding: 28px 0;
+    	overflow: hidden;
+    }
+
+    .result>.cover {
+    	flex: none;
+    	width: 144px;
+    	height: 190px;
+    }
+
+    .result>.cover>img {
+    	width: 100%;
+    	height: 100%;
+    	background-repeat: no-repeat;
+    }
+
+    .result>.info {
+    	flex: 1;
+    	display: flex;
+    	flex-direction: column;
+    	margin-left: 15px;
+    	overflow: hidden;
+    }
+
+    .result>.info>.name {
+    	font-size: 17px;
+    	color: rgba(11,190,6,1);
+    }
+
+    .result>.info>p,
+    .li-info p {
+    	width: 90%;
+    	font-size: 13px;
+    	margin-bottom: 10px;
+    	color: rgba(148,148,148,1);
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+    }
+
+    .result>.info>p:nth-child(4) {
+    	margin-bottom: 20px;
+    }
+
+    .result>.info>p:nth-child(5) {
+    	display: flex;
+    	align-items: center;
+    	margin-bottom: 8px;
+    }
+
+    .result>.info>button {
+    	width: 90px;
+    	height: 30px;
+    	border: 0;
+    	outline: none;
+    	color: #fff;
+    	font-family:"Microsoft YaHei";
+    	background-color: rgba(11,190,6,1);
+    }
+
+    .source-logo {
+    	display: block;
+    	width: 15px;
+    	height: 13px;
+    	margin-left: 6px;
+    	background-size: contain;
+    	background-repeat: no-repeat;
+    	background-image: url(../../../../assets/min-logo.png);
+    }
+
+    /* 搜索列表结果 */
+    .result-list {
+    }
+
+    .result-list ul {
+    }
+
+    .result-list ul li {
+    	width: 100%;
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .li-cover {
+    	flex: none;
+    	width: 144px;
+    	height: 82px;
+    }
+    .li-cover img {
+    	width: 100%;
+    	height: 100%;
+    }
+
+    .li-info {
+    	flex: 1;
+    	margin-left: 15px;
+    	overflow: hidden;
+    }
+
+    .li-info p {
+    	font-size: 12px;
+    }
+
+    .li-info>.name {
+    	font-size: 15px;
+    	color: rgba(204,204,204,1);
+    }
+
+    /* 导航列表中搜索 样式 */
+    .nav-title {
+    	padding: 20px 0;
+    	font-size: 17px;
+    	color: rgba(11,190,6,1);
+    }
+
+    /* 底部 */
+    .search-footer {
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+	}
+
+	.search-footer span {
+		color: rgba(204,204,204,1);
+	}
+
+	.search-footer span:nth-child(1) {
+		font-size: 16px;
+		letter-spacing: 30px;
+	}
+
+	.search-footer span:nth-child(2) {
+		font-size: 12px;
+		letter-spacing: 1px;
+		margin-left: -28px;
+	}
+	
+</style>

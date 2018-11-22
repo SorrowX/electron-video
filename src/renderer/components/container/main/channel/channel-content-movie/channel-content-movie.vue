@@ -52,7 +52,9 @@
 		},
 		watch: {
 			show(bool) {
-				this.$root.$emit(WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE, bool)
+				if (bool) {
+					this.$root.$emit(WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE, bool)
+				}
 			}
 		},
 		methods: {
@@ -62,9 +64,12 @@
 			},
 			isShow(bool, tag) {
 				if (bool === true) {
-					this.updateRenderData(tag)
+					this.updateRenderData(tag).then(() => {
+						this.show = true
+					})
+				} else {
+					this.show = bool
 				}
-				this.show = bool
 			},
 			async updateRenderData(tag) {
                 await this.$refs.movieHeaderComp.updateRenderData(tag) // 更新头部数据

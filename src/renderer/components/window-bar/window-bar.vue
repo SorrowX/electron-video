@@ -50,9 +50,20 @@
             },
             goBack() {
                 let movieComponent = this.$root.appMovieComponent
+                let searchComponent = this.$root.appSearchComponent
                 let channelMovieComponent = this.$root.channelMovieComponent
+
                 let movieComponentIsShow = movieComponent.show
+                let searchComponentIsShow = searchComponent.show
                 let channelMovieComponentIsShow = channelMovieComponent && channelMovieComponent.show
+
+                if (searchComponentIsShow) {
+                    searchComponent.isShow(false)
+                    if (!channelMovieComponentIsShow) {
+                        this.isShowBack = false
+                    }
+                    return
+                }
 
                 if (movieComponentIsShow) {
                     movieComponent.isShow(false)

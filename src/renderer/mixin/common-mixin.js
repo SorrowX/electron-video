@@ -28,6 +28,35 @@ export default {
 		}
 	},
 	methods: {
+		async searchResourcesByKey(key) {
+			key = key.trim()
+			let ret = {
+				navRet: [],
+				keyRet: [],
+				result: null
+			}
+			// 1. 根据key先获取导航中的数据列表
+			if (this.navArr.indexOf(key) !== -1) {
+				ret.navRet = await this.getVideoDataByTagPromise(key)
+			}
+			// 2. 根据key获取videoCache缓存中的数据
+			let arrKey = Object.keys(videoCache),
+			    i = 0,
+			    len = arrKey.length
+			for (; i < len; i++) {
+				let arrData = videoCache[arrKey[i]]
+				arrData.forEach((obj, index) => {
+					if (obj.filename.indexOf(key) !== -1) {
+						if (index === 1 && !ret.result) {
+							ret.result = obj
+						} else {
+							ret.keyRet.push(obj)
+						}
+					}
+				})
+			}
+			return ret
+		},
 		/*
          * 根据左侧导航名内部切换对应的组件
          * @params

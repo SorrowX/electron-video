@@ -1,6 +1,6 @@
 <template>
 	<div class="base-search-box">
-		<input type="text" placeholder="搜索" class="search-input">
+		<input type="text" placeholder="搜索" class="search-input" @focus="handleFocus">
 		<button class="search-button">
 			<i></i>
 			搜全网
@@ -9,8 +9,14 @@
 </template>
 
 <script>
+    import { SHOW_SEARCH_PAGE_MESSAGE } from '@/constant/index'
 	export default {
-		name: 'BaseSearchBox'
+		name: 'BaseSearchBox',
+		methods: {
+			handleFocus() {
+				this.$root.$emit(SHOW_SEARCH_PAGE_MESSAGE, true)
+			}
+		}
 	}
 </script>
 
