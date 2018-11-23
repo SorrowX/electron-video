@@ -10,7 +10,7 @@
 			    @keyup.13="submit"
 			>
 		</div>
-		<button>搜索</button>
+		<button @click="submit">搜索</button>
 	</div>
 </template>
 
@@ -67,7 +67,7 @@
 		border: 0;
 		outline: none;
 		height: 30px;
-		width: 268px;
+		width: 500px;
 		padding: 5px 0px;
 		font-size: 14px;
 		color: #fff;
@@ -82,5 +82,9 @@
 		outline: none;
 		background: transparent;
 		font-family:"Microsoft YaHei";
+	}
+
+	.search-header>button:hover {
+		cursor: pointer;
 	}
 </style>

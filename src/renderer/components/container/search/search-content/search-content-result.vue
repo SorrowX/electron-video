@@ -1,10 +1,10 @@
 <template>
 	<div class="search-content-result">
-		<div class="title">
+		<div class="title" v-if="showResult">
 			<p>相关</p>
 		</div>
 
-		<div class="result" v-if="renderData.result">
+		<div class="result" v-if="showResult">
 			<div class="cover">
 				<img :src="renderData.result.genImgPath" alt="">
 			</div>
@@ -17,7 +17,7 @@
 				<button @click="play(renderData.result)">立即观看</button>
 			</div>
 		</div>
-		<div class="result-list" v-if="renderData.keyRet.length > 0">
+		<div class="result-list" v-if="showResult">
             <base-lazy-load-img 
                 mode="diy"
                 :time="300"
@@ -27,7 +27,11 @@
                 @success="handleImgSuccess" 
                 @error="handleImgError">
                 <ul>
-                    <li v-for="(ret, index) in renderData.keyRet" @click="play(ret)">
+                    <li 
+                        v-for="(ret, index) in renderData.keyRet" 
+                        @click="play(ret)"
+                        :key="ret['filename']"
+                    >
                         <div class="li-cover">
                             <img :src="ret.genImgPath" alt="">
                         </div>
@@ -41,7 +45,7 @@
             </base-lazy-load-img>
 		</div>
 
-        <div class="nav-search-result" v-if="renderData.navRet.length > 0">
+        <div class="nav-search-result" v-if="showNavRet">
         	<div class="nav-title">
         		以下是 {{ renderData.tag }} 导航中的数据来源
         	</div>
@@ -56,7 +60,11 @@
                     @success="handleImgSuccess" 
                     @error="handleImgError">
                     <ul>
-                        <li v-for="(ret, index) in renderData.navRet" @click="play(ret)">
+                        <li 
+                            v-for="(ret, index) in renderData.navRet" 
+                            @click="play(ret)"
+                            :key="ret['filename']"
+                        >
                             <div class="li-cover">
                                 <img :src="ret.genImgPath" alt="">
                             </div>
@@ -69,6 +77,13 @@
                     </ul>
                 </base-lazy-load-img>
             </div>
+        </div>
+
+        <div class="no-result" 
+            v-if="showNoResult"
+        >
+            <i class="no-result-img"></i>
+            <p>没搜到结果 哇 啊 啊 ...</p>
         </div>
 
         <footer class="search-footer">
@@ -86,6 +101,21 @@
 		name: 'SearchContentResult',
         mixins: [ CommonMixin ],
         components: { BaseLazyLoadImg },
+        computed: {
+            showResult() {
+                return this.renderData.result ? true : false
+            },
+            showNavRet() {
+                return this.renderData.navRet.length > 0 ? true : false
+            },
+            showNoResult() {
+                if (this.showResult || this.showNavRet) {
+                    return false
+                } else {
+                    return true
+                }
+            }
+        },
         data() {
             return {
                 renderData: {
@@ -282,5 +312,25 @@
 		letter-spacing: 1px;
 		margin-left: -28px;
 	}
+
+    /* 没有结果的 样式 */
+    .no-result {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(100% - 120px); /* 减去底部高度 */
+        font-size: 14px;
+        color: rgba(183,174,168,1);
+    }
+
+    .no-result-img {
+        margin-top: 30px;
+        display: block;
+        width: 120px;
+        height: 120px;
+        background-image: url(../../../../assets/waw.gif);
+        background-size: contain;
+    }
 	
 </style>
