@@ -57,16 +57,15 @@
                 let searchComponentIsShow = searchComponent.show
                 let channelMovieComponentIsShow = channelMovieComponent && channelMovieComponent.show
 
-                if (searchComponentIsShow) {
-                    searchComponent.isShow(false)
-                    if (!channelMovieComponentIsShow) {
-                        this.isShowBack = false
-                    }
-                    return
-                }
-
                 if (movieComponentIsShow) {
                     movieComponent.isShow(false)
+                    if (searchComponentIsShow || channelMovieComponentIsShow) {
+                        return
+                    }
+                }
+
+                if (searchComponentIsShow) {
+                    searchComponent.isShow(false)
                     if (!channelMovieComponentIsShow) {
                         this.isShowBack = false
                     }

@@ -41,13 +41,11 @@
 				let show = this.$refs.searchContentComp.show
 				if (key.replace(/\s*/g, '') === '') {
 					if (show) {
-						this.$refs.searchContentComp.isShow(false)
+						this.$refs.searchContentComp.isShow(false, key)
 					}
 					return
 				}
-				if (!show) {
-					this.$refs.searchContentComp.isShow(true)
-				}
+				this.$refs.searchContentComp.isShow(true, key)
 			}
 		},
 		mounted() {
@@ -77,9 +75,8 @@
 	    position: absolute;
 	    left: 0;
 	    top: 0;
-	    z-index: 99999;
+	    z-index: 1000;
 	    background-color: rgba(27,34,38,1);
-	    /*overflow: auto;*/
 	    /*background-color: rgba(52,62,70,.8);*/
 	}
 </style>

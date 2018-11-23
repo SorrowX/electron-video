@@ -33,13 +33,27 @@ export default {
 			let ret = {
 				navRet: [],
 				keyRet: [],
-				result: null
+				result: null,
+				tag: ''
 			}
-			// 1. 根据key先获取导航中的数据列表
-			if (this.navArr.indexOf(key) !== -1) {
+			// 1. 获取所有导航数据且进行缓存
+			let j = 0, l = this.navArr.length
+			for (; j < l; j++) {
+				let nav = this.navArr[j]
+				await this.getVideoDataByTagPromise(nav.tag)
+			}
+
+			// 2. 根据key先获取导航中的数据列表
+			let arrTag = []
+			this.navArr.forEach((nav) => {
+				arrTag.push(nav.tag)
+			})
+			if (arrTag.indexOf(key) !== -1) {
 				ret.navRet = await this.getVideoDataByTagPromise(key)
+				ret.tag = key
 			}
-			// 2. 根据key获取videoCache缓存中的数据
+
+			// 3. 根据key获取videoCache缓存中的数据
 			let arrKey = Object.keys(videoCache),
 			    i = 0,
 			    len = arrKey.length
@@ -47,7 +61,7 @@ export default {
 				let arrData = videoCache[arrKey[i]]
 				arrData.forEach((obj, index) => {
 					if (obj.filename.indexOf(key) !== -1) {
-						if (index === 1 && !ret.result) {
+						if (!ret.result) {
 							ret.result = obj
 						} else {
 							ret.keyRet.push(obj)

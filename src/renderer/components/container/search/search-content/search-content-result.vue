@@ -4,153 +4,71 @@
 			<p>相关</p>
 		</div>
 
-		<div class="result">
+		<div class="result" v-if="renderData.result">
 			<div class="cover">
-				<img src="../../../../assets/bg/DefaultImage/Assets/Dark/vDefault_big.jpg" alt="">
+				<img :src="renderData.result.genImgPath" alt="">
 			</div>
 			<div class="info">
-				<p class="name">蚂蚁</p>
-				<p>导演: 测试数据</p>
-				<p>主演: 徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊徐志伟 特使 你好啊</p>
+				<p class="name">{{ renderData.result.filename }}</p>
+				<p>目录: {{ renderData.result.dir }}</p>
+				<p>路径: {{ renderData.result.name }}</p>
 				<p>上映时间：2015</p>
 				<p>来源<i class="source-logo"></i></p>
-				<button>立即观看</button>
+				<button @click="play(renderData.result)">立即观看</button>
 			</div>
 		</div>
-		<div class="result-list">
-			<ul>
-				<li>
-					<div class="li-cover">
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-					</div>
-					<div class="li-info">
-						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-						<p>来源: 爱奇艺</p>
-						<p>发布时间: 2018-07-15</p>
-					</div>
-				</li>
-				<li>
-					<div class="li-cover">
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-					</div>
-					<div class="li-info">
-						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-						<p>来源: 爱奇艺</p>
-						<p>发布时间: 2018-07-15</p>
-					</div>
-				</li>
-				<li>
-					<div class="li-cover">
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-					</div>
-					<div class="li-info">
-						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-						<p>来源: 爱奇艺</p>
-						<p>发布时间: 2018-07-15</p>
-					</div>
-				</li>
-				<li>
-					<div class="li-cover">
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-					</div>
-					<div class="li-info">
-						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-						<p>来源: 爱奇艺</p>
-						<p>发布时间: 2018-07-15</p>
-					</div>
-				</li>
-				<li>
-					<div class="li-cover">
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-					</div>
-					<div class="li-info">
-						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-						<p>来源: 爱奇艺</p>
-						<p>发布时间: 2018-07-15</p>
-					</div>
-				</li>
-				<li>
-					<div class="li-cover">
-						<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-					</div>
-					<div class="li-info">
-						<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-						<p>来源: 爱奇艺</p>
-						<p>发布时间: 2018-07-15</p>
-					</div>
-				</li>
-			</ul>
+		<div class="result-list" v-if="renderData.keyRet.length > 0">
+            <base-lazy-load-img 
+                mode="diy"
+                :time="300"
+                :done="true"
+                :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
+                :diy="{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }"
+                @success="handleImgSuccess" 
+                @error="handleImgError">
+                <ul>
+                    <li v-for="(ret, index) in renderData.keyRet" @click="play(ret)">
+                        <div class="li-cover">
+                            <img :src="ret.genImgPath" alt="">
+                        </div>
+                        <div class="li-info">
+                            <p class="name">{{ ret.filename }}</p>
+                            <p>来源: 爱奇艺</p>
+                            <p>发布时间: 2018-07-15</p>
+                        </div>
+                    </li>
+                </ul>
+            </base-lazy-load-img>
 		</div>
 
-        <div class="nav-search-result">
+        <div class="nav-search-result" v-if="renderData.navRet.length > 0">
         	<div class="nav-title">
-        		以下是 xxx 导航中的数据
+        		以下是 {{ renderData.tag }} 导航中的数据来源
         	</div>
 
-        	<div class="result-list">
-        		<ul>
-        			<li>
-        				<div class="li-cover">
-        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-        				</div>
-        				<div class="li-info">
-        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-        					<p>来源: 爱奇艺</p>
-        					<p>发布时间: 2018-07-15</p>
-        				</div>
-        			</li>
-        			<li>
-        				<div class="li-cover">
-        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-        				</div>
-        				<div class="li-info">
-        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-        					<p>来源: 爱奇艺</p>
-        					<p>发布时间: 2018-07-15</p>
-        				</div>
-        			</li>
-        			<li>
-        				<div class="li-cover">
-        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-        				</div>
-        				<div class="li-info">
-        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-        					<p>来源: 爱奇艺</p>
-        					<p>发布时间: 2018-07-15</p>
-        				</div>
-        			</li>
-        			<li>
-        				<div class="li-cover">
-        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-        				</div>
-        				<div class="li-info">
-        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-        					<p>来源: 爱奇艺</p>
-        					<p>发布时间: 2018-07-15</p>
-        				</div>
-        			</li>
-        			<li>
-        				<div class="li-cover">
-        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-        				</div>
-        				<div class="li-info">
-        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-        					<p>来源: 爱奇艺</p>
-        					<p>发布时间: 2018-07-15</p>
-        				</div>
-        			</li>
-        			<li>
-        				<div class="li-cover">
-        					<img src="../../../../assets/bg/DefaultImage/Assets/Dark/hDefault.jpg" alt="">
-        				</div>
-        				<div class="li-info">
-        					<p class="name">绿巨人的可乐绿巨人的可乐绿巨人的可乐</p>
-        					<p>来源: 爱奇艺</p>
-        					<p>发布时间: 2018-07-15</p>
-        				</div>
-        			</li>
-        		</ul>
-        	</div>
+	       <div class="result-list">
+                <base-lazy-load-img 
+                    mode="diy"
+                    :time="300"
+                    :done="true"
+                    :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
+                    :diy="{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }"
+                    @success="handleImgSuccess" 
+                    @error="handleImgError">
+                    <ul>
+                        <li v-for="(ret, index) in renderData.navRet" @click="play(ret)">
+                            <div class="li-cover">
+                                <img :src="ret.genImgPath" alt="">
+                            </div>
+                            <div class="li-info">
+                                <p class="name">{{ ret.filename }}</p>
+                                <p>来源: 爱奇艺</p>
+                                <p>发布时间: 2018-07-15</p>
+                            </div>
+                        </li>
+                    </ul>
+                </base-lazy-load-img>
+            </div>
         </div>
 
         <footer class="search-footer">
@@ -162,33 +80,32 @@
 
 <script>
     import CommonMixin from '@/mixin/common-mixin'
+    import BaseLazyLoadImg from '@/components/base/base-lazy-load-img'
 
 	export default {
 		name: 'SearchContentResult',
         mixins: [ CommonMixin ],
+        components: { BaseLazyLoadImg },
         data() {
             return {
                 renderData: {
                     navRet: [],
                     keyRet: [],
-                    result: null
+                    result: null,
+                    tag: ''
                 }
             }
         },
         methods: {
-            getRenderData(key) {
-                this.searchResourcesByKey(key).then((ret) => {
+            async getRenderData(key) {
+                await this.searchResourcesByKey(key).then((ret) => {
+                    console.log('搜索结果: ', ret)
                     this.renderData = ret
                 })
-
+            },
+            play(media) {
+                this.playVideo(media)
             }
-        },
-        mounted() {
-            console.log('mounted')
-            this.$root.$on('xxx', (key) => {
-                console.log('收到key: ', key)
-
-            })
         }
 	}
 </script>
@@ -304,6 +221,10 @@
     	width: 100%;
         display: flex;
         margin-bottom: 20px;
+    }
+
+    .result-list ul li:hover {
+        cursor: pointer;
     }
 
     .li-cover {

@@ -3,41 +3,24 @@
 		<div class="correlation">
 			<p>搜索相关</p>
 			<ul>
-				<li>寻梦环游记</li>
-				<li>我能说</li>
-				<li>至暗时刻</li>
-				<li>勇往直前</li>
-				<li>华盛顿邮报</li>
-				<li>熊出没之雪岭熊风</li>
+				<li 
+				    v-for="(media, index) in correlatArr"
+				    @click="playVideo(media)"
+				>
+				    {{ media.filename }}
+				</li>
 			</ul>
 		</div>
 
 		<div class="hot">
 			<p>热门搜索</p>
 			<ul>
-				<li>
-					<span class="one">1</span>
-				    寻梦环游记
-				</li>
-				<li>
-					<span class="two">2</span>
-				    我能说
-				</li>
-				<li>
-					<span class="three">3</span>
-				    至暗时刻
-				</li>
-				<li>
-					<span>4</span>
-				    勇往直前
-				</li>
-				<li>
-					<span>5</span>
-				    华盛顿邮报
-				</li>
-				<li>
-					<span>6</span>
-				    熊出没之雪岭熊风
+				<li 
+				    v-for="(media, index) in hotArr"
+				    @click="playVideo(media)"
+				>
+					<span :class="calcClass(index)">{{ index + 1 }}</span>
+				    {{ media.filename }}
 				</li>
 			</ul>
 		</div>
@@ -45,8 +28,50 @@
 </template>
 
 <script>
+	import CommonMixin from '@/mixin/common-mixin'
+
 	export default {
-		name: 'SearchContentCorrelation'
+		name: 'SearchContentCorrelation',
+		mixins: [ CommonMixin ],
+		data() {
+			return {
+				correlatArr: [],
+				hotArr: []
+			}
+		},
+		methods: {
+			async getRenderData() {
+				let a = await this.getData()
+				let b = await this.getData()
+				if (a.length >= 6) {
+					a.length = 6
+				}
+				if (b.length >= 6) {
+					b.length = 6
+				}
+				this.correlatArr = a
+				this.hotArr = b
+			},
+			getData() {
+				return new Promise((resolve, reject) => {
+					this.getRandomVideoData((data) => {
+						return resolve(data)
+					})
+				})
+			},
+			calcClass(index) {
+				switch(index) {
+					case 0:
+					    return 'one'
+					case 1:
+					    return 'two'
+				    case 2:
+				        return 'three'
+				    default: 
+				        return ''
+				}
+			}
+		}
 	}
 </script>
 
@@ -54,7 +79,7 @@
     .search-content-correlation {
 		width: 33.5%;
 		overflow: auto;
-		padding-left: 2.5%;
+		padding: 0 2.5%;
 		padding-bottom: 52px;
     }
 
@@ -75,6 +100,9 @@
 		font-size: 12.5px;
 		margin-top: 20px;
 		color: rgba(148,148,148,1);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.correlation ul li:hover,

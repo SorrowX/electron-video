@@ -1,8 +1,8 @@
 <template>
 	<transition>
 		<div class="search-content" v-show="show">
-			<search-content-result></search-content-result>
-			<search-content-correlation></search-content-correlation>
+			<search-content-result ref="resultComp"></search-content-result>
+			<search-content-correlation ref="correlationComp"></search-content-correlation>
 		</div>
 	</transition>
 </template>
@@ -20,8 +20,15 @@
 			}
 		},
 		methods: {
-			isShow(bool) {
+			isShow(bool, key) {
 				this.show = bool
+				if (bool) {
+					this.updateRenderData(key)
+				}
+			},
+			async updateRenderData(key) {
+				await this.$refs.resultComp.getRenderData(key)
+				await this.$refs.correlationComp.getRenderData(key)
 			}
 		}
 	}
