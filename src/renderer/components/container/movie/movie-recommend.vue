@@ -14,6 +14,7 @@
 					    v-for="(media, index) in arrMedia" 
 					    @click="play(media, index)" 
 					    :class="{ 'active': curMediaIndex == index }"
+					    :key="media.filename"
 					>
 						<div class="like-thumb">
 							<img :src="defaultBgImg" :data-src="media['genImgPath']" alt="">
