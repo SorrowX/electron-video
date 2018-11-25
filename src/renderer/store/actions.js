@@ -3,7 +3,9 @@ import {
 	collectVideoToCache, 
 	cancelCollectVideoInCache,
 	addVideoRecordToCache,
-	deleteVideoRecordByKeyInCache
+	deleteVideoRecordByKeyInCache,
+	addSearchKeyToCache,
+	clearSearchRecordInCache
 } from './cache'
 import { 
 	createEmptyStorageDataFile,
@@ -28,4 +30,14 @@ export const addVideoRecord = function({ commit, state }, videoData) {
 export const deleteVideoRecordByKey = function({ commit, state }, key) {
 	commit(types.DELETE_VIDEO_RECORD_BY_KEY, key)
 	deleteVideoRecordByKeyInCache(key)
+}
+
+export const addSearchKey = function({ commit, state }, searchKey) {
+	commit(types.ADD_SEARCH_KEY, searchKey)
+	addSearchKeyToCache(searchKey)
+}
+
+export const clearSearchRecord = function({ commit, state }) {
+	commit(types.CLEAR_SEARCH_RECORD)
+	clearSearchRecordInCache()
 }

@@ -8,6 +8,7 @@
 			    placeholder="请输入视频关键词..."
 			    v-model="value"
 			    @keyup.13="submit"
+			    @input="submit"
 			>
 		</div>
 		<button @click="submit">搜索</button>

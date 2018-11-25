@@ -137,7 +137,7 @@
 				let navObj
 				if (typeof this.nav === 'string') {
 					navObj = this.navArr.find((nav) => {
-						return nav['tag'] = this.nav
+						return nav['tag'] === this.nav
 					})
 				} else {
 					navObj = this.nav

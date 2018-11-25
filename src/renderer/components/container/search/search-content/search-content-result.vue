@@ -47,7 +47,7 @@
 
         <div class="nav-search-result" v-if="showNavRet">
         	<div class="nav-title">
-        		以下是 {{ renderData.tag }} 导航中的数据来源
+        		以下是 <span @click="jumpNav(renderData.tag)">{{ renderData.tag }}</span> 导航中的数据来源
         	</div>
 
 	       <div class="result-list">
@@ -96,6 +96,9 @@
 <script>
     import CommonMixin from '@/mixin/common-mixin'
     import BaseLazyLoadImg from '@/components/base/base-lazy-load-img'
+    import { 
+        SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE
+    } from '@/constant/index'
 
 	export default {
 		name: 'SearchContentResult',
@@ -129,12 +132,21 @@
         methods: {
             async getRenderData(key) {
                 await this.searchResourcesByKey(key).then((ret) => {
-                    console.log('搜索结果: ', ret)
                     this.renderData = ret
                 })
             },
             play(media) {
                 this.playVideo(media)
+            },
+            jumpNav(tag) {
+                this.$root.windowBarComponent.goBack()
+                this.insideSwitchNav('QuickView')
+                
+                let navObj = this.navArr.find((nav) => {
+                    return nav['tag'] === tag
+                })
+                
+                this.$root.$emit(SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE, navObj)
             }
         }
 	}
@@ -287,6 +299,11 @@
     	padding: 20px 0;
     	font-size: 17px;
     	color: rgba(11,190,6,1);
+    }
+
+    .nav-title>span {
+        cursor: pointer;
+        color: red;
     }
 
     /* 底部 */

@@ -40,6 +40,8 @@
     	ChannelContentMovieFooter
     }
 
+    const delayTime = 1000
+
 	export default {
 		name: 'ChannelContentMovie',
 		mixins: [ CommonMixin ],
@@ -62,10 +64,13 @@
 				let randomArr = getRandomItemFromArr(this.videoCollection, 20)
 				this.recommendObjArr = [randomArr]
 			},
-			isShow(bool, tag) {
+			isShow(bool, tag, callback) {
 				if (bool === true) {
 					this.updateRenderData(tag).then(() => {
-						this.show = true
+						setTimeout(() => {
+							callback && callback()
+							this.show = true
+						}, delayTime)
 					})
 				} else {
 					this.show = bool

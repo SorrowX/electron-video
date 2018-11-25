@@ -58,9 +58,14 @@
 						obj.rows = 2
 						let randomArr = getRandomItemFromArr(dataArr, num * 2)
 						obj.rowsObjArr = [ randomArr.slice(0, num), randomArr.slice(num) ]
-					} else if (dataArr.length <= num) {
+					} else if (dataArr.length > 0) {
 						obj.rows = 1
-						obj.rowsObjArr = [ dataArr.slice(0) ]
+						if (dataArr.length >= num) {
+							dataArr.length = num
+							obj.rowsObjArr = [ dataArr ]
+						} else {
+							obj.rowsObjArr = [ dataArr.slice(0) ]
+						}
 					}
                     ret.push(obj)
 				}
@@ -68,7 +73,7 @@
 			},
 			jumpQuickViewComponent(navName) {
 				let navObj = this.navArr.find((nav) => {
-					return nav['tag'] = navName
+					return nav['tag'] === navName
 				})
 				this.insideSwitchNav('QuickView')
 				this.$root.$emit(SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE, navObj)

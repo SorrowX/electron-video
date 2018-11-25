@@ -42,6 +42,22 @@ const mutations = {
 		if (videoRecordSet.hasOwnProperty(key)) {
 			delete videoRecordSet[key]
 		}
+	},
+
+	[types.ADD_SEARCH_KEY](state, searchKey) {
+		let searchRecord = state.searchRecord
+		let i = searchRecord.findIndex((key) => {
+			return key === searchKey
+		})
+		if (i != -1) {
+			searchRecord.splice(i, 1)
+		}
+
+		searchRecord.unshift(searchKey)
+	},
+
+	[types.CLEAR_SEARCH_RECORD](state) {
+		state.searchRecord = []
 	}
 }
 

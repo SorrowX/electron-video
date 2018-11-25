@@ -5,7 +5,7 @@
 		    v-if="allChannel.length > 0 && navArr.length > 0"
 		>
 			<base-lazy-load-img 
-			    mode="diy"
+			    mode="default"
 	            :time="300"
 	            :done="true"
 	            :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
@@ -26,7 +26,7 @@
 			</base-lazy-load-img>
 
 			<base-lazy-load-img 
-			    mode="diy"
+			    mode="default"
 	            :time="300"
 	            :done="true"
 	            :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
@@ -97,7 +97,7 @@
 					let obj = {}
 					obj.tag = nav['tag']
 					if (dataArr.length > 0) {
-						let randomArr = getRandomItemFromArr(dataArr, 1)
+						let randomArr = getRandomItemFromArr(dataArr, 2)
 						obj.thumb = randomArr[0]['genImgPath']
 					} else {
 						obj.thumb = this.defaultBgImg

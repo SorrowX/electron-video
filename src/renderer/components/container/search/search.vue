@@ -2,7 +2,7 @@
 	<transition name="search-fade">
 		<div class="search-page" v-show="show">
 			<search-header @search="handleSearch"></search-header>
-			<search-record></search-record>
+			<search-record @select-key="handleSearch"></search-record>
 			<search-content ref="searchContentComp"></search-content>
 		</div>
 	</transition>
@@ -16,6 +16,7 @@
 	import SearchHeader from './search-header/search-header'
 	import SearchRecord from './search-record/search-record'
 	import SearchContent from './search-content/search-content'
+	import { mapState, mapActions } from 'vuex'
 
 	export default {
 		name: 'Search',
@@ -46,7 +47,9 @@
 					return
 				}
 				this.$refs.searchContentComp.isShow(true, key)
-			}
+				this.addSearchKey(key)
+			},
+			...mapActions(['addSearchKey'])
 		},
 		mounted() {
 			this.$root.appSearchComponent = this

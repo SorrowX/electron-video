@@ -9,19 +9,35 @@
 		    ref="channelMovieComp"
 		>
 		</channel-content-movie>
+
+		<base-loading 
+		    v-show="loading"
+		    size="min" 
+		    :showBg="true"
+		>
+		</base-loading>
 	</div>
 </template>
 
 <script>
+	import BaseLoading from '@/components/base/base-loading'
     import ChannelContentChannel from './channel-content-channel'
     import ChannelContentMovie from './channel-content-movie/channel-content-movie'
-    const components = { ChannelContentChannel, ChannelContentMovie }
+    const components = { ChannelContentChannel, ChannelContentMovie, BaseLoading }
 	export default {
 		name: 'ChannelContent',
 		components,
+		data() {
+			return {
+				loading: false
+			}
+		},
 		methods: {
 			showDetails(channel) {
-				this.$refs.channelMovieComp.isShow(true, channel.tag)
+				this.loading = true
+				this.$refs.channelMovieComp.isShow(true, channel.tag, () => {
+					this.loading = false
+				})
 			}
 		}
 	}

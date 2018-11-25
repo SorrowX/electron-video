@@ -79,6 +79,7 @@
             }
         },
         mounted() {
+            this.$root.windowBarComponent = this
             this.$root.$on(WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE, (bool) => { // 让外部告诉当前组件是否显示 回退箭头
                 this.isShowBack = bool
             })

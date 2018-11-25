@@ -1,5 +1,5 @@
 <template>
-	<div class="base-loading">
+	<div class="base-loading" :style="bgStyle">
 		<div>
 			<div class="load-effect" :style="loadEffectDivStyle">
 				<div v-for="num in 4"><span :style="spanStyle"></span></div>
@@ -20,6 +20,10 @@
             speedProgress: {
                 type: [Number, String],
                 default: ''
+            },
+            showBg: {
+                type: Boolean,
+                default: false
             }
 		},
 		computed: {
@@ -39,6 +43,13 @@
 				}
 				return sty[this.size]
 			},
+            bgStyle() {
+                if (this.showBg) {
+                    return { 'background-color': 'rgba(52,62,70,.8)' }
+                } else {
+                    return {}
+                }
+            },
             speedProgressTip() {
                 if (typeof this.speedProgress === 'number') {
                     return this.speedProgress + '%'

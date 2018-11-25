@@ -2,7 +2,8 @@ import { local } from '../../shared/storage'
 import { getTime } from '../util/index'
 import { 
 	COLLECT_VIDEO_KEY,
-	VIDEO_RECORD_KEY
+	VIDEO_RECORD_KEY,
+	SEARCH_RECORD_ARR
 } from '../constant/index'
 
 export const getCollectVideoFromCache = function() {
@@ -57,4 +58,25 @@ export const deleteVideoRecordByKeyInCache = function(key) {
 		delete videoRecordSet[key]
 	}
 	return local.setItem(VIDEO_RECORD_KEY, videoRecordSet)
+}
+
+export const getSearchRecordFromCache = function() {
+	return local.getItem(SEARCH_RECORD_ARR, [])
+}
+
+export const addSearchKeyToCache = function(searchKey) {
+	let searchRecord = getSearchRecordFromCache()
+	let i = searchRecord.findIndex((key) => {
+		return key === searchKey
+	})
+	if (i != -1) {
+		searchRecord.splice(i, 1)
+	}
+	searchRecord.unshift(searchKey)
+
+	return local.setItem(SEARCH_RECORD_ARR, searchRecord)
+}
+
+export const clearSearchRecordInCache = function() {
+	return local.setItem(SEARCH_RECORD_ARR, [])
 }

@@ -2,40 +2,44 @@
 	<div class="search-record">
         <div class="record-operat">
             <p>最近搜索</p>
-            <div class="operat">
+            <div 
+                class="operat" v-show="!showEmptyUi"
+                @click="clearSearchRecord"
+            >
                 <i class="clear"></i>
                 清空
             </div>
         </div>
-        <div class="record-list">
-            <span>寻梦环游记</span>
-            <span>我能说</span>
-            <span>三块广告牌</span>
-            <span>至暗时刻</span>
-            <span>相爱相亲</span>
-            <span>勇往直前</span>
-            <span>釜山行</span>
-            <span>铁雨</span>
-            <span>华盛顿邮报</span>
-            <span>天才少女</span>
-            <span>西虹市首富</span>
-            <span>我不是药神</span>
-            <span>熊出没之雪岭熊风</span>
-            <span>欢乐喜剧人</span>
-            <span>唐伯虎冲上云霄</span>
-            <span>寻梦环游记</span>
-            <span>我能说</span>
-            <span>三块广告牌</span>
-            <span>至暗时刻</span>
-            <span>相爱相亲</span>
-            <span>勇往直前</span>
-        </div>
+        <transition>
+            <div class="record-list" v-if="!showEmptyUi">
+                <span 
+                    v-for="(key, index) in searchRecord"
+                    @click="$emit('select-key', key)"
+                >
+                    {{ key }}
+                </span>
+            </div>
+            <div class="record-list-empty" v-else>
+                <i class="no-result-img"></i>
+                当前暂无历史搜索纪录
+            </div>
+        </transition>
 	</div>
 </template>
 
 <script>
+    import { mapState, mapActions } from 'vuex'
 	export default {
-		name: 'SearchRecord'
+		name: 'SearchRecord',
+        computed: {
+            ...mapState(['searchRecord']),
+            showEmptyUi() {
+                return this.searchRecord.length === 0 ? true : false
+            }
+        },
+        methods: {
+            ...mapActions(['clearSearchRecord'])
+        }
 	}
 </script>
 
@@ -47,6 +51,8 @@
     	padding: 30px 32px 0 32px;
     	font-family:"Microsoft YaHei";
         overflow: auto;
+        display: flex;
+        flex-direction: column;
     }
 
     /* 滚动条控制样式 */
@@ -72,6 +78,11 @@
     	font-size: 13px;
     }
 
+    .record-list>span,
+    .operat:hover {
+        cursor: pointer;
+    }
+
     .clear {
     	display: block;
     	width: 21px;
@@ -94,5 +105,24 @@
     	background-color: rgba(60,60,65,1);
     	font-size: 13px;
     	color: rgba(204,204,204,1);
+    }
+
+    .record-list-empty {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: rgba(183,174,168,1);
+        padding-bottom: 10%;
+    }
+    .no-result-img {
+        margin-top: 30px;
+        display: block;
+        width: 120px;
+        height: 120px;
+        background-image: url(../../../../assets/waw.gif);
+        background-size: contain;
     }
 </style>
