@@ -66,6 +66,17 @@
 4. 优化首页banner加载机制
 5. 设置新增清楚当前数据按钮
 6. 新增部分基础组件
+7. 编写了部分web api get接口(为移动端页面开发做准备)
+   获取导航信息接口：
+       http://192.168.130.164:1314/get_nav_list
+   获取视频列表通过导航名称接口：
+       http://192.168.130.164:1314/get_video_list_by_nav?tag=推荐&num=10&forceUpdate=true
+   获取收藏视频接口：
+       http://192.168.130.164:1314/get_collect_video
+   获取视频记录接口：
+       http://192.168.130.164:1314/get_video_record
+   搜索视频根据搜索关键词接口
+       http://192.168.130.164:1314/search?key=http&forceUpdate=true
 ```
 #### 具体效果如下
 ![组件](./dist/screenshot/16.png)

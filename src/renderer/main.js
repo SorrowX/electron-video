@@ -9,6 +9,7 @@ import electron from 'electron'
 const ipc = electron.ipcRenderer
 
 import '../server/server'
+import { start } from '../web-server/index'
 import config from '../config/config'
 import { setZoomFactor } from './util/index'
 
@@ -44,3 +45,6 @@ window.vm = new Vue({
 	},
 	render: h => h(App)
 }).$mount('#app')
+
+// 启动webServer服务且传入vue实例
+start(window.vm)

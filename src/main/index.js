@@ -19,9 +19,16 @@ function createWindow () {
     /**
      * Initial window options
      */
+    let workAreaSize = electron.screen.getPrimaryDisplay().workAreaSize
+    let winWidth = workAreaSize.width
+    let winHeight = workAreaSize.height
+    if (winWidth >= config['windowWidth']) {
+        winWidth = config['windowWidth']
+        winHeight = config['windowHeight']
+    }
     mainWindow = new BrowserWindow({
-        minWidth: config['windowWidth'],
-        minHeight: config['windowHeight'],
+        minWidth: winWidth,
+        minHeight: winHeight,
         frame: false,
         webPreferences: {
             webSecurity: false
