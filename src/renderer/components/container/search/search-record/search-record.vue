@@ -34,7 +34,11 @@
         computed: {
             ...mapState(['searchRecord']),
             showEmptyUi() {
-                return this.searchRecord.length === 0 ? true : false
+                if (!Array.isArray(this.searchRecord)) {
+                    return true
+                } else {
+                    return this.searchRecord.length === 0 ? true : false
+                }
             }
         },
         methods: {

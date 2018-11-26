@@ -38,8 +38,6 @@
 
 <style scoped>
 	.set-up-content {
-		height: 1500px;
-
 		font-size: 17px;
 		font-weight: 100;
 		color: rgba(204,204,204, 1);

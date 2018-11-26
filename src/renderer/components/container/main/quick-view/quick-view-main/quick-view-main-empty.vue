@@ -17,13 +17,16 @@
 <style scoped>
 	/* 内容为空的 样式 */
 	.empty {
-		width: 98.5%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		background-color: rgba(39,45,49,1);
+		position: absolute;
+		top: 5%;
+		left: 5%;
+		width: 90%;
+	    height: 90%;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    background-color: rgba(39,45,49,1);
 	}
 
 	.empty p {

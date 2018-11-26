@@ -56,7 +56,7 @@
 			}
 		},
 		mounted() {
-			this.$root.$message = this
+			this.$root.$Message = this
 		}
 	}
 </script>

@@ -92,6 +92,10 @@
         overflow: auto;
 	}
 
+	.quick-view-main main {
+		position: relative;
+	}
+
 	.quick-view-main header {
 		height: 65px;
 		flex: none;

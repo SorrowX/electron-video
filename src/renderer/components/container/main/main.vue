@@ -10,16 +10,18 @@
 	        </transition>
 	    </div>
 	    <base-message></base-message>
+	    <base-tip></base-tip>
 	</div>
 </template>
 
 <script>
 	import TheSideBar from '@/components/container/main/the-side-bar/the-side-bar'
 	import BaseMessage from '@/components/base/base-message'
+	import BaseTip from '@/components/base/base-tip'
 
 	export default {
 		name: 'Main',
-		components: { TheSideBar, BaseMessage },
+		components: { TheSideBar, BaseMessage, BaseTip },
 		methods: {
 		    handlerBarNav(index, info) {
 		        this.$router.push({ path: `/${info.cls}` })

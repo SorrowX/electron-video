@@ -30,7 +30,7 @@
     		</div>
     	</div>
     	<div v-show="navArr.length === 0" class="tip">
-    		<p>当前页面暂无数据, 拖入含有视频的目录试试！</p>
+    		<p>请拖入 视频文件夹！</p>
     	</div>
     	<div class="no-result" 
     	    v-if="dynamicCalcRenderMediaData.length === 0"

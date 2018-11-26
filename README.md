@@ -58,6 +58,20 @@
 ![组件](./dist/screenshot/14.png)
 ![组件](./dist/screenshot/15.png)
 
+### 2018年11月26日
+``` bash
+1. 搜索功能编写完毕
+2. 增加了缓存机制,避免总是读取文件
+3. 部分ui添加返回按钮
+4. 优化首页banner加载机制
+5. 设置新增清楚当前数据按钮
+6. 新增部分基础组件
+```
+#### 具体效果如下
+![组件](./dist/screenshot/16.png)
+![组件](./dist/screenshot/17.png)
+![组件](./dist/screenshot/18.png)
+
 #### Build Setup
 
 ``` bash

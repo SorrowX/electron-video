@@ -6,13 +6,27 @@
 			    进入操作页面
 			    <button @click="$emit('operate-storage-page', 'OperateStorage')">Go</button>
 			</p>
+			<p>
+				刪除当前存储数据
+				<button @click="delCurStorageData">删除</button>
+			</p>
 		</div>
 	</div>
 </template>
 
 <script>
+	import { 
+		refreshData
+	} from '@/store/local'
+
 	export default {
-		name: 'SaveStorageData'
+		name: 'SaveStorageData',
+		methods: {
+			delCurStorageData() {
+				refreshData()
+				this.$root.$Tips.tip('刪除成功,数据已恢复默认数据!')
+			}
+		}
 	}
 </script>
 
@@ -33,6 +47,7 @@
 
 	.operat>p {
 		font-size: 13px;
+		margin-bottom: 13px;
 	}
 
 	.operat button {
