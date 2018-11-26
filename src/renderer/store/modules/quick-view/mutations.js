@@ -6,7 +6,12 @@ const mutations = {
 	 */
 	[types.ADD_NAV_TO_NAVARR](state, navInfo) {
 		let navArr = state.navArr
-		navArr.push(navInfo)
+		let i = navArr.find((obj) => {
+			return obj.tag === navInfo.tag
+		})
+		if (!i) {
+			navArr.unshift(navInfo)
+		}
 	},
 
 	/**

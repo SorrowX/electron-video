@@ -75,7 +75,10 @@
                 if (channelMovieComponentIsShow) {
                     channelMovieComponent.isShow(false)
                     this.isShowBack = false 
+                    return
                 }
+                
+                this.isShowBack = false 
             }
         },
         mounted() {

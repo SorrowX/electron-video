@@ -190,7 +190,8 @@ export default {
 		},
 		/*
          * 播放视频
-         * media { Object } Object: { videoUrl, videoPoster } 必须包含这2个属性
+         * media { Object } Object: { videoUrl, videoPoster, dragPlay } 必须包含videoUrl|videoPoster这2个属性
+         * dragPlay: 是否外部.mp4文件 拖拽播放
 		*/
 		playVideo(media) {
 			this.$root.$emit(WINDOW_BAR_SHOW_BACK_ARROW_MESSAGE, true)
@@ -250,6 +251,7 @@ export default {
 			'collectVideo', 
 			'cancelCollectVideo', 
 			'deleteVideoRecordByKey'
-		])
+		]),
+		...mapActions('quickView', ['addNavToNavArr', 'updateNav'])
 	}
 }

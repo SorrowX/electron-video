@@ -1,7 +1,7 @@
 <template>
 	<div class="movie-recommend">
 		<div class="you-like">猜你喜欢</div>
-		<div class="like-list">
+		<div class="like-list" v-if="arrMedia.length > 0">
 			<base-lazy-load-img 
 			    mode="default"
 		        :time="300"
@@ -9,7 +9,7 @@
 		        :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
 			    @success="handleImgSuccess" 
 			    @error="handleImgError">
-				<ul v-if="arrMedia.length > 0">
+				<ul>
 					<li 
 					    v-for="(media, index) in arrMedia" 
 					    @click="play(media, index)" 
@@ -27,6 +27,10 @@
 					</li>
 				</ul>
 			</base-lazy-load-img>
+		</div>
+		<div class="no-result">
+			<i class="no-result-img"></i>
+			暂无推荐视频
 		</div>
 	</div>
 </template>
@@ -165,5 +169,25 @@
 	.like-info p:nth-child(2) {
 		font-size: 11px;
 		color: rgba(148,148,148,1);
+	}
+
+	/* 没有结果的 样式 */
+	.no-result {
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    height: calc(100% - 120px); /* 减去底部高度 */
+	    font-size: 14px;
+	    color: rgba(183,174,168,1);
+	}
+
+	.no-result-img {
+	    margin-top: 30px;
+	    display: block;
+	    width: 100px;
+	    height: 100px;
+	    background-image: url(../../../assets/waw.gif);
+	    background-size: contain;
 	}
 </style>

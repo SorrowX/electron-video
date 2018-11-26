@@ -1,8 +1,8 @@
 <template>
 	<transition name="fade">
-    	<div class="operation-page" v-if="show" @dblclick="show = false">
+    	<div class="operation-page" v-if="show">
     		<keep-alive>
-		        <component :is="curComponnet"></component>
+		        <component :is="curComponnet" @back="show = false"></component>
 		    </keep-alive>
         </div>
 	</transition>

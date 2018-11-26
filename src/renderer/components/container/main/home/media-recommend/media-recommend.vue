@@ -1,8 +1,8 @@
 <template>
     <div class="media-recommend">
     	<div class="all-media" 
-    	    v-show="dynamicCalcRenderMediaData.length > 0 && navArr.length > 0"
     	    :style="{ 'transform': 'translate3d(' + allMediaDomTranslateX + '%, 0, 0)' }"
+    	    v-show="dynamicCalcRenderMediaData.length > 0 && navArr.length > 0"
     	    ref="allMediaDom"
     	>
     		<div 
@@ -30,7 +30,13 @@
     		</div>
     	</div>
     	<div v-show="navArr.length === 0" class="tip">
-    		<p>当前页面暂无数据, 请进入‘快速查看’页面,进行添加导航！</p>
+    		<p>当前页面暂无数据, 拖入含有视频的目录试试！</p>
+    	</div>
+    	<div class="no-result" 
+    	    v-if="dynamicCalcRenderMediaData.length === 0"
+    	>
+    	    <i class="no-result-img"></i>
+    	    <p>该导航下暂无数据 哇啊啊 ...</p>
     	</div>
     </div>
 </template>
@@ -202,5 +208,25 @@
 		align-items: center;
 		font-size: 15px;
 		color: rgba(76,174,80,.8);
+	}
+
+	/* 没有结果的 样式 */
+	.no-result {
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    height: calc(100% - 120px); /* 减去底部高度 */
+	    font-size: 14px;
+	    color: rgba(183,174,168,1);
+	}
+
+	.no-result-img {
+	    margin-top: 15%;
+	    display: block;
+	    width: 120px;
+	    height: 120px;
+	    background-image: url(../../../../../assets/waw.gif);
+	    background-size: contain;
 	}
 </style>

@@ -49,20 +49,25 @@
 				if (!bool) { // 停止播放且存一个播放记录
 					this.$refs.moviePlayComponent.stop()
 					this.setPlayTime({ curTime: 0 })
-					this.$refs.moviePlayComponent.addOneVideoRecord(this.movieInfo)
+					if (!this._dragPlay) { // 非拖拽的视频文件才存其播放记录
+						this.$refs.moviePlayComponent.addOneVideoRecord(this.movieInfo)
+					}
 				}
 			},
 			play(options) {
-				let { videoUrl, videoPoster, name } = options
+				let { videoUrl, videoPoster, name, dragPlay } = options
+				this._dragPlay = dragPlay
+
 				this.movieInfo = options
 				this.videoUrl = name || videoUrl
 				this.videoPoster = videoPoster
 				this.isShow(true)
 
 				this.$refs.moviePlayComponent.play()
-				this.setPlayTime(options['videoInfo'])
-
-				this.$refs.movieInfoComponent.updateCollectUi(this.movieInfo)
+				if (!dragPlay) {
+					this.setPlayTime(options['videoInfo'])
+					this.$refs.movieInfoComponent.updateCollectUi(this.movieInfo)
+				}
 			},
 			setPlayTime(videoInfo) {
 				if (videoInfo && typeof videoInfo['curTime'] === 'number') {

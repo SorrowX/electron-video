@@ -1,6 +1,7 @@
 <template>
 	<transition>
-		<div class="qucik-view-setting" v-show="show" @dblclick="show=false">
+		<div class="qucik-view-setting" v-show="show">
+			<div class="back" @click="show=false"></div>
 			<div class="main">
 				<div class="setting">
 					<h2 class="title">导航操作</h2>
@@ -23,9 +24,8 @@
 					</ul>
 					<div v-show="navArr.length === 0" class="tip">
 						<p>1. 当前暂无任务导航</p>
-						<p>2. 请双击隐藏该页面</p>
-						<p>3. 如需添加导航, 请点击加号添加导航</p>
-						<p>注意: 本spa应用所有操作页面均无X按钮,想关闭当前页面,双击即可(主要我太懒了)</p>
+						<p>2. 如需添加导航, 请点击加号添加导航</p>
+						<p>3. 或者拖入含有视频的目录文件夹</p>
 					</div>
 				</div>
 			</div>
@@ -162,5 +162,20 @@
 
 	.tip p {
 		margin-bottom: 2%;
+	}
+
+	/* 返回样式 */
+	.back {
+		position: absolute;
+		left: calc(50% - 14px);
+		top: 0;
+		width: 0;
+	    height: 0;
+	    border-left: 14px solid transparent;
+	    border-right: 14px solid transparent;
+	    border-top: 14px solid rgba(27,34,38,1);
+	}
+	.back:hover {
+		cursor: pointer;
 	}
 </style>

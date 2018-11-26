@@ -2,9 +2,9 @@
 	<transition>
 		<div 
 		    v-show="show"
-		    @dblclick="show=false"
 		    class="quick-view-add-or-update-nav" 
 		>
+		    <div class="back" @click="show=false"></div>
 			<div class="main">
 				<div class="option">
 					<h2 class="title">{{ calcTitleText }}</h2>
@@ -245,5 +245,20 @@
 		border-radius: 3px;
 		color: #ccc;
 		background-color: rgba(76,174,80,.5);
+	}
+
+	/* 返回样式 */
+	.back {
+		position: absolute;
+		left: calc(50% - 14px);
+		top: 0;
+		width: 0;
+	    height: 0;
+	    border-left: 14px solid transparent;
+	    border-right: 14px solid transparent;
+	    border-top: 14px solid rgba(27,34,38,1);
+	}
+	.back:hover {
+		cursor: pointer;
 	}
 </style>

@@ -1,5 +1,6 @@
 <template>
 	<div class="operate-storage">
+		<div class="back" @click="$emit('back')"></div>
 		<div class="main">
 			<div class="storage-data">
 				<span>当前 local storage 数据存储到:</span>
@@ -111,6 +112,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		position: relative;
 	}
 
 	.main {
@@ -206,5 +208,19 @@
 	.main::-webkit-scrollbar-thumb {
 	    background-color: #434648;
 	    border-radius: 10px;
+	}
+
+	.back {
+		position: absolute;
+		left: calc(50% - 14px);
+		top: 0;
+		width: 0;
+	    height: 0;
+	    border-left: 14px solid transparent;
+	    border-right: 14px solid transparent;
+	    border-top: 14px solid rgba(27,34,38,1);
+	}
+	.back:hover {
+		cursor: pointer;
 	}
 </style>
