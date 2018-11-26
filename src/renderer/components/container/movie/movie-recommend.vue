@@ -28,7 +28,7 @@
 				</ul>
 			</base-lazy-load-img>
 		</div>
-		<div class="no-result">
+		<div class="no-result" v-if="arrMedia.length === 0">
 			<i class="no-result-img"></i>
 			暂无推荐视频
 		</div>

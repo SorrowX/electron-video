@@ -46,14 +46,16 @@ const mutations = {
 
 	[types.ADD_SEARCH_KEY](state, searchKey) {
 		let searchRecord = state.searchRecord
-		let i = searchRecord.findIndex((key) => {
-			return key === searchKey
-		})
-		if (i != -1) {
-			searchRecord.splice(i, 1)
-		}
+		if (Array.isArray(searchRecord)) {
+			let i = searchRecord.findIndex((key) => {
+				return key === searchKey
+			})
+			if (i != -1) {
+				searchRecord.splice(i, 1)
+			}
 
-		searchRecord.unshift(searchKey)
+			searchRecord.unshift(searchKey)
+		}
 	},
 
 	[types.CLEAR_SEARCH_RECORD](state) {
