@@ -105,7 +105,12 @@ function getVideoRecordMap() {
  * http://192.168.130.164:1314/get_nav_list
 */
 function handlerNavList(req, res) {
-	res.end(JSON.stringify(getNavList()))
+	let navArr = []
+	if (vueInstance) {
+		let $store = vueInstance.$store
+		navArr = ($store.state.quickView && $store.state.quickView.navArr)
+	}
+	res.end(JSON.stringify(navArr))
 }
 
 /*
@@ -116,7 +121,12 @@ function handlerNavList(req, res) {
 let videoCache = Object.create({}) // 视频缓存
 function handlerVideoListByNav(req, res, urlObj) {
 	let query = urlObj.query
-	let navArr = getNavList() || []
+	let navArr = []
+	if (vueInstance) {
+		let $store = vueInstance.$store
+		navArr = ($store.state.quickView && $store.state.quickView.navArr)
+	}
+
 	let navObj = navArr.find((obj) => {
 		return obj.tag === query.tag
 	})
@@ -180,7 +190,11 @@ async function handlerSearch(req, res, urlObj) {
 	let ret = []
 
 	// 1.获取所有导航对应的数据
-	let navArr = getNavList()
+	let navArr = []
+	if (vueInstance) {
+		let $store = vueInstance.$store
+		navArr = ($store.state.quickView && $store.state.quickView.navArr)
+	}
 	let i = 0, len = navArr.length
 	for (; i < len; i++) {
 		let navObj = navArr[i]
@@ -218,25 +232,11 @@ function handlerMobilePage(req, res, urlObj) {
 	let url = urlObj.pathname
 	let fileName
 
-	/*if (process.env.NODE_ENV === 'development') { // 开发
-		if (url === '/' || url === 'mobile') {
-			fileName = path.resolve(__dirname, `../mobile/dist/index.html`)
-		} else {
-			fileName = path.resolve(__dirname, `../mobile/dist${url}`)
-		}
-	} else { // 生产
-		if (url === '/' || url === 'mobile') {
-			fileName = `${__static}/dist/index.html`
-		} else {
-			fileName = `${__static}/dist${url}`
-		}
-	}*/
 	if (url === '/' || url === 'mobile') {
 		fileName = `${__static}/dist/index.html`
 	} else {
 		fileName = `${__static}/dist${url}`
 	}
-	console.log('文件路径', fileName)
 
     let stream = fs.createReadStream(fileName)
     stream.pipe(res)

@@ -13,13 +13,13 @@ import { start } from '../web-server/index'
 import config from '../config/config'
 import { setZoomFactor } from './util/index'
 
-/*if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
 	console.log('当前是 开发环境')
 	setZoomFactor(config['developScaleFactor'])
 } else {
 	console.log('当前是 生产环境')
 	setZoomFactor(config['productionScaleFactor'])
-}*/
+}
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

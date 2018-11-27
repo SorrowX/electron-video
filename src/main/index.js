@@ -41,9 +41,9 @@ function createWindow () {
         mainWindow = null
     })
 
-    // if (config['isOpenDevTools']) {
+    if (config['isOpenDevTools']) {
         mainWindow.webContents.openDevTools() // 打开调试工具
-    // }
+    }
 }
 
 app.on('ready', createWindow)
