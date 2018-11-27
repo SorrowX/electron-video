@@ -9,3 +9,5 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 src/config/generate
+src/mobile/node_modules/*
+src/mobile/dist/*

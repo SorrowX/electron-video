@@ -4,6 +4,7 @@ import path from 'path'
 import url from 'url'
 import { getWebServerConfigInfo } from './util'
 import { loopGeneratPicture } from '../file-server/api'
+import mime from './mime'
 
 const { ip, port, address } = getWebServerConfigInfo()
 
@@ -13,9 +14,15 @@ export default function startWebServer(vue) {
 	vueInstance = vue
 	const server = http.createServer(function (req, res) {
 	    let method = req.method
-	    res.setHeader('Content-Type', 'text/plain;charset=utf-8')
-	    if (method === 'GET') {
-	    	handlerResponse(req, res, url.parse(req.url, true))
+	    let urlObj = url.parse(req.url, true)
+
+	    let ext = path.extname(urlObj.pathname)
+	    ext = ext ? ext.slice(1) : 'unknown'
+	    let contentType = mime[ext] || (urlObj.pathname === '/' ? mime['html'] :mime['txt'])
+		res.setHeader('Content-Type', `${contentType};charset=utf-8`)
+
+	    if (method === 'GET' && req.url !== '/favicon.ico') {
+	    	handlerResponse(req, res, urlObj)
 	    }
 	})
 	server.listen(port)
@@ -28,33 +35,45 @@ export default function startWebServer(vue) {
 
 
 function handlerResponse(req, res, urlObj) {
-	switch(urlObj.pathname) {
+	let key
+	if (
+		urlObj.pathname.indexOf('static') !== -1 ||
+		urlObj.pathname === '/' ||
+		urlObj.pathname === '/mobile'
+	) {
+		key = '/mobile'
+	} else {
+		key = urlObj.pathname
+	}
+	switch(key) {
+		case '/mobile':
+		    handlerMobilePage(req, res, urlObj)
+		    break
 		case '/get_nav_list':
-		   handlerNavList(req, res)
-		   break
+		    handlerNavList(req, res)
+		    break
 		case '/get_video_list_by_nav':
-		   handlerVideoListByNav(req, res, urlObj)
-		   break
+		    handlerVideoListByNav(req, res, urlObj)
+		    break
 		case '/get_collect_video':
-		   handlerCollectVideo(req, res)
-		   break
+		    handlerCollectVideo(req, res)
+		    break
 		case '/get_video_record':
-		   handlerVideoRecord(req, res)
-		   break
+		    handlerVideoRecord(req, res)
+		    break
 		case '/search':
-		   handlerSearch(req, res, urlObj)
-		   break
+		    handlerSearch(req, res, urlObj)
+		    break
 		default:
 			sendDefaultData(req, res)
 	}
 }
 
 // 获取所有导航数据
-function getNavArr() {
+function getNavList() {
 	if (vueInstance) {
 		let $store = vueInstance.$store
-		let navArr = $store.state.quickView.navArr
-		return navArr
+		return ($store.state.quickView && $store.state.quickView.navArr) || []
 	} else {
 		return []
 	}
@@ -68,6 +87,7 @@ function getCollectVideoList() {
 	} else {
 		return []
 	}
+	
 }
 
 // 获取视频记录字典
@@ -85,7 +105,7 @@ function getVideoRecordMap() {
  * http://192.168.130.164:1314/get_nav_list
 */
 function handlerNavList(req, res) {
-	res.end(JSON.stringify(getNavArr()))
+	res.end(JSON.stringify(getNavList()))
 }
 
 /*
@@ -96,7 +116,7 @@ function handlerNavList(req, res) {
 let videoCache = Object.create({}) // 视频缓存
 function handlerVideoListByNav(req, res, urlObj) {
 	let query = urlObj.query
-	let navArr = getNavArr()
+	let navArr = getNavList() || []
 	let navObj = navArr.find((obj) => {
 		return obj.tag === query.tag
 	})
@@ -160,7 +180,7 @@ async function handlerSearch(req, res, urlObj) {
 	let ret = []
 
 	// 1.获取所有导航对应的数据
-	let navArr = getNavArr()
+	let navArr = getNavList()
 	let i = 0, len = navArr.length
 	for (; i < len; i++) {
 		let navObj = navArr[i]
@@ -188,6 +208,38 @@ async function handlerSearch(req, res, urlObj) {
 		data: ret,
 		message: '数据获取成功!'
 	}))
+}
+
+/*
+ * 载入手机端页面
+ * http://192.168.130.164:1314/
+*/
+function handlerMobilePage(req, res, urlObj) {
+	let url = urlObj.pathname
+	let fileName
+
+	/*if (process.env.NODE_ENV === 'development') { // 开发
+		if (url === '/' || url === 'mobile') {
+			fileName = path.resolve(__dirname, `../mobile/dist/index.html`)
+		} else {
+			fileName = path.resolve(__dirname, `../mobile/dist${url}`)
+		}
+	} else { // 生产
+		if (url === '/' || url === 'mobile') {
+			fileName = `${__static}/dist/index.html`
+		} else {
+			fileName = `${__static}/dist${url}`
+		}
+	}*/
+	if (url === '/' || url === 'mobile') {
+		fileName = `${__static}/dist/index.html`
+	} else {
+		fileName = `${__static}/dist${url}`
+	}
+	console.log('文件路径', fileName)
+
+    let stream = fs.createReadStream(fileName)
+    stream.pipe(res)
 }
 
 function sendDefaultData(req, res) {

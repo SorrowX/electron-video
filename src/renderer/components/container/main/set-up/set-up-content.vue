@@ -11,6 +11,8 @@
 		    @operate-storage-page="changeOperateComponent"
 		>
 		</save-storage-data>
+
+		<mobile></mobile>
 	</div>
 </template>
 
@@ -18,8 +20,9 @@
     import VideoThumbOption from './set-up-content-video-thumb-option'
     import ZoomOption from './set-up-content-zoom-option'
     import SaveStorageData from './set-up-content-save-storage-data'
+    import Mobile from './set-up-content-mobile'
 
-    const components = { VideoThumbOption, ZoomOption, SaveStorageData }
+    const components = { VideoThumbOption, ZoomOption, SaveStorageData, Mobile }
 
 	export default {
 		name: 'setUpContent',
