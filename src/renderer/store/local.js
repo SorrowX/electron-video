@@ -1,5 +1,5 @@
 import path from 'path'
-import fu from '../../server/fu'
+import fu from '../../file-server/fu'
 import { local } from '../../shared/storage'
 import { getDocumentGenFileDir } from '../../shared/util'
 import store from './index'

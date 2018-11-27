@@ -10,7 +10,7 @@
     import CommonMixin from '@/mixin/common-mixin'
     import WindowBar from '@/components/window-bar/window-bar'
     import Container from '@/components/container/container'
-    import fu from '../server/fu'
+    import fu from '../file-server/fu'
     import { 
         SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE 
     } from '@/constant/index'

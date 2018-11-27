@@ -1,6 +1,6 @@
 import ip from 'ip'
 import path from 'path'
-import { encode } from '../server/util'
+import { encode } from '../file-server/util'
 
 export function getLocalIp() {
 	return ip.address()

@@ -32,7 +32,7 @@
 	const { Menu, MenuItem } = remote
     import BaseLazyLoadImg from '../../../../base/base-lazy-load-img'
     import CommonMixin from '@/mixin/common-mixin'
-    import fu from '../../../../../../server/fu'
+    import fu from '../../../../../../file-server/fu'
 
 	export default {
 		name: 'QuickViewMainContent',

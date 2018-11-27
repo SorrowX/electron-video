@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import url from 'url'
 import { getWebServerConfigInfo } from './util'
-import { loopGeneratPicture } from '../server/api'
+import { loopGeneratPicture } from '../file-server/api'
 
 const { ip, port, address } = getWebServerConfigInfo()
 

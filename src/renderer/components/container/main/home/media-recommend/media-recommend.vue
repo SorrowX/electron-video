@@ -48,7 +48,7 @@
     import { 
     	SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE
     } from '@/constant/index'
-    import fu from '../../../../../../server/fu'
+    import fu from '../../../../../../file-server/fu'
 
     const components = { MediaRecommendInfo, MediaRecommendOperation }
     const ALL_MEDIA_COUNTS = 2

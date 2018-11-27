@@ -1,4 +1,4 @@
-import { getResource, screenshot, loopGeneratPicture } from '../server/api.js'
+import { getResource, screenshot, loopGeneratPicture } from '../file-server/api.js'
 
 /**
  * 根据指定绝对路径文件夹,找出该文件夹下所有.mp4和.jpg文件,并返回

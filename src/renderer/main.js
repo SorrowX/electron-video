@@ -8,7 +8,7 @@ import store from './store'
 import electron from 'electron'
 const ipc = electron.ipcRenderer
 
-import '../server/server'
+import '../file-server/server'
 import { start } from '../web-server/index'
 import config from '../config/config'
 import { setZoomFactor } from './util/index'
