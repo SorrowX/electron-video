@@ -3,10 +3,7 @@
 - quick start
 
 ``` bash
-git clone https://github.com/wangdahoo/vonic-webpack-starter.git
-cd vonic-webpack-starter
-npm install -g yarn
-yarn
+一个基于vonic ui的移动端项目
 ```
 
 - development

@@ -1,7 +1,12 @@
 <template>
     <div class="page">
         <div class="page-content text-center" v-nav="{ title: 'Home', hideNavbar: true}">
-            <search v-model="keywords" placeholder="输入关键字" :on-search="onSearch" :on-cancel="onCancel"></search>
+            <search 
+                v-model="keywords" 
+                placeholder="输入关键字" 
+                :on-search="onSearch" 
+                :on-cancel="onCancel">
+            </search>
 
             <swiper 
                 ref="swiper" 
@@ -32,7 +37,7 @@
             </swiper>
 
             <div class="nav-cell">
-                <cells id="cells" :items="entrances" :on-cell-click="onCellClick" row="2"></cells>
+                <cells id="cells" :items="entrances" :on-cell-click="jumpPage" row="1"></cells>
             </div>
 
             <div class="movie-list">
@@ -378,38 +383,37 @@
     </div>
 </template>
 <script>
-  export default {
-      data () {
-          return {
-              keywords: '',
-              entrances: [
-                  '<div class="entrance assertive"><i class="icon ion-ios-film"></i><br><span>视频</span></div>',
-                  '<div class="entrance energized"><i class="icon ion-ios-heart"></i><br><span>收藏</span></div>',
-                  '<div class="entrance balanced"><i class="icon ion-ios-time"></i><br><span>记录</span></div>',
-                  '<div class="entrance positive"><i class="icon ion-ios-search"></i><br><span>搜索</span></div>'
-              ]
-          }
-      },
-      methods: {
-          onSearch(keywords) {
-              console.log('onSearch', this.keywords)
-          },
+    export default {
+        data () {
+            return {
+                keywords: '',
+                entrances: [
+                    '<div class="entrance assertive"><i class="icon ion-ios-film"></i><br><span>视频</span></div>',
+                    '<div class="entrance energized"><i class="icon ion-ios-heart"></i><br><span>收藏</span></div>',
+                    '<div class="entrance balanced"><i class="icon ion-ios-time"></i><br><span>记录</span></div>'
+                ]
+            }
+        },
+        methods: {
+            onSearch(keywords) {
+                console.log('onSearch', this.keywords)
+            },
 
-          onCancel() {
-              this.keywords = ''
-              console.log('onCancel', this.keywords)
-          },
+            onCancel() {
+                this.keywords = ''
+                console.log('onCancel', this.keywords)
+            },
 
-          onClick() {
-              console.log('点我干嘛')
-          },
+            onClick() {
+                console.log('点我干嘛')
+            },
 
-          onCellClick(index) {
-              console.log('hi', index)
-              this.$router.push('/about')
-          }
-      }
-  }
+            jumpPage(index) {
+                let routePath = ['/nav_list', '/collect_list', '/record_list']
+                this.$router.push(routePath[index])
+            }
+        }
+    }
 </script>
 
 <style>
@@ -512,7 +516,7 @@
     }
 
     .dot {
-        background-image: url(../assets/dot.png);
+        background-image: url(../../assets/dot.png);
         background-size: 14px 14px;
         width: 14px;
         height: 14px;
