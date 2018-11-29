@@ -114,6 +114,7 @@ async function getFileResource(folderPath, direct) {
  *    options.imgTimeout: { Number } 生成每个图片的超时时间
  *    options.imgExtName: { String } 生成每个图片的后缀名
  *    options.existImg: { Array } 按照给出的图片后缀寻找该图片是否存在本地文件中
+ *    options.direct: { Boolean } 默认直接从系统文件夹中读取
  * @return
  *    promise 
  *        resolve imgPath: { 生成好的图片地址 }
@@ -135,17 +136,19 @@ export async function loopGeneratPicture(options) {
 		errorImgPath = '',
 		imgTimeout = 3 * 1000,
 		imgExtName = '.png',
-		existImg = ['.png', '.jpg'],
+		existImg = ['.png', '.jpg', '.gif'],
 		forceUpdate = false,
+		direct = true,
 		callback = function() {}
 	} = options
 
-	await getFileResource(videoResourcePath, true) // 获取视频资源且放入缓存中
+	await getFileResource(videoResourcePath, direct) // 直接从文件夹获取
 	let resource = cache[videoResourcePath]
 
 	let ret
 	if (resource.length <= num || num === 0) {
 		ret = resource
+		cache[videoResourcePath] = []
 	} else {
 		ret = resource.splice(0, num)
 	}

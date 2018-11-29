@@ -1,9 +1,6 @@
 import axios from 'axios'
-import { getWebServerConfigInfo } from '../../../web-server/util'
 
-let {ip, port, address} = getWebServerConfigInfo()
-
-console.log('address: ', address)
+let address = 'http://192.168.130.164:1314'
 
 function getData(url) {
     return axios.get(url)

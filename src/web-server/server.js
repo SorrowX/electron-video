@@ -13,6 +13,7 @@ let vueInstance = null
 export default function startWebServer(vue) {
 	vueInstance = vue
 	const server = http.createServer(function (req, res) {
+		res.setHeader('Access-Control-Allow-Origin', '*') 
 	    let method = req.method
 	    let urlObj = url.parse(req.url, true)
 
@@ -110,7 +111,11 @@ function handlerNavList(req, res) {
 		let $store = vueInstance.$store
 		navArr = ($store.state.quickView && $store.state.quickView.navArr)
 	}
-	res.end(JSON.stringify(navArr))
+	res.end(JSON.stringify({
+		code: 0,
+		data: navArr,
+		message: '获取成功'
+	}))
 }
 
 /*
