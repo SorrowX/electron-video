@@ -3,9 +3,33 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>mobile</title>
+    <script>
+      (function(doc, win) {
+        var designWidth = 750,
+            htmlFontSizeVal = 100,
+            docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+              var clientWidth = docEl.clientWidth
+              if (!clientWidth) return
+              if (clientWidth >= designWidth) {
+                docEl.style.fontSize = htmlFontSizeVal + 'px'
+              } else if (clientWidth <= designWidth / 2) {
+              docEl.style.fontSize = htmlFontSizeVal / 2 + 'px'
+              }else {
+                docEl.style.fontSize = ((clientWidth / designWidth) * htmlFontSizeVal) + 'px'
+              }
+            }
+
+        if (!doc.addEventListener) return
+        win.addEventListener(resizeEvt, recalc, false)
+        doc.addEventListener('DOMContentLoaded', recalc, false)
+        recalc()
+      })(document, window)
+    </script>
   </head>
   <body>
     <noscript>
