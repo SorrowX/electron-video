@@ -1,16 +1,19 @@
 <template>
 	<div class="home">
 		<home-header></home-header>
-		<main></main>
+		<main>
+			<home-nav></home-nav>
+		</main>
 	</div>
 </template>
 
 <script>
     import HomeHeader from './home-header'
+    import HomeNav from './home-nav'
 
 	export default {
 		name: 'Home',
-		components: { HomeHeader }
+		components: { HomeHeader, HomeNav }
 	}
 </script>
 
