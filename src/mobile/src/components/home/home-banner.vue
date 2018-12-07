@@ -16,14 +16,16 @@
 
 <style scoped>
 	.home-banner {
+		width: 100%;
 		height: 4.2rem;
 		position: relative;
 		background: #FAFAFA;
+		overflow: hidden;
 	}
 
 	.home-banner img {
 		width: 100%;
-		height: auto;
+		height: 100%;
 		background-size: contain;
 	}
 

@@ -4,6 +4,7 @@
 		<main>
 			<home-nav></home-nav>
 			<home-banner></home-banner>
+			<home-list></home-list>
 		</main>
 	</div>
 </template>
@@ -12,10 +13,11 @@
     import HomeHeader from './home-header'
     import HomeNav from './home-nav'
     import HomeBanner from './home-banner'
+    import HomeList from './home-list'
 
 	export default {
 		name: 'Home',
-		components: { HomeHeader, HomeNav, HomeBanner }
+		components: { HomeHeader, HomeNav, HomeBanner, HomeList }
 	}
 </script>
 
