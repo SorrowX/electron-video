@@ -17,3 +17,24 @@ a {
 ul, li {
 	list-style: none;
 }
+
+/* transition 默认动画 */
+.v-enter-active, .v-leave-active {
+    transition: opacity .35s ease;
+}
+.v-enter, .v-leave-to {
+    opacity: 0;
+}
+
+.img-success {
+    animation: fadeIn 1s ease-out 0.1s 1 both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

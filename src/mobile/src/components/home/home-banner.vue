@@ -1,16 +1,22 @@
 <template>
 	<div class="home-banner">
-        <img src="http://r1.ykimg.com/050C00005BFE8EE4AD9AB73BF70D2121" alt="">
-        <div class="vip">VIP</div>
+        <img :src="videoInfo['imgUrl']" alt="">
+        <div class="identifier">LOVE</div>
         <div class="title">
-        	火王之破晓之战
+        	{{ videoInfo['filename'] }}
         </div>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'HomeBanner'
+		name: 'HomeBanner',
+		props: {
+		    videoInfo: { // 接口返回数组中的视频对象
+		        type: Object,
+		        default: function() { return {} }
+		    }
+		},
 	}
 </script>
 
@@ -19,7 +25,6 @@
 		width: 100%;
 		height: 4.2rem;
 		position: relative;
-		background: #FAFAFA;
 		overflow: hidden;
 	}
 
@@ -29,8 +34,8 @@
 		background-size: contain;
 	}
 
-	.vip {
-		width: 28px;
+	.identifier {
+		width: 38px;
 		height: 16px;
 		display: flex;
 		justify-content: center;

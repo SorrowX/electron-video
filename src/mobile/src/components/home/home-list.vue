@@ -1,90 +1,83 @@
 <template>
 	<div class="home-list">
+        <base-lazy-load 
+            mode="default"
+            :time="300"
+            :done="true"
+            :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
+        >
 		<ul>
-			<li>
+			<li v-for="(video, index) in renderList">
 				<div class="cover">
-                    <img src="http://r1.ykimg.com/050C00005BFE61C8ADA80C3FB0005C6F" alt="">
-                    <div class="vip">VIP</div>
-                    <div class="message">更新至第40集</div>         
+                    <img :src="defaultBgImg" :data-src="video['imgUrl']">
+                    <div class="identifier" v-if="isShowIdentifier">LOVE</div>
+                    <div class="message">电影</div>         
                 </div>
-                <p class="title">回到明朝当王爷之杨凌传回到明朝当王爷之杨凌传</p>
-                <p class="info">播放6.8亿 · 评论13.2万</p>
+                <p class="title">{{ video['filename'] }}</p>
+                <p class="info">{{ video['dir'] }}</p>
 			</li>
-			<li>
-                <div class="cover">
-                    <img src="http://r1.ykimg.com/050C00005BFE61C8ADA80C3FB0005C6F" alt="">
-                    <div class="vip">VIP</div>
-                    <div class="message">更新至第40集</div>         
-                </div>
-                <p class="title">回到明朝当王爷之杨凌传回到明朝当王爷之杨凌传</p>
-                <p class="info">播放6.8亿 · 评论13.2万</p>
-            </li>
-            <li>
-                <div class="cover">
-                    <img src="http://r1.ykimg.com/050C00005BFE61C8ADA80C3FB0005C6F" alt="">
-                    <div class="vip">VIP</div>
-                    <div class="message">更新至第40集</div>         
-                </div>
-                <p class="title">回到明朝当王爷之杨凌传回到明朝当王爷之杨凌传</p>
-                <p class="info">播放6.8亿 · 评论13.2万</p>
-            </li>
-            <li>
-                <div class="cover">
-                    <img src="http://r1.ykimg.com/050C00005BFE61C8ADA80C3FB0005C6F" alt="">
-                    <div class="vip">VIP</div>
-                    <div class="message">更新至第40集</div>         
-                </div>
-                <p class="title">回到明朝当王爷之杨凌传回到明朝当王爷之杨凌传</p>
-                <p class="info">播放6.8亿 · 评论13.2万</p>
-            </li>
-            <li>
-                <div class="cover">
-                    <img src="http://r1.ykimg.com/050C00005BFE61C8ADA80C3FB0005C6F" alt="">
-                    <div class="vip">VIP</div>
-                    <div class="message">更新至第40集</div>         
-                </div>
-                <p class="title">回到明朝当王爷之杨凌传回到明朝当王爷之杨凌传</p>
-                <p class="info">播放6.8亿 · 评论13.2万</p>
-            </li>
-            <li>
-                <div class="cover">
-                    <img src="http://r1.ykimg.com/050C00005BFE61C8ADA80C3FB0005C6F" alt="">
-                    <div class="vip">VIP</div>
-                    <div class="message">更新至第40集</div>         
-                </div>
-                <p class="title">回到明朝当王爷之杨凌传回到明朝当王爷之杨凌传</p>
-                <p class="info">播放6.8亿 · 评论13.2万</p>
-            </li>
 		</ul>
+        </base-lazy-load>
 	</div>
 </template>
 
 <script>
+    import BaseLazyLoad from '@/components/base/base-lazy-load-img'
+    import { getRandomItemFromArr } from '@/common/js/util/index'
+    const defaultBgImg = require('../../assets/video-defaultpic.png')
+
 	export default {
-		name: 'HomeList'
+		name: 'HomeList',
+        components: { BaseLazyLoad },
+        props: {
+            videoList: { // 接口返回的视频对象数组
+                type: Array,
+                default: function() { return [] }
+            },
+            num: { // 显示几个视频
+                type: Number,
+                default: 2
+            },
+            isRandom: { // 是否从videoList中随机选取num个视频
+                type: Boolean,
+                default: true
+            },
+            isShowIdentifier: { // 是否显示标识符
+                type: Boolean,
+                default: false
+            }
+        },
+        data() {
+            return {
+                defaultBgImg
+            }
+        },
+        computed: {
+            renderList() {
+                return this.isRandom
+                    ? getRandomItemFromArr(this.videoList, this.num)
+                    : this.videoList.slice(0, num)
+            }
+        }
 	}
 </script>
 
 <style scoped>
-    .home-list {
-
-    }
+    .home-list {  }
 
     .home-list ul {
     	width: 100%;
     	display: flex;
     	flex-wrap: wrap;
-    	/*border: 1px solid #ccc;*/
     }
 
     .home-list ul li {
     	width: 50%;
-    	background: #FAFAFA;
     	overflow: hidden;
     }
 
     .home-list ul li>.cover {
-        width: 3.72rem;
+        width: 100%;
         height: 2.1rem;
         background: #FAFAFA;
         overflow: hidden;
@@ -105,12 +98,14 @@
     }
 
     .home-list ul li>.title {
+        min-height: 18px;
         margin-top: 0.2rem;
         font-size: 14px;
         color: #000;
     }
 
     .home-list ul li>.info {
+        min-height: 16px;
         margin-bottom: 0.4rem;
         font-size: 12px;
         color: #999999;
@@ -126,8 +121,9 @@
     	padding-left: 0.03rem;
     }
 
-    .vip {
-        width: 28px;
+    /* 标识符 */
+    .identifier {
+        width: 38px;
         height: 16px;
         display: flex;
         justify-content: center;
@@ -143,9 +139,12 @@
 
     .message {
         position: absolute;
-        right: 0px;
-        bottom: 2px;
+        right: 0.03rem;
+        bottom: 0.03rem;
         font-size: 10px;
         color: #F2F2F2;
+    }
+    .home-list ul li:nth-child(odd) .message {
+        right: 0.06rem;
     }
 </style>

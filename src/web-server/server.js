@@ -173,7 +173,11 @@ function handlerVideoListByNav(req, res, urlObj) {
  * http://192.168.130.164:1314/get_collect_video
 */
 function handlerCollectVideo(req, res) {
-	res.end(JSON.stringify(getCollectVideoList()))
+	res.end(JSON.stringify({
+		code: 0,
+		data: getCollectVideoList(),
+		message: '数据获取成功!'
+	}))
 }
 
 /*

@@ -17,8 +17,8 @@
               if (!clientWidth) return
               if (clientWidth >= designWidth) {
                 docEl.style.fontSize = htmlFontSizeVal + 'px'
-              } else if (clientWidth <= designWidth / 2) {
-              docEl.style.fontSize = htmlFontSizeVal / 2 + 'px'
+              } else if (clientWidth < 320) {
+                docEl.style.fontSize = htmlFontSizeVal / 2 + 'px'
               }else {
                 docEl.style.fontSize = ((clientWidth / designWidth) * htmlFontSizeVal) + 'px'
               }
