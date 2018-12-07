@@ -1,7 +1,7 @@
 <template>
 	<div class="nav">
-		<div class="nav-box">
-			<ul>
+		<div class="nav-box" ref="wrapper">
+			<ul ref="scroller">
 				<li class="active">首页</li>
 				<li>会员</li>
 				<li>直播</li>
@@ -22,8 +22,56 @@
 </template>
 
 <script>
+    function getAllLiWidth(aLiDoms) {
+    	let w = 0
+    	let arr = Array.prototype.slice.call(aLiDoms)
+    	arr.forEach((li) => {
+    		let style = window.getComputedStyle(li, null)
+    		let width = parseInt(style['width'])
+    		let marginLeft = parseInt(style['marginLeft'])
+    		let marginRight = parseInt(style['marginRight'])
+    		w += (width + marginLeft + marginRight)
+    	})
+    	return  w
+    }
+
 	export default {
 		name: 'HomeNav',
+		methods: {
+			initTouch() {
+				if (!this.at) {
+					let target = this.$refs.scroller
+					let wrapper = this.$refs.wrapper
+					this.Transform(target, true)
+
+					this.at = new this.AlloyTouch({
+			            touch: wrapper, //反馈触摸的dom
+			            vertical: false, //不必需，默认是true代表监听竖直方向touch
+			            target: target, //运动的对象
+			            property: 'translateX',  //被运动的属性
+			            sensitivity: 1, //不必需,触摸区域的灵敏度，默认值为1，可以为负数
+			            min: getMin(), //不必需,滚动属性的最小值
+			            max: 0,
+			            change: function (v) {
+			                // console.log(v)
+			            },
+			            animationEnd: function (value) {
+			                // console.log('运动结束： ', value)
+			            }
+					})
+                    
+                    function getMin() {
+                    	let allLiWidth = getAllLiWidth(target.children)
+                    	let ulWidth = parseInt(window.getComputedStyle(wrapper, null)['width'])
+                    	console.log(ulWidth, allLiWidth)
+                    	return ulWidth - allLiWidth
+                    }
+				}
+			}
+		},
+		mounted() {
+			this.initTouch()
+		}
 	}
 </script>
 
@@ -55,6 +103,9 @@
 	}
 	.nav-box ul li:nth-child(1) {
 		margin-left: 0;
+	}
+	.nav-box ul li:last-child {
+		margin-right: 0;
 	}
 	.active {
 		color: #2692FF;
