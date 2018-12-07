@@ -3,6 +3,7 @@
 		<home-header></home-header>
 		<main>
 			<home-nav></home-nav>
+			<home-banner></home-banner>
 		</main>
 	</div>
 </template>
@@ -10,10 +11,11 @@
 <script>
     import HomeHeader from './home-header'
     import HomeNav from './home-nav'
+    import HomeBanner from './home-banner'
 
 	export default {
 		name: 'Home',
-		components: { HomeHeader, HomeNav }
+		components: { HomeHeader, HomeNav, HomeBanner }
 	}
 </script>
 

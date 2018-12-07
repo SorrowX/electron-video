@@ -2,26 +2,29 @@
 	<div class="nav">
 		<div class="nav-box" ref="wrapper">
 			<ul ref="scroller">
-				<li class="active">首页</li>
-				<li>会员</li>
-				<li>直播</li>
-				<li>我的剧场</li>
-				<li>剧集</li>
-				<li>电影</li>
-				<li>综艺</li>
-				<li>音乐</li>
-				<li>动漫</li>
-				<li>少儿</li>
-				<li>资源</li>
+				<li 
+				    v-for="(nav, index) in navList"
+				    :class="{ active: index === navCurIndex }"
+				    :key="index"
+				    v-finger:tap="tapNav(nav, index)"
+				>
+			        {{ nav.tag }}
+			    </li>
 			</ul>
 		</div>
-		<div class="nav-arrow">
-			<i class="nav-arrow-icon"></i>
+		<div
+		    class="nav-arrow"
+		    v-finger:tap="tapArrow"
+		>
+			<i :class="arrowClass"></i>
 		</div>
 	</div>
 </template>
 
 <script>
+    import { getNavListFromApi } from '@/api/api'
+    import { NAV_LIST } from '@/common/js/constants/index'
+
     function getAllLiWidth(aLiDoms) {
     	let w = 0
     	let arr = Array.prototype.slice.call(aLiDoms)
@@ -37,7 +40,32 @@
 
 	export default {
 		name: 'HomeNav',
+		data() {
+			return {
+				navList: NAV_LIST,
+				navCurIndex: 0,
+				openMenu: false
+			}
+		},
+		computed: {
+			arrowClass() {
+				return {
+					'nav-arrow-down-icon': !this.openMenu, 
+					'nav-arrow-up-icon': this.openMenu
+				}
+			}
+		},
 		methods: {
+			tapNav(nav, index) {
+				return () => {
+					this.navCurIndex = index
+					console.log(nav)
+				}
+			},
+			tapArrow() {
+				this.openMenu = !this.openMenu
+				this.$emit('open-menu', this.openMenu)
+			},
 			initTouch() {
 				if (!this.at) {
 					let target = this.$refs.scroller
@@ -63,14 +91,32 @@
                     function getMin() {
                     	let allLiWidth = getAllLiWidth(target.children)
                     	let ulWidth = parseInt(window.getComputedStyle(wrapper, null)['width'])
-                    	console.log(ulWidth, allLiWidth)
                     	return ulWidth - allLiWidth
                     }
 				}
+			},
+			async getNavList() {
+				if (!this.cacheNavList) {
+					this.cacheNavList = []
+					let navRet = await getNavListFromApi()
+					if (navRet.status === 200 && navRet.data.code === 0) {
+						this.cacheNavList = navRet.data.data 
+					}
+					return this.cacheNavList
+				} else {
+					return this.cacheNavList
+				}
+			},
+			async init() {
+				let navList = await this.getNavList()
+				this.navList = this.navList.concat(navList)
+				this.$nextTick(() => {
+					this.initTouch()
+				})
 			}
 		},
 		mounted() {
-			this.initTouch()
+			this.init()
 		}
 	}
 </script>
@@ -91,7 +137,6 @@
     	display: flex;
     	align-items: center;
     	overflow: hidden;
-    	overflow-x: auto;
     }
 	.nav-box ul {
 		/*border: 1px solid red;*/
@@ -100,17 +145,18 @@
 	.nav-box ul li {
 		flex: none;
 		margin: 0 12px;
+		border-bottom: 2px solid transparent;
 	}
 	.nav-box ul li:nth-child(1) {
 		margin-left: 0;
 	}
 	.nav-box ul li:last-child {
-		margin-right: 0;
+		margin-right: 5px;
 	}
 	.active {
 		color: #2692FF;
-		border-bottom: 2px solid #2692FF;
-		font-weight: bold;
+		border-bottom: 2px solid #2692FF!important;
+		/*font-weight: bold;*/
 	}
 
 	.nav-arrow {
@@ -123,11 +169,17 @@
 		/*border: 1px solid green;*/
 	}
 
-	.nav-arrow-icon {
+	.nav-arrow-up-icon,
+	.nav-arrow-down-icon {
 		display: flex;
 		width: 22px;
 		height: 22px;
-		background-image: url(../../assets/arrow.png);
 		background-size: contain;
+	}
+	.nav-arrow-up-icon {
+		background-image: url(../../assets/arrow-up.png);
+	}
+	.nav-arrow-down-icon {
+		background-image: url(../../assets/arrow-down.png);
 	}
 </style>

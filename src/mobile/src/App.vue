@@ -9,6 +9,7 @@
 <style scoped>
     #app {
         max-width: 7.5rem;
+        min-width: 6.4rem;
         margin: 0 auto;
     }
 </style>
