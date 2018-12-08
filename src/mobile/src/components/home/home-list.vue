@@ -7,7 +7,7 @@
             :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
         >
 		<ul>
-			<li v-for="(video, index) in renderList">
+			<li v-for="(video, index) in renderList" :key="video['filename']">
 				<div class="cover">
                     <img :src="defaultBgImg" :data-src="video['imgUrl']">
                     <div class="identifier" v-if="isShowIdentifier">LOVE</div>
@@ -54,8 +54,9 @@
         },
         computed: {
             renderList() {
+                let num = this.videoList.length >= this.num ? this.num : this.videoList.length
                 return this.isRandom
-                    ? getRandomItemFromArr(this.videoList, this.num)
+                    ? getRandomItemFromArr(this.videoList, num)
                     : this.videoList.slice(0, num)
             }
         }

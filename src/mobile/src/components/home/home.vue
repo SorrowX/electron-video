@@ -12,6 +12,8 @@
 			<home-collect
 			    :videoList="collectVideoList"
 			></home-collect>
+
+			<home-channel></home-channel>
 		</main>
 	</div>
 </template>
@@ -21,12 +23,13 @@
     import HomeNav from './home-nav'
     import HomeBanner from './home-banner'
     import HomeCollect from './home-collect'
+    import HomeChannel from './home-channel'
 
     import { getCollectVideoListFromApi } from '@/api/api'
 
 	export default {
 		name: 'Home',
-		components: { HomeHeader, HomeNav, HomeBanner, HomeCollect },
+		components: { HomeHeader, HomeNav, HomeBanner, HomeCollect, HomeChannel },
 		data() {
 			return {
 				bannerVideoInfo: {},
@@ -40,7 +43,6 @@
             		let arr = ret.data.data
             		this.bannerVideoInfo = arr.splice(0, 1)[0]
                     this.collectVideoList = arr
-	            	// console.log(this.bannerVideoInfo, this.collectVideoList)
             	}
             }
 		},

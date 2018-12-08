@@ -29,7 +29,7 @@
 		left: 0;
 		right: 0;
 		margin: auto;
-		z-index: 9999;
+		z-index: 10;
 		background-color: #fff;
 	}
 
