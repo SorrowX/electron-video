@@ -7,7 +7,8 @@
 		>
 		    <dt>
 		    	<i class="refresh" v-finger:tap="refreshChannelData(channelTag)"></i>
-		    	<span v-finger:tap="clickChannel(channelTag)">{{ channelTag }}</span>
+		    	<span v-finger:tap="refreshChannelData(channelTag)">{{ channelTag }}</span>
+		    	<p v-finger:tap="clickChannel(channelTag)">更多</p>
 		    </dt>
 		    <dd>
 		    	<home-list
@@ -112,7 +113,12 @@
 			},
 			clickChannel(channelTag) {
 				return () => {
-					alert(channelTag)
+					this.$router.push({
+						name: 'video_list',
+						params: {
+							tag: channelTag
+						}
+					})
 				}
 			}
 		},
@@ -139,6 +145,14 @@
 		z-index: 9;
 		background: rgba(255,255,255,0.9);
 	}
+
+	.home-channel dl dt p {
+		position: absolute;
+		right: 10px;
+		top: 15px;
+		font-size: 14px;
+	}
+	
 
 	.home-channel dl dd {}
 

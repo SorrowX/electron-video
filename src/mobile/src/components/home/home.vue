@@ -1,21 +1,25 @@
 <template>
-	<div class="home">
-		<home-header></home-header>
-		<main>
-			<home-nav></home-nav>
+	<transition name="slide">
+		<div class="home">
+			<home-header></home-header>
+			<main>
+				<home-nav></home-nav>
 
-			<home-banner
-			    :videoInfo="bannerVideoInfo"
-			>
-			</home-banner>
+				<home-banner
+				    :videoInfo="bannerVideoInfo"
+				>
+				</home-banner>
 
-			<home-collect
-			    :videoList="collectVideoList"
-			></home-collect>
+				<home-collect
+				    :videoList="collectVideoList"
+				></home-collect>
 
-			<home-channel></home-channel>
-		</main>
-	</div>
+				<home-channel></home-channel>
+			</main>
+
+			<router-view />
+		</div>
+	</transition>
 </template>
 
 <script>
@@ -24,7 +28,6 @@
     import HomeBanner from './home-banner'
     import HomeCollect from './home-collect'
     import HomeChannel from './home-channel'
-
     import { getCollectVideoListFromApi } from '@/api/api'
 
 	export default {
@@ -53,9 +56,24 @@
 </script>
 
 <style scoped>
+    .home {
+    	position: absolute;
+    	left: 0;
+    	top: 0;
+    	right: 0;
+    }
+
 	main {
 		position: relative;
-		top: 44px;
+		top: 0;
 		left: 0;
+	}
+
+	.slide-enter-active, .slide-leave-active {
+        transition: all .35s ease;
+	}
+	.slide-enter, .slide-leave-to {
+	    /*opacity: 0;*/
+	    transform: translate3d(-100%, 0, 0);
 	}
 </style>

@@ -24,12 +24,12 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 0.24rem;
-		position: fixed;
+		position: sticky;
 		top: 0;
 		left: 0;
 		right: 0;
 		margin: auto;
-		z-index: 10;
+		z-index: 9999;
 		background-color: #fff;
 	}
 
