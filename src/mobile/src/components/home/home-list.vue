@@ -6,17 +6,17 @@
             :done="true"
             :position="{ top: 0, right: 0, bottom: 0, left: 0 }"
         >
-		<ul>
-			<li v-for="(video, index) in renderList" :key="video['filename']">
-				<div class="cover">
-                    <img :src="defaultBgImg" :data-src="video['imgUrl']">
-                    <div class="identifier" v-if="isShowIdentifier">LOVE</div>
-                    <div class="message">电影</div>         
-                </div>
-                <p class="title">{{ video['filename'] }}</p>
-                <p class="info">{{ video['dir'] }}</p>
-			</li>
-		</ul>
+    		<ul>
+    			<li v-for="(video, index) in renderList" :key="video['filename']">
+    				<div class="cover">
+                        <img :src="defaultBgImg" :data-src="video['imgUrl']">
+                        <div class="identifier" v-if="isShowIdentifier">LOVE</div>
+                        <div class="message">电影</div>         
+                    </div>
+                    <p class="title">{{ video['filename'] }}</p>
+                    <p class="info">{{ video['dir'] }}</p>
+    			</li>
+    		</ul>
         </base-lazy-load>
 	</div>
 </template>

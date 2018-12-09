@@ -1,30 +1,29 @@
 <template>
 	<transition name="slide">
 		<div class="video-list">
-			<div class="test">
-				<button v-finger:tap="tap">返回(浏览器返回)</button>
+			<base-back :title="tag"></base-back>
+			<div class="list">
+				<classic-video-list :tag="tag"></classic-video-list>
 			</div>
-			<div class="test">
-				<button v-finger:tap="tap2">返回 (路由跳转)</button>
-			</div>
-			<div class="test">3</div>
-			<div class="test">4</div>
-			<div class="test">5</div>
-			<div class="test">6</div>
 		</div>
 	</transition>
 </template>
 
 <script>
+    import BaseBack from '@/components/base/base-back'
+    import ClassicVideoList from './classic-video-list'
+
 	export default {
 		name: 'VideoList',
+		components: { BaseBack, ClassicVideoList },
 		data() {
 			return {
+				tag: ''
 			}
 		},
 		beforeRouteEnter (to, from, next) {
 			next((vm) => {
-				// console.log(vm.$route)
+				vm.tag = vm.$route.params.tag
 			})
 		},
 		beforeRouteLeave (to, from, next) {
@@ -50,31 +49,12 @@
 		left: 0;
 		top: 0;
 		right: 0;
-		background-color: #f60;
 		z-index: 20;
 	}
 
-	.test {
-		height: 300px;
-		background-color: currentColor;
-	}
-	.test:nth-child(1) {
-		background-color: #eee;
-	}
-	.test:nth-child(2) {
-		background-color: #ccc;
-	}
-	.test:nth-child(3) {
-		background-color: #f60;
-	}
-	.test:nth-child(4) {
-		background-color: green;
-	}
-	.test:nth-child(5) {
-		background-color: red;
-	}
-	.test:nth-child(6) {
-		background-color: currentColor;
+	.list {
+		position: relative;
+		top: 44px;
 	}
 
 	.slide-enter-active, .slide-leave-active {
