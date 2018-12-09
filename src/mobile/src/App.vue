@@ -1,14 +1,28 @@
 <template>
     <div id="app">
-    	<keep-alive>
-	        <router-view />
-    	</keep-alive>
+        <keep-alive>
+            <router-view />
+        </keep-alive>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'App'
+        name: 'App',
+        data() {
+            return {
+                transitionName: 'slide-left'
+            }
+        },
+        watch: {
+            '$route' (to, from) {
+                if (from.fullPath === '/') {
+                    this.transitionName = 'slide-left'
+                } else {
+                    this.transitionName = 'slide-right'
+                }
+            }
+        },
     }
 </script>
 

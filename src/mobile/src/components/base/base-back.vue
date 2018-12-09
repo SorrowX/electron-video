@@ -48,6 +48,8 @@
 	}
 
 	.back {
+		height: 100%;
+	    width: 60px;
 		display: flex;
 		align-items: center;
 	}

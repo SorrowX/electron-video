@@ -148,9 +148,20 @@
 
 	.home-channel dl dt p {
 		position: absolute;
-		right: 10px;
-		top: 15px;
-		font-size: 14px;
+	    right: 0;
+	    font-size: 14px;
+	    height: 100%;
+	    width: 60px;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+
+	.home-channel dl dt span {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
 	}
 	
 

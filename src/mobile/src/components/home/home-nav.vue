@@ -60,6 +60,12 @@
 				return () => {
 					this.navCurIndex = index
 					console.log(nav)
+					this.$router.push({
+						name: 'video_list',
+						params: {
+							tag: nav.tag
+						}
+					})
 				}
 			},
 			tapArrow() {
