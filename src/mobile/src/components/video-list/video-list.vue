@@ -1,12 +1,12 @@
 <template>
-	<transition name="slide">
+	<!-- <transition name="slide"> -->
 		<div class="video-list">
 			<base-back :title="tag"></base-back>
 			<div class="list">
 				<classic-video-list :tag="tag"></classic-video-list>
 			</div>
 		</div>
-	</transition>
+	<!-- </transition> -->
 </template>
 
 <script>
@@ -54,7 +54,8 @@
 
 	.list {
 		position: relative;
-		top: 44px;
+		/*top: 44px;*/
+		top: 0;
 	}
 
 	.slide-enter-active, .slide-leave-active {

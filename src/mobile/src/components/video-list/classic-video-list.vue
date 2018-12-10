@@ -1,6 +1,6 @@
 <template>
 	<div class="classic-video-list">
-		<div class="video-list">
+		<div class="video-list" v-show="videoList.length >  0">
 			<base-lazy-load 
 			    mode="default"
 			    :time="300"
@@ -36,15 +36,17 @@
 				</ul>
 			</base-lazy-load>
 		</div>
-		<div v-if="done" class="done">
+		<div v-if="done" class="done" v-show="!loading">
 			没有更多数据啦
 		</div>
+		<base-loading v-show="loading"></base-loading>
 	</div>
 </template>
 
 <script>
     import { getVideoListByNavFromApi } from '@/api/api'
     import BaseLazyLoad from '@/components/base/base-lazy-load-img'
+    import BaseLoading from '@/components/base/base-loading'
     const defaultBgImg = require('../../assets/video-defaultpic.png')
 
     let allVideoList = []
@@ -52,7 +54,7 @@
 
 	export default {
 		name: 'ClassicVideoList',
-		components: { BaseLazyLoad },
+		components: { BaseLazyLoad, BaseLoading },
 		props: {
             tag: {
             	type: String,
@@ -67,7 +69,7 @@
 			}
 		},
 		watch: {
-			tag() {
+			tag(newVal, oldVal) {
 				this.recovery()
 				this.load()
 			}
@@ -78,11 +80,13 @@
 					allVideoList.length === 0 &&
 					!allVideoList.__done__
 				) {
+					this.loading = true
 					let ret = await getVideoListByNavFromApi({ tag: this.tag })
 					if (ret.status === 200 && ret.data.code === 0) {
 	                    allVideoList = ret.data.data
 	                    allVideoList.__done__ = true
 					}
+					this.loading = false
 				}
 				return allVideoList
 			},
@@ -96,7 +100,7 @@
 			},
 			async load() {
 				if (this._waiting) return
-				this._waiting = this.loading = true
+				this._waiting = true
 				let list = await this.loadVideoData(VIDEO_NUM)
 				if (list.length > 0) {
 					this.videoList = this.videoList.concat(list)
@@ -112,6 +116,7 @@
 			},
 			recovery() {
 				allVideoList = this.videoList = []
+				this.done = this.loading = false
 				allVideoList.__done__ = false
 			},
 			hanndeScroll() {

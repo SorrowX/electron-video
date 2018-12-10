@@ -5,6 +5,25 @@ import VideoList from '../components/video-list/video-list.vue'
 
 Vue.use(Router)
 
+const scrollBehavior = function (to, from, savedPosition) {
+    if (savedPosition) {
+        return savedPosition
+    } else {
+        const position = {}
+
+        return new Promise(resolve => {
+            if (to.matched.some(m => m.meta.scrollToTop)) {
+                position.x = 0
+                position.y = 0
+            }
+
+            this.app.$root.$once('triggerScroll', () => {
+                resolve(position)
+            })
+        })
+    }
+}
+
 export default new Router({
     routes: [
         {
@@ -15,7 +34,8 @@ export default new Router({
         {
             path: '/video_list',
             name: 'video_list',
-            component: () => import('../components/video-list/video-list.vue')
+            component: () => import('../components/video-list/video-list.vue'),
+            meta: { scrollToTop: true }
         },
         {
             path: '/play',
@@ -26,11 +46,5 @@ export default new Router({
             component: () => import(/* webpackChunkName: "play" */ '../components/play/play.vue')
         }
     ],
-    scrollBehavior (to, from, savedPosition) {
-        if (savedPosition) {
-            return savedPosition
-        } else {
-            return { x: 0, y: 0 }
-        }
-    }
+    scrollBehavior
 })

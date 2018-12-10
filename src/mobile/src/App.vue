@@ -1,8 +1,13 @@
 <template>
     <div id="app">
-        <keep-alive>
-            <router-view />
-        </keep-alive>
+        <transition 
+            :name="transitionName"
+            @after-leave="afterLeave"
+        >
+            <keep-alive>
+                <router-view class="view" />
+            </keep-alive>
+        </transition>  
     </div>
 </template>
 
@@ -11,18 +16,23 @@
         name: 'App',
         data() {
             return {
-                transitionName: 'slide-left'
+                transitionName: 'slide-right'
             }
         },
         watch: {
             '$route' (to, from) {
-                if (from.fullPath === '/') {
-                    this.transitionName = 'slide-left'
-                } else {
+                if (to.fullPath === '/') {
                     this.transitionName = 'slide-right'
+                } else {
+                    this.transitionName = 'slide-left'
                 }
             }
         },
+        methods: {
+            afterLeave () {
+                this.$root.$emit('triggerScroll')
+            }
+        }
     }
 </script>
 
@@ -33,4 +43,29 @@
         position: relative;
         margin: 0 auto;
     }
+
+    .view {
+        /*transition: all .5s cubic-bezier(.55,0,.1,1);*/
+        transition: all .35s linear;
+    }
+
+    .slide-left-enter {
+        opacity: 0;
+        transform: translate(100%, 0);
+    }
+    .slide-left-leave-active {
+        opacity: 0;
+        transform: translate(-100%, 0);
+    }
+
+    .slide-right-enter {
+        opacity: 0;
+        transform: translate(-100%, 0);
+    }
+    .slide-right-leave-active {
+        opacity: 0;
+        transform: translate(100%, 0);
+    }
+
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<transition name="slide">
+	<!-- <transition name="slide"> -->
 		<div class="home">
 			<home-header></home-header>
 			<main>
@@ -19,7 +19,7 @@
 
 			<router-view />
 		</div>
-	</transition>
+	<!-- </transition> -->
 </template>
 
 <script>
