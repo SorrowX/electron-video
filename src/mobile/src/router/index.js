@@ -29,21 +29,28 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
+            meta: {
+                hierarchy: 1 // 分层用的数据
+            }
         },
         {
-            path: '/video_list',
+            path: '/video_list/:tag',
             name: 'video_list',
             component: () => import('../components/video-list/video-list.vue'),
-            meta: { scrollToTop: true }
+            meta: { 
+                scrollToTop: true, // 是否滚动到页面顶部
+                hierarchy: 2
+            }
         },
         {
             path: '/play',
             name: 'play',
-            // route level code-splitting
-            // this generates a separate chunk (play.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "play" */ '../components/play/play.vue')
+            component: () => import('../components/play/play.vue'),
+            meta: { 
+                scrollToTop: true,
+                hierarchy: 3
+            }
         }
     ],
     scrollBehavior

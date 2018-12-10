@@ -59,13 +59,7 @@
 			tapNav(nav, index) {
 				return () => {
 					this.navCurIndex = index
-					console.log(nav)
-					this.$router.push({
-						name: 'video_list',
-						params: {
-							tag: nav.tag
-						}
-					})
+					this.$router.push({ path: `/video_list/${nav.tag}` })
 				}
 			},
 			tapArrow() {

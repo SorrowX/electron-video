@@ -113,12 +113,7 @@
 			},
 			clickChannel(channelTag) {
 				return () => {
-					this.$router.push({
-						name: 'video_list',
-						params: {
-							tag: channelTag
-						}
-					})
+					this.$router.push({ path: `/video_list/${channelTag}` })
 				}
 			}
 		},

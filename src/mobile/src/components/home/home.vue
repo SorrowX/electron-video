@@ -1,25 +1,23 @@
 <template>
-	<!-- <transition name="slide"> -->
-		<div class="home">
-			<home-header></home-header>
-			<main>
-				<home-nav></home-nav>
+	<div class="home">
+		<home-header></home-header>
+		<main>
+			<home-nav></home-nav>
 
-				<home-banner
-				    :videoInfo="bannerVideoInfo"
-				>
-				</home-banner>
+			<home-banner
+			    :videoInfo="bannerVideoInfo"
+			>
+			</home-banner>
 
-				<home-collect
-				    :videoList="collectVideoList"
-				></home-collect>
+			<home-collect
+			    :videoList="collectVideoList"
+			></home-collect>
 
-				<home-channel></home-channel>
-			</main>
+			<home-channel></home-channel>
+		</main>
 
-			<router-view />
-		</div>
-	<!-- </transition> -->
+		<router-view />
+	</div>
 </template>
 
 <script>
@@ -67,13 +65,5 @@
 		position: relative;
 		top: 0;
 		left: 0;
-	}
-
-	.slide-enter-active, .slide-leave-active {
-        transition: all .35s ease;
-	}
-	.slide-enter, .slide-leave-to {
-	    /*opacity: 0;*/
-	    transform: translate3d(-100%, 0, 0);
 	}
 </style>

@@ -12,6 +12,7 @@
 					    v-for="(video, index) in videoList" 
 					    :key="video['filename']"
 					    ref="aLiDoms"
+					    v-finger:tap="play(video)"
 					>
 						<div class="cover">
 							<img :data-src="video['imgUrl']">
@@ -136,6 +137,14 @@
 					return lastDomHeight <= scrollTop + clientHeight ? true : false
 				} else {
 					return false
+				}
+			},
+			play(video) {
+				return () => {
+					this.$router.push({
+						name: 'play',
+						params: video
+					})
 				}
 			}
 		},

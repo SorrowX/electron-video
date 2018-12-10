@@ -1,6 +1,6 @@
 <template>
 	<div class="home-banner">
-        <img :src="videoInfo['imgUrl']" alt="">
+        <img :src="videoInfo['imgUrl']" v-finger:tap="play">
         <div class="identifier">LOVE</div>
         <div class="title">
         	{{ videoInfo['filename'] }}
@@ -17,6 +17,17 @@
 		        default: function() { return {} }
 		    }
 		},
+		methods: {
+			play() {
+                let video = this.videoInfo
+                if (video) {
+                	this.$router.push({
+                	    name: 'play',
+                	    params: video
+                	})
+                }
+            }
+		}
 	}
 </script>
 

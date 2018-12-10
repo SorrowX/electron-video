@@ -20,11 +20,11 @@
             }
         },
         watch: {
-            '$route' (to, from) {
-                if (to.fullPath === '/') {
-                    this.transitionName = 'slide-right'
-                } else {
+            '$route'(to, from) {
+                if (to.meta.hierarchy > from.meta.hierarchy) { // 层级越高的页面就从右向左地进来
                     this.transitionName = 'slide-left'
+                } else { // 否则回退
+                    this.transitionName = 'slide-right'
                 }
             }
         },
