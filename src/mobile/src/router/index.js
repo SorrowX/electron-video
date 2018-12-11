@@ -24,7 +24,8 @@ const scrollBehavior = function (to, from, savedPosition) {
     }
 }
 
-export default new Router({
+const router = new Router({
+    scrollBehavior,
     routes: [
         {
             path: '/',
@@ -38,6 +39,7 @@ export default new Router({
             path: '/video_list/:tag',
             name: 'video_list',
             component: () => import('../components/video-list/video-list.vue'),
+            props: true,
             meta: { 
                 scrollToTop: true, // 是否滚动到页面顶部
                 hierarchy: 2
@@ -52,6 +54,7 @@ export default new Router({
                 hierarchy: 3
             }
         }
-    ],
-    scrollBehavior
+    ]
 })
+
+export default router

@@ -37,17 +37,15 @@
 				</ul>
 			</base-lazy-load>
 		</div>
-		<div v-if="done" class="done" v-show="!loading">
+		<div v-if="done" class="done">
 			没有更多数据啦
 		</div>
-		<base-loading v-show="loading"></base-loading>
 	</div>
 </template>
 
 <script>
-    import { getVideoListByNavFromApi } from '@/api/api'
     import BaseLazyLoad from '@/components/base/base-lazy-load-img'
-    import BaseLoading from '@/components/base/base-loading'
+    import { extend } from '@/common/js/util/index'
     const defaultBgImg = require('../../assets/video-defaultpic.png')
 
     let allVideoList = []
@@ -55,54 +53,31 @@
 
 	export default {
 		name: 'ClassicVideoList',
-		components: { BaseLazyLoad, BaseLoading },
+		components: { BaseLazyLoad },
 		props: {
-            tag: {
-            	type: String,
-            	default: ''
+			tag: String,
+            allVideoList: {
+            	type: Array,
+            	default: function() { return [] }
             }
 		},
 		data() {
 			return {
-				loading: false,
 				done: false,
 				videoList: []
 			}
 		},
-		watch: {
-			tag(newVal, oldVal) {
-				this.recovery()
-				this.load()
-			}
-		},
 		methods: {
-			async getVideoList() {
-				if (
-					allVideoList.length === 0 &&
-					!allVideoList.__done__
-				) {
-					this.loading = true
-					let ret = await getVideoListByNavFromApi({ tag: this.tag })
-					if (ret.status === 200 && ret.data.code === 0) {
-	                    allVideoList = ret.data.data
-	                    allVideoList.__done__ = true
-					}
-					this.loading = false
-				}
-				return allVideoList
-			},
-			async loadVideoData(num) {
+			loadVideoData(num) {
 				let list = []
-				let remaindList = await this.getVideoList()
+				let remaindList = allVideoList
 				if (remaindList.length > 0) {
 					list = remaindList.splice(0, num)
 				}
 				return list
 			},
-			async load() {
-				if (this._waiting) return
-				this._waiting = true
-				let list = await this.loadVideoData(VIDEO_NUM)
+			load() {
+				let list = this.loadVideoData(VIDEO_NUM)
 				if (list.length > 0) {
 					this.videoList = this.videoList.concat(list)
 					if (list.length === VIDEO_NUM) {
@@ -113,12 +88,10 @@
 				} else {
 					this.done = true
 				}
-				this._waiting = false
 			},
 			recovery() {
-				allVideoList = this.videoList = []
-				this.done = this.loading = false
-				allVideoList.__done__ = false
+				this.videoList = []
+				this.done = false
 			},
 			hanndeScroll() {
 				if (this.checkScrollSlide()) {
@@ -150,6 +123,14 @@
 		},
 		mounted() {
 			window.addEventListener('scroll', this.hanndeScroll, false)
+
+			this.$watch('allVideoList', (newVal) => {
+				this.recovery()
+				allVideoList = newVal.slice(0)
+				this.load()
+			}, {
+				immediate: true
+			})
 		},
 		destroyed() {
 			window.removeEventListener('scroll', this.hanndeScroll)

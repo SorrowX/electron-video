@@ -35,3 +35,10 @@ export const getRandomItemFromArr = function(arr, n) {
     let randomArr = shuffle(arr)
     return randomArr.slice(0, n)
 }
+
+export function extend (to, from) {
+    for (const key in from) {
+        to[key] = from[key]
+    }
+    return to
+}

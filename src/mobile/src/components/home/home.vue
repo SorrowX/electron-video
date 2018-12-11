@@ -47,6 +47,14 @@
             	}
             }
 		},
+		beforeRouteEnter (to, from, next) {
+			// console.log('Home组件: beforeRouteEnter()')
+			next()
+		},
+		beforeRouteLeave (to, from, next) {
+			// console.log('Home组件: beforeRouteLeave()')
+			next()
+		},
 		mounted() {
 			this.getCollectVideoList()
 		}
