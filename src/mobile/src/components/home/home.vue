@@ -26,11 +26,12 @@
     import HomeBanner from './home-banner'
     import HomeCollect from './home-collect'
     import HomeChannel from './home-channel'
+    import BaseLoading from '@/components/base/base-loading'
     import { getCollectVideoListFromApi } from '@/api/api'
 
 	export default {
 		name: 'Home',
-		components: { HomeHeader, HomeNav, HomeBanner, HomeCollect, HomeChannel },
+		components: { HomeHeader, HomeNav, HomeBanner, HomeCollect, HomeChannel, BaseLoading },
 		data() {
 			return {
 				bannerVideoInfo: {},
@@ -48,11 +49,9 @@
             }
 		},
 		beforeRouteEnter (to, from, next) {
-			// console.log('Home组件: beforeRouteEnter()')
 			next()
 		},
 		beforeRouteLeave (to, from, next) {
-			// console.log('Home组件: beforeRouteLeave()')
 			next()
 		},
 		mounted() {

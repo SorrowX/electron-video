@@ -12,7 +12,7 @@
 					    v-for="(video, index) in videoList" 
 					    :key="video['filename']"
 					    ref="aLiDoms"
-					    v-finger:tap="play(video)"
+					    v-finger:tap="goPlayPage(video)"
 					>
 						<div class="cover">
 							<img :data-src="video['imgUrl']">
@@ -64,7 +64,8 @@
 		data() {
 			return {
 				done: false,
-				videoList: []
+				videoList: [],
+				showPlayer: false
 			}
 		},
 		methods: {
@@ -112,7 +113,7 @@
 					return false
 				}
 			},
-			play(video) {
+			goPlayPage(video) {
 				return () => {
 					this.$router.push({
 						name: 'play',

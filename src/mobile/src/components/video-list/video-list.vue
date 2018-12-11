@@ -30,7 +30,6 @@
 			}
 		},
 		beforeRouteEnter (to, from, next) {
-			// console.log('VideoList组件: beforeRouteEnter()')
 			// 导航完成前获取数据,获取完数据再跳转页面
 			let tag = to.params.tag
 			getVideoListByNavFromApi({ tag }).then((ret) => {
@@ -46,11 +45,9 @@
 			})
 		},
 		beforeRouteUpdate(to, from, next) {
-			// console.log('VideoList组件: beforeRouteUpdate()')
 			next()
 		},
 		beforeRouteLeave (to, from, next) {
-			// console.log('VideoList组件: beforeRouteLeave()')
 			next()
 		},
 		methods: {
