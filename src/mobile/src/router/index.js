@@ -25,7 +25,7 @@ const scrollBehavior = function (to, from, savedPosition) {
 }
 
 const router = new Router({
-    scrollBehavior,
+    // scrollBehavior,
     routes: [
         {
             path: '/',
@@ -49,12 +49,17 @@ const router = new Router({
             path: '/play',
             name: 'play',
             component: () => import('../components/play/play.vue'),
-            meta: { 
+            meta: {
                 scrollToTop: true,
                 hierarchy: 3
             }
         }
     ]
+})
+
+// 所有页面回到顶部
+router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0)
 })
 
 export default router

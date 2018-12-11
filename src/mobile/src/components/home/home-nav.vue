@@ -18,6 +18,9 @@
 		>
 			<i :class="arrowClass"></i>
 		</div>
+		<div class="nav-panel" v-show="showNavPanel">
+			
+		</div>
 	</div>
 </template>
 
@@ -44,14 +47,14 @@
 			return {
 				navList: NAV_LIST,
 				navCurIndex: 0,
-				openMenu: false
+				showNavPanel: false
 			}
 		},
 		computed: {
 			arrowClass() {
 				return {
-					'nav-arrow-down-icon': !this.openMenu, 
-					'nav-arrow-up-icon': this.openMenu
+					'nav-arrow-down-icon': !this.showNavPanel, 
+					'nav-arrow-up-icon': this.showNavPanel
 				}
 			}
 		},
@@ -63,8 +66,9 @@
 				}
 			},
 			tapArrow() {
-				this.openMenu = !this.openMenu
-				this.$emit('open-menu', this.openMenu)
+				this.showNavPanel = !this.showNavPanel
+				this.setBodyStyle(!this.showNavPanel)
+				this.$emit('open-menu', this.showNavPanel)
 			},
 			initTouch() {
 				if (!this.at) {
@@ -113,6 +117,14 @@
 				this.$nextTick(() => {
 					this.initTouch()
 				})
+			},
+			setBodyStyle(isThrough) { // 设置 overflow 属性 来解决穿透问题
+				let body = document.body
+				if (isThrough) {
+					body.style.overflow = 'auto'
+				} else {
+					body.style.overflow = 'hidden'
+				}
 			}
 		},
 		mounted() {
@@ -128,6 +140,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		position: relative;
 	}
 
     .nav-box {
@@ -180,5 +193,16 @@
 	}
 	.nav-arrow-down-icon {
 		background-image: url(../../assets/arrow-down.png);
+	}
+
+	/* 导航面板 */
+	.nav-panel {
+		width: 100%;
+		height: calc(100% - 88px);
+		position: fixed;
+		left: 0;
+		top: 88px;
+		z-index: 99;
+		background: #ccc;
 	}
 </style>

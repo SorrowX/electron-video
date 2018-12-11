@@ -29,7 +29,7 @@
             }
         },
         methods: {
-            afterLeave () {
+            afterLeave (el) {
                 this.$root.$emit('triggerScroll')
             }
         }
