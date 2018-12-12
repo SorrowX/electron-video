@@ -36,13 +36,21 @@ const router = new Router({
             }
         },
         {
+            path: '/nav_panel',
+            name: 'nav_panel',
+            component: () => import('../components/nav-panel/nav-panel.vue'),
+            meta: {
+                hierarchy: 2
+            }
+        },
+        {
             path: '/video_list/:tag',
             name: 'video_list',
             component: () => import('../components/video-list/video-list.vue'),
             props: true,
             meta: { 
                 scrollToTop: true, // 是否滚动到页面顶部
-                hierarchy: 2
+                hierarchy: 3
             }
         },
         {
@@ -51,7 +59,7 @@ const router = new Router({
             component: () => import('../components/play/play.vue'),
             meta: {
                 scrollToTop: true,
-                hierarchy: 3
+                hierarchy: 4
             }
         }
     ]

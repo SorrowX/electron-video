@@ -18,9 +18,6 @@
 		>
 			<i :class="arrowClass"></i>
 		</div>
-		<div class="nav-panel" v-show="showNavPanel">
-			
-		</div>
 	</div>
 </template>
 
@@ -67,7 +64,9 @@
 			},
 			tapArrow() {
 				this.showNavPanel = !this.showNavPanel
-				this.setBodyStyle(!this.showNavPanel)
+				this.$nextTick(() => {
+					this.$router.push('/nav_panel')
+				})
 				this.$emit('open-menu', this.showNavPanel)
 			},
 			initTouch() {
@@ -95,7 +94,7 @@
                     function getMin() {
                     	let allLiWidth = getAllLiWidth(target.children)
                     	let ulWidth = parseInt(window.getComputedStyle(wrapper, null)['width'])
-                    	return ulWidth - allLiWidth
+                    	return ulWidth - allLiWidth > 0 ? 0 : ulWidth - allLiWidth
                     }
 				}
 			},
@@ -117,14 +116,6 @@
 				this.$nextTick(() => {
 					this.initTouch()
 				})
-			},
-			setBodyStyle(isThrough) { // 设置 overflow 属性 来解决穿透问题
-				let body = document.body
-				if (isThrough) {
-					body.style.overflow = 'auto'
-				} else {
-					body.style.overflow = 'hidden'
-				}
 			}
 		},
 		mounted() {
@@ -193,16 +184,5 @@
 	}
 	.nav-arrow-down-icon {
 		background-image: url(../../assets/arrow-down.png);
-	}
-
-	/* 导航面板 */
-	.nav-panel {
-		width: 100%;
-		height: calc(100% - 88px);
-		position: fixed;
-		left: 0;
-		top: 88px;
-		z-index: 99;
-		background: #ccc;
 	}
 </style>
