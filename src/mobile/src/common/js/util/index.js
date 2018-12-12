@@ -42,3 +42,23 @@ export function extend (to, from) {
     }
     return to
 }
+
+export function addTag(list, nav) {
+    let i = list.findIndex((obj) => {
+        return obj.tag === nav.tag
+    })
+    if (i === -1) {
+        list.unshift(nav)
+    }
+    return list
+}
+
+export function removeTag(list, nav) {
+    let i = list.findIndex((obj) => {
+        return obj.tag === nav.tag
+    })
+    if (i != -1) {
+        list.splice(i, 1)
+    }
+    return list
+}

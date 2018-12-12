@@ -24,6 +24,11 @@
 <script>
     import { getNavListFromApi } from '@/api/api'
     import { NAV_LIST } from '@/common/js/constants/index'
+    import { mapActions } from 'vuex'
+    import {
+    	getMyChannelListDataFromCache,
+    	getAllChannelListDataFromCache
+    } from '@/store/cache'
 
     function getAllLiWidth(aLiDoms) {
     	let w = 0
@@ -99,24 +104,39 @@
 				}
 			},
 			async getNavList() {
-				if (!this.cacheNavList) {
-					this.cacheNavList = []
-					let navRet = await getNavListFromApi()
-					if (navRet.status === 200 && navRet.data.code === 0) {
-						this.cacheNavList = navRet.data.data 
-					}
-					return this.cacheNavList
+				let myChannelList = getMyChannelListDataFromCache()
+				if (myChannelList.length > 0) {
+					this.setMyChannelListData(myChannelList)
+					return myChannelList
 				} else {
-					return this.cacheNavList
+					if (!this.cacheNavList) {
+						this.cacheNavList = []
+						let navRet = await getNavListFromApi()
+						if (navRet.status === 200 && navRet.data.code === 0) {
+							this.cacheNavList = navRet.data.data 
+						}
+						let navList = this.cacheNavList = this.navList.concat(this.cacheNavList)
+						this.setMyChannelListData(navList)
+						return navList
+					} else {
+						return this.cacheNavList
+					}
 				}
 			},
 			async init() {
 				let navList = await this.getNavList()
-				this.navList = this.navList.concat(navList)
+				this.navList = navList
+
+				let allChannelList = getAllChannelListDataFromCache()
+				if (allChannelList.length > 0) {
+					this.setAllChannelListData(allChannelList)
+				} 
+
 				this.$nextTick(() => {
 					this.initTouch()
 				})
-			}
+			},
+			...mapActions(['setMyChannelListData', 'setAllChannelListData'])
 		},
 		mounted() {
 			this.init()
