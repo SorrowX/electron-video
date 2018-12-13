@@ -48,7 +48,7 @@ export function addTag(list, nav) {
         return obj.tag === nav.tag
     })
     if (i === -1) {
-        list.unshift(nav)
+        list.push(nav)
     }
     return list
 }
@@ -61,4 +61,12 @@ export function removeTag(list, nav) {
         list.splice(i, 1)
     }
     return list
+}
+
+export function sleep(time) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            return resolve()
+        }, time || 600)
+    })
 }

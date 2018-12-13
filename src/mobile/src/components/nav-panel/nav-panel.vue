@@ -1,7 +1,11 @@
 <template>
 	<div class="nav-panel">
-		<base-back :title="'导航'" :style="{ position: 'fixed' }"></base-back>
-		<div class="wrapper">
+		<base-back :title="'导航'" :style="{ position: 'fixed' }">
+			<span slot="operate" v-finger:tap="refreshNav">
+		        重置
+		    </span>
+		</base-back>
+		<div class="wrapper" v-if="myChannelList.length || allChannelList.length">
 			<dl>
 				<dt class="dt-channel">
 					我的频道
@@ -31,6 +35,12 @@
 				</dd>
 			</dl>
 		</div>
+		<div class="empty" v-else>
+			当前暂无导航数据
+		</div>
+		<div class="footer" v-show="showTip">
+			重置可以恢复默认导航且和客户端同步
+		</div>
 	</div>
 </template>
 
@@ -48,10 +58,22 @@
 			return {
 			}
 		},
-		computed: mapState({
-		    myChannelList: state => state.myChannelList,
-		    allChannelList: state => state.allChannelList
-		}),
+		computed: {
+			...mapState({
+			    myChannelList: state => state.myChannelList,
+			    allChannelList: state => state.allChannelList
+			}),
+			showTip() {
+				if (
+					this.myChannelList.length > 0 ||
+					this.allChannelList.length > 0
+				) {
+					return true
+				} else {
+					return false
+				}
+			}
+		},
 		methods: {
 			handlerTapNav(nav, type) {
 				this.$router.push({ path: `/video_list/${nav.tag}` })
@@ -64,6 +86,9 @@
 					this.addTagToMyChannelList(nav)
 					this.removeTagFromAllChannelList(nav)
 				}
+			},
+			refreshNav() {
+				this.$root.$emit('refresh-all-nav')
 			},
 			...mapActions([
 				'addTagToMyChannelList',
@@ -79,7 +104,7 @@
 	/* 导航面板 */
 	.nav-panel {
 		width: 100%;
-		height: auto;
+		min-height: 100%;
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -94,16 +119,45 @@
 		left: 0;
 	}
 
+	.wrapper dl {
+		min-height: 4.8rem;
+	}
+
 	.dt-channel {
 		height: 44px;
 		display: flex;
 		align-items: center;
 		position: sticky;
 		top: 44px;
-		background: rgba(255, 255, 255, .9);
-		margin-left: 5%;
+		background: rgba(255, 255, 255, 1);
+		padding-left: 5%;
 		font-size: 15px;
 		font-weight: bold;
 		color: rgb(102, 102, 102);
+	}
+
+	.footer {
+		height: 44px;
+		width: 92%;
+		margin-bottom: 20px;
+		position: relative;
+		left: 4%;
+		bottom: -60px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #fff;
+		border-top: 1px solid #eee;
+	}
+
+	.empty {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 44px;
+		left: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>

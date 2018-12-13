@@ -7,6 +7,9 @@
 		<div class="title">
 			{{ title }}
 		</div>
+		<div class="operate">
+			<slot name="operate"></slot>
+		</div>
 	</div>
 </template>
 
@@ -69,5 +72,14 @@
 		transform: translate(-50%, -50%);
 		display: flex;
 		justify-content: center;
+	}
+	.operate {
+		width: 80px;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		right: 0;
 	}
 </style>

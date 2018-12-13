@@ -24,10 +24,13 @@
 <script>
     import { getNavListFromApi } from '@/api/api'
     import { NAV_LIST } from '@/common/js/constants/index'
+    import { sleep } from '@/common/js/util/index'
     import { mapActions } from 'vuex'
     import {
     	getMyChannelListDataFromCache,
-    	getAllChannelListDataFromCache
+    	getAllChannelListDataFromCache,
+    	setMyChannelListDataToCache,
+    	setAllChannelListDataToCache
     } from '@/store/cache'
 
     function getAllLiWidth(aLiDoms) {
@@ -47,7 +50,7 @@
 		name: 'HomeNav',
 		data() {
 			return {
-				navList: NAV_LIST,
+				navList: [],
 				navCurIndex: 0,
 				showNavPanel: false
 			}
@@ -75,55 +78,64 @@
 				this.$emit('open-menu', this.showNavPanel)
 			},
 			initTouch() {
-				if (!this.at) {
-					let target = this.$refs.scroller
-					let wrapper = this.$refs.wrapper
-					this.Transform(target, true)
+				let target = this.$refs.scroller
+				let wrapper = this.$refs.wrapper
 
-					this.at = new this.AlloyTouch({
-			            touch: wrapper, //反馈触摸的dom
-			            vertical: false, //不必需，默认是true代表监听竖直方向touch
-			            target: target, //运动的对象
-			            property: 'translateX',  //被运动的属性
-			            sensitivity: 1, //不必需,触摸区域的灵敏度，默认值为1，可以为负数
-			            min: getMin(), //不必需,滚动属性的最小值
-			            max: 0,
-			            change: function (v) {
-			                // console.log(v)
-			            },
-			            animationEnd: function (value) {
-			                // console.log('运动结束： ', value)
-			            }
-					})
-                    
-                    function getMin() {
-                    	let allLiWidth = getAllLiWidth(target.children)
-                    	let ulWidth = parseInt(window.getComputedStyle(wrapper, null)['width'])
-                    	return ulWidth - allLiWidth > 0 ? 0 : ulWidth - allLiWidth
-                    }
-				}
+				this.$nextTick(() => {
+					if (!this.at) {
+						this.Transform(target, true)
+						this.at = new this.AlloyTouch({
+				            touch: wrapper, //反馈触摸的dom
+				            vertical: false, //不必需，默认是true代表监听竖直方向touch
+				            target: target, //运动的对象
+				            property: 'translateX',  //被运动的属性
+				            sensitivity: 1, //不必需,触摸区域的灵敏度，默认值为1，可以为负数
+				            min: getMin(), //不必需,滚动属性的最小值
+				            max: 0,
+				            change: function (v) {
+				                // console.log(v)
+				            },
+				            animationEnd: function (value) {
+				                // console.log('运动结束： ', value)
+				            }
+						})
+					} else {
+						this.at.min = getMin()
+						this.at.to(0)
+					}
+				})
+				
+				function getMin() {
+                	let allLiWidth = getAllLiWidth(target.children)
+                	let ulWidth = parseInt(window.getComputedStyle(wrapper, null)['width'])
+                	return ulWidth - allLiWidth > 0 ? 0 : ulWidth - allLiWidth
+                }
 			},
 			async getNavList() {
 				let myChannelList = getMyChannelListDataFromCache()
 				if (myChannelList.length > 0) {
+					this.navList = myChannelList
 					this.setMyChannelListData(myChannelList)
 					return myChannelList
 				} else {
-					if (!this.cacheNavList) {
-						this.cacheNavList = []
-						let navRet = await getNavListFromApi()
-						if (navRet.status === 200 && navRet.data.code === 0) {
-							this.cacheNavList = navRet.data.data 
-						}
-						let navList = this.cacheNavList = this.navList.concat(this.cacheNavList)
-						this.setMyChannelListData(navList)
-						return navList
-					} else {
-						return this.cacheNavList
+					this.navList = []
+					let navRet = await getNavListFromApi()
+					if (navRet.status === 200 && navRet.data.code === 0) {
+						this.navList = navRet.data.data
 					}
+					this.navList = this.navList.concat(NAV_LIST) // 合并静态导航数据
+					this.setMyChannelListData(this.navList)
+					return this.navList
 				}
 			},
-			async init() {
+			async initNav(isRecovery) {
+				if (isRecovery) {
+					setMyChannelListDataToCache([])
+			    	setAllChannelListDataToCache([])
+			    	this.setMyChannelListData([])
+			    	this.setAllChannelListData([])
+			    	await sleep(550)
+				}
 				let navList = await this.getNavList()
 				this.navList = navList
 
@@ -132,14 +144,22 @@
 					this.setAllChannelListData(allChannelList)
 				} 
 
-				this.$nextTick(() => {
+				if (!isRecovery) {
 					this.initTouch()
-				})
+				}
 			},
 			...mapActions(['setMyChannelListData', 'setAllChannelListData'])
 		},
+
 		mounted() {
-			this.init()
+			this.initNav()
+
+			this.$root.$on('refresh-all-nav', () => {
+				this.initNav(true)
+			})
+		},
+		activated() {
+			this.initTouch()
 		}
 	}
 </script>
