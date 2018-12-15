@@ -40,7 +40,7 @@
         height: 44px;
         display: flex;
 		align-items: center;
-        position: sticky;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;

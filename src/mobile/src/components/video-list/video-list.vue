@@ -75,7 +75,6 @@
 
 	.list {
 		position: relative;
-		/*top: 44px;*/
-		top: 0;
+		top: 44px;
 	}
 </style>

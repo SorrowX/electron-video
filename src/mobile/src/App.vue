@@ -40,12 +40,15 @@
     #app {
         max-width: 7.5rem;
         min-width: 6.4rem;
-        position: relative;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
         margin: 0 auto;
     }
 
-    .view {
-        /*transition: all .5s cubic-bezier(.55,0,.1,1);*/
+    /*.view {
         transition: all .2s linear;
     }
 
@@ -65,7 +68,7 @@
     .slide-right-leave-active {
         opacity: 0;
         transform: translate(100%, 0);
-    }
+    }*/
 
 
 </style>

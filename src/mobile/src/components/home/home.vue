@@ -70,7 +70,7 @@
 
 	main {
 		position: relative;
-		top: 0;
+		top: 44px;
 		left: 0;
 	}
 </style>

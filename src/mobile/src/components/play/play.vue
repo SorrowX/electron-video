@@ -38,7 +38,7 @@
 	.play {
 		position: absolute;
     	left: 0;
-    	top: 0;
+    	top: 44px;
     	right: 0;
 	}
 </style>

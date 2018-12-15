@@ -24,7 +24,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 0.24rem;
-		position: sticky;
+		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
