@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-let address = 'http://192.168.130.164:1314'
-// let address = 'http://192.168.155.1:1314'
+// let address = 'http://192.168.130.164:1314'
+let address = 'http://192.168.155.1:1314'
 
 function getData(url) {
     return axios.get(url)

@@ -6,6 +6,7 @@
 		    width="100%" 
 		    height="100%" 
 		    controls="controls"
+		    ref="videoDom"
 		>
 		</video>
 		<div class="info">
@@ -30,6 +31,10 @@
 				this.poster = videoInfo.imgUrl
 				this.name = videoInfo.filename
 			}
+		},
+		deactivated() {
+			let dom = this.$refs.deactivated
+			dom && dom.stop()
 		}
 	}
 </script>

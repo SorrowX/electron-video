@@ -1,5 +1,5 @@
 export const NAV_LIST = [
-    {
+/*    {
     	tag: '电影频道'
     }, 
     {
@@ -97,7 +97,7 @@ export const NAV_LIST = [
     }, 
     {
     	tag: '2131' 
-    }
+    }*/
 ]
 
 export const MY_CHANNEL_LIST = '__my_channel_list__'

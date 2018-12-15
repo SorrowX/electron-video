@@ -1,7 +1,11 @@
 <template>
 	<transition name="search-fade">
 		<div class="search-page" v-show="show">
-			<search-header @search="handleSearch"></search-header>
+			<search-header 
+			    @search="handleSearch"
+			    @confirm-search="addSearchKey"
+			>
+			</search-header>
 			<search-record @select-key="handleSearch"></search-record>
 			<search-content ref="searchContentComp"></search-content>
 		</div>
@@ -47,7 +51,7 @@
 					return
 				}
 				this.$refs.searchContentComp.isShow(true, key)
-				this.addSearchKey(key)
+				// this.addSearchKey(key)
 			},
 			...mapActions(['addSearchKey'])
 		},

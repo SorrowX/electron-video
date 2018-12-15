@@ -25,7 +25,7 @@ const scrollBehavior = function (to, from, savedPosition) {
 }
 
 const router = new Router({
-    // scrollBehavior,
+    scrollBehavior,
     routes: [
         {
             path: '/',
@@ -66,8 +66,8 @@ const router = new Router({
 })
 
 // 所有页面回到顶部
-router.afterEach((to, from, next) => {
+/*router.afterEach((to, from, next) => {
     window.scrollTo(0, 0)
-})
+})*/
 
 export default router

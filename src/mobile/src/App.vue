@@ -46,7 +46,7 @@
 
     .view {
         /*transition: all .5s cubic-bezier(.55,0,.1,1);*/
-        transition: all .35s linear;
+        transition: all .2s linear;
     }
 
     .slide-left-enter {

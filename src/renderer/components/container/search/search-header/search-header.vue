@@ -7,11 +7,11 @@
 			    type="text" 
 			    placeholder="请输入视频关键词..."
 			    v-model="value"
-			    @keyup.13="submit"
+			    @keyup.13="confirmSearch"
 			    @input="submit"
 			>
 		</div>
-		<button @click="submit">搜索</button>
+		<button @click="confirmSearch">搜索</button>
 	</div>
 </template>
 
@@ -26,6 +26,9 @@
 		methods: {
 			submit() {
 				this.$emit('search', this.value)
+			},
+			confirmSearch(key) {
+				this.$emit('confirm-search', this.value)
 			}
 		}
 	}

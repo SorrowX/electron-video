@@ -1,6 +1,9 @@
 <template>
 	<div class="movie-recommend">
-		<div class="you-like">猜你喜欢</div>
+		<div class="you-like">
+			<span>猜你喜欢</span>
+			<span class="change-data" @click="getRenderData">换一换</span>
+		</div>
 		<div class="like-list" v-if="arrMedia.length > 0">
 			<base-lazy-load-img 
 			    mode="default"
@@ -52,9 +55,7 @@
 		watch: {
 			show(val) {
 				if (val) {
-					this.getRandomVideoData((data) => {
-						this.arrMedia = data
-					})
+					this.getRenderData()
 				}
 			}
 		},
@@ -69,6 +70,11 @@
 				this.curMediaIndex = index
 				data.videoPoster = data.imgUrl
 				this.$parent.play(data)
+			},
+			getRenderData() {
+				this.getRandomVideoData((data) => {
+					this.arrMedia = data
+				})
 			}
 		}
 	}
@@ -85,6 +91,15 @@
 	.you-like,
 	.like-list {
 		padding: 0 20px 0 12px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.change-data {
+		font-size: 14px;
+	}
+	.change-data:hover {
+		cursor: pointer;
 	}
 
 	.you-like {
@@ -98,6 +113,10 @@
 	.like-list {
 		flex: 1;
 		overflow: auto;
+	}
+
+	.like-list>div {
+		width: 100%;
 	}
 
 	.like-list ul {
