@@ -70,5 +70,51 @@
         transform: translate(100%, 0);
     }*/
 
+    /* 向左滑入 */
+    /* .slide-left-enter {
+        transform: translate(100%, 0);
+    }
+    .slide-left-enter-active {
+        position: absolute;
+        transition: all .35s linear;
+    }
+    .slide-left-enter-to { 
+        transform: translate(0, 0);
+    }
+    
+    .slide-left-leave {
+        transform: translate(0, 0);
+    }
+    .slide-left-leave-active {
+        transition: all .35s linear;
+        position: absolute;
+    }
+    .slide-left-leave-to {
+        transform: translate(-100%, 0);
+    } */
+
+    /* 向右回来 */
+    /* .slide-right-enter {
+        transform: translate(-100%, 0);
+    }
+    .slide-right-enter-active {
+        position: absolute;
+        transition: all .35s linear;
+    }
+    .slide-right-enter-to { 
+        transform: translate(0, 0);
+    }
+    
+    .slide-right-leave {
+        transform: translate(0, 0);
+    }
+    .slide-right-leave-active {
+        transition: all .35s linear;
+        position: absolute;
+    }
+    .slide-right-leave-to {
+        transform: translate(100%, 0);
+    } */
+
 
 </style>

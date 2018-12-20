@@ -1,4 +1,5 @@
 import './common/css/common.css'
+import './common/css/mescroll.css'
 
 import Vue from 'vue'
 import App from './App.vue'
