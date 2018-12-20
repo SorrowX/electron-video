@@ -9,18 +9,7 @@
  * issues:  https://github.com/mescroll/mescroll/issues
  * QQ交流群: 633126761
  */
-(function (name, definition) {
-  if (typeof define === 'function') {
-    // AMD环境或CMD环境
-    define(definition);
-  } else if (typeof module !== 'undefined' && module.exports) {
-    // 定义为普通Node模块
-    module.exports = definition();
-  } else {
-    // 将模块的执行结果挂在window变量中，在浏览器中this指向window对象
-    this[name] = definition();
-  }
-})('MeScroll', function () {
+
   var MeScroll = function (mescrollId, options) {
     var me = this;
     me.version = '1.4.0'; // mescroll版本号
@@ -1151,5 +1140,5 @@
     me.setBounce(true);
   }
 
-  return MeScroll;
-});
+  export default MeScroll;
+

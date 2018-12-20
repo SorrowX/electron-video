@@ -15,8 +15,6 @@
 
 			<home-channel></home-channel>
 		</main>
-
-		<router-view />
 	</div>
 </template>
 

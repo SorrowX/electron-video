@@ -7,10 +7,10 @@
 </template>
 
 <script>
-    import MeScroll from '@/common/js/lib/mescroll.js'
+    import MeScroll from '@/common/js/lib/mescroll'
 
     export default {
-        name: 'MeScrollVue',
+        name: 'MeScroll',
         data: function () {
             return {
                 mescroll: null,
@@ -54,5 +54,3 @@
         }
     }
 </script>
-
-<style scoped></style>

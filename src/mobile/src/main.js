@@ -10,12 +10,14 @@ import AlloyTouch from './common/js/lib/alloy-touch'
 import AlloyFinger from './common/js/lib/alloy-finger'
 import Transform from './common/js/lib/transform'
 import AlloyFingerDirective from './directives/alloy-finger-directive'
+import MeScroll from './components/base/mescroll'
 
 Vue.prototype.AlloyTouch = AlloyTouch
 Vue.prototype.AlloyFinger = AlloyFinger
 Vue.prototype.Transform = Transform
 
 Vue.use(AlloyFingerDirective, { AlloyFinger })
+Vue.component(MeScroll.name, MeScroll)
 
 Vue.config.productionTip = false
 
