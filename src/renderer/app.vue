@@ -1,7 +1,14 @@
 <template>
 	<div id="app" ref="app">
-        <window-bar></window-bar>
-        <container></container>
+        <transition>
+            <div class="preview-bg" v-show="showBg">
+                <img :src="defaultBg" v-show="defaultBg">
+            </div>
+        </transition>
+        <template>
+            <window-bar></window-bar>
+            <container></container>
+        </template>
 	</div>
 </template>
 
@@ -16,6 +23,7 @@
     } from '@/constant/index'
 
     const imgDirName = '缩略图'
+    const defaultBg = require('./assets/bg/DefaultImage/Assets/Dark/Scale-200/home_item_default_cover.png')
 
     const components = { WindowBar, Container }
 
@@ -51,6 +59,12 @@
 	    name: 'ElectronVideo',
         components,
         mixins: [ CommonMixin ],
+        data() {
+            return {
+                defaultBg: '',
+                showBg: true
+            }
+        },
         methods: {
             bindEvt() {
                 let self = this
@@ -125,10 +139,25 @@
                     videoDirPath: file.path,
                     imgDirPath: imgPath
                 }
+            },
+            hiddenBg() {
+                setTimeout(() => {
+                    this.showBg = false
+                }, 2500)
             }
+        },
+        created() {
+            this.getRandomVideoData((arr) => {
+                if (arr.length > 0) {
+                    this.defaultBg = arr[0]['genImgPath']
+                } else {
+                    this.defaultBg = defaultBg
+                }
+            }, false)
         },
         mounted() {
             this.bindEvt()
+            this.hiddenBg()
         }
 	}
 </script>
@@ -146,5 +175,23 @@
         width: 100%;
         height: 100%;
         border: 1px solid var(--app-border-color);
+    }
+
+    .preview-bg {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999999999;
+        background: rgba(27,34,38,1);
+    }
+
+    .preview-bg>img {
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 </style>
