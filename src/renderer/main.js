@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 	setZoomFactor(config['developScaleFactor'])
 } else {
 	console.log('当前是 生产环境')
-	setZoomFactor() // 是否缓存中设置过的比例
+	setZoomFactor() // 使用缓存中设置过的比例
 	// setZoomFactor(config['productionScaleFactor'])
 }
 

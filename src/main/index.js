@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import electron from 'electron'
 import config from '../config/config'
-import { writeWindowInfo } from '../renderer/util/handler-window-config'
+import { writeWindowInfo } from '../config/handler-window-config'
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -80,13 +80,12 @@ ipc.on('window-close', () => {
     mainWindow.close()
 })
 
+// 存储window窗口大小
 ipc.on('save-window-size', () => {
-    let size = mainWindow.getSize()
-    config.windowWidth = size[0]
-    config.windowHeight = size[1]
+    let winSize = mainWindow.getSize()
     writeWindowInfo(JSON.stringify({
-        width: size[0],
-        height: size[1]
+        width: winSize[0],
+        height: winSize[1]
     }, null, 4))
 })
 

@@ -1,4 +1,5 @@
 import config from '../../config/config'
+import { getWindowInfo } from '../../config/handler-window-config'
 import { local } from '../../shared/storage'
 import { WINDOW_ZOOM_FACTOR } from '../constant/index'
 
@@ -40,8 +41,9 @@ export function debounce(fn, ms, ctx) {
  *    缩放因子
 */
 export function setZoomFactor(devScaleFactor, devInnerHeight) {
+    let winSize = getWindowInfo()
     devScaleFactor = devScaleFactor || local.getItem(WINDOW_ZOOM_FACTOR) || config['developScaleFactor']
-    devInnerHeight = devInnerHeight || config['windowHeight']
+    devInnerHeight = devInnerHeight || winSize['height'] || config['windowHeight']
 
     let devDevicePixelRatio = 1.0
     let scaleFactor = require('electron').screen.getPrimaryDisplay().scaleFactor
