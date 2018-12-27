@@ -1,6 +1,6 @@
 <template>
 	<div class="zoom">
-		<div class="title">缩放</div>
+		<div class="title">缩放(开发)</div>
 		<div>
 			<p>
 			    控制页面缩放 当前比例: {{ zoomRatio }}%

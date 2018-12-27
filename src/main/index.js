@@ -82,6 +82,8 @@ ipc.on('window-close', () => {
 
 ipc.on('save-window-size', () => {
     let size = mainWindow.getSize()
+    config.windowWidth = size[0]
+    config.windowHeight = size[1]
     writeWindowInfo(JSON.stringify({
         width: size[0],
         height: size[1]

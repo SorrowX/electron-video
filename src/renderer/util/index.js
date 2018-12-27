@@ -40,7 +40,7 @@ export function debounce(fn, ms, ctx) {
  *    缩放因子
 */
 export function setZoomFactor(devScaleFactor, devInnerHeight) {
-    devScaleFactor = devScaleFactor || config['developScaleFactor']
+    devScaleFactor = devScaleFactor || local.getItem(WINDOW_ZOOM_FACTOR) || config['developScaleFactor']
     devInnerHeight = devInnerHeight || config['windowHeight']
 
     let devDevicePixelRatio = 1.0

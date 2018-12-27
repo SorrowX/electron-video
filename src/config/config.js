@@ -1,9 +1,9 @@
 import { getWindowInfo } from '../renderer/util/handler-window-config'
 const winSize = getWindowInfo()
-const defaultWindowWidth = 1150
-const defaultWindowHeight = 660
+export const defaultWindowWidth = 1150
+export const defaultWindowHeight = 660
 
-export default {
+let windowInfo = {
 	windowWidth: winSize.width || defaultWindowWidth,
 	windowHeight: winSize.height || defaultWindowHeight,
 	minWindowWidth: defaultWindowWidth,
@@ -12,3 +12,5 @@ export default {
 	developScaleFactor: 1.2,
 	productionScaleFactor: 1.32
 }
+
+export default windowInfo

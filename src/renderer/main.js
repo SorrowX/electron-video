@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === 'development') {
 	setZoomFactor(config['developScaleFactor'])
 } else {
 	console.log('当前是 生产环境')
-	setZoomFactor(config['productionScaleFactor'])
+	setZoomFactor() // 是否缓存中设置过的比例
+	// setZoomFactor(config['productionScaleFactor'])
 }
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
