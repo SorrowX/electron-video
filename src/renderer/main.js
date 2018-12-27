@@ -48,3 +48,7 @@ window.vm = new Vue({
 
 // 启动webServer服务且传入vue实例
 start(window.vm)
+
+window.addEventListener('resize', (evt) => {
+	ipc.send('save-window-size')
+}, false)

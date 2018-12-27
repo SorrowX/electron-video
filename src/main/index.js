@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import electron from 'electron'
 import config from '../config/config'
-
+import { writeWindowInfo } from '../renderer/util/handler-window-config'
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -27,8 +27,10 @@ function createWindow () {
         winHeight = config['windowHeight']
     }
     mainWindow = new BrowserWindow({
-        minWidth: winWidth,
-        minHeight: winHeight,
+        minWidth: config['minWindowWidth'],
+        minHeight: config['minWindowHeight'],
+        width: winWidth,
+        height: winHeight,
         frame: false,
         webPreferences: {
             webSecurity: false
@@ -77,6 +79,15 @@ ipc.on('window-max', () => {
 ipc.on('window-close', () => {
     mainWindow.close()
 })
+
+ipc.on('save-window-size', () => {
+    let size = mainWindow.getSize()
+    writeWindowInfo(JSON.stringify({
+        width: size[0],
+        height: size[1]
+    }, null, 4))
+})
+
 
 /**
  * Auto Updater
