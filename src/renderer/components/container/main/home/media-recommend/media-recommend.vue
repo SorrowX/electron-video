@@ -33,11 +33,14 @@
     		<p>请拖入 视频文件夹！</p>
     	</div>
     	<div class="no-result" 
-    	    v-if="dynamicCalcRenderMediaData.length === 0"
+    	    v-if="dynamicCalcRenderMediaData.length === 0 && !loading"
     	>
     	    <i class="no-result-img"></i>
     	    <p>该导航下暂无数据 哇啊啊 ...</p>
     	</div>
+    	<transition>
+	    	<base-loading v-if="loading" :showBg="true"></base-loading>
+    	</transition>
     </div>
 </template>
 
@@ -45,12 +48,13 @@
     import MediaRecommendInfo from './media-recommend-info'
     import MediaRecommendOperation from './media-recommend-operation'
     import CommonMixin from '@/mixin/common-mixin'
+    import BaseLoading from '@/components/base/base-loading'
     import { 
     	SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE
     } from '@/constant/index'
     import fu from '../../../../../../file-server/fu'
 
-    const components = { MediaRecommendInfo, MediaRecommendOperation }
+    const components = { MediaRecommendInfo, MediaRecommendOperation, BaseLoading }
     const ALL_MEDIA_COUNTS = 2
     let waiting = false // 等待更新数据
     const tickTime = 1 * 1000
@@ -70,7 +74,8 @@
 			return {
 				allMediaDomTranslateX: 0,
 				curIndex: 0, // 所有媒体页面中的当前页面的索引
-				dynamicCalcRenderMediaData: [] // 左右滑动时,始终保持3条数据以提高性能
+				dynamicCalcRenderMediaData: [], // 左右滑动时,始终保持3条数据以提高性能
+				loading: true
 			}
 		},
 		watch: {
@@ -159,7 +164,8 @@
 				if (arr.length > ALL_MEDIA_COUNTS) {
 					arr.length = ALL_MEDIA_COUNTS
 				}
-				return this.dynamicCalcRenderMediaData = arr
+				this.dynamicCalcRenderMediaData = arr
+				this.loading = this.dynamicCalcRenderMediaData.length ? false : true
 			}
 		}
 	}
