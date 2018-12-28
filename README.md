@@ -1,6 +1,17 @@
 # electron-video
 
 > 一个本地视频播放器,以本地视频或者图片作为服务器资源,该项目只是自己无聊的产品,编写时间不定
+### 2018年12月28日
+``` bash
+播放器开发效果如下
+![player](./dist/screenshot/1.gif)
+![player](./dist/screenshot/2.gif)
+![player](./dist/screenshot/3.gif)
+![player](./dist/screenshot/4.gif)
+![player](./dist/screenshot/5.gif)
+![player](./dist/screenshot/6.gif)
+![player](./dist/screenshot/7.gif)
+```
 
 ### 2018年9月28日
 ``` bash
