@@ -1,5 +1,5 @@
 {
-  "name": "electron-video",
+  "name": "player",
   "version": "0.0.1",
   "author": "xuzhiwei <1356988206@qq.com>",
   "description": "An electron-vue project",
@@ -17,7 +17,7 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "electron-video",
+    "productName": "player",
     "appId": "com.example.yourapp",
     "directories": {
       "output": "build"
