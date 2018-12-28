@@ -34,13 +34,21 @@ function createWindow () {
         frame: false,
         webPreferences: {
             webSecurity: false
-        }
+        },
+        backgroundColor: '#1B2226',
+        show: false
     })
 
     mainWindow.loadURL(winURL)
 
     mainWindow.on('closed', () => {
         mainWindow = null
+    })
+
+    // 资源加载完成时显示
+    mainWindow.on('ready-to-show', function() {
+        mainWindow.show()
+        mainWindow.focus()
     })
 
     if (config['isOpenDevTools']) {

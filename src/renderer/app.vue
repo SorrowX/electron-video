@@ -1,10 +1,10 @@
 <template>
 	<div id="app" ref="app">
-        <transition>
+        <!-- <transition>
             <div class="preview-bg" v-show="showBg">
                 <img :src="defaultBg" v-show="defaultBg">
             </div>
-        </transition>
+        </transition> -->
         <template>
             <window-bar></window-bar>
             <container></container>
@@ -147,17 +147,17 @@
             }
         },
         created() {
-            this.getRandomVideoData((arr) => {
+            /*this.getRandomVideoData((arr) => {
                 if (arr.length > 0) {
                     this.defaultBg = arr[0]['genImgPath']
                 } else {
                     this.defaultBg = defaultBg
                 }
-            }, false)
+            }, false)*/
         },
         mounted() {
             this.bindEvt()
-            this.hiddenBg()
+            // this.hiddenBg()
         }
 	}
 </script>
