@@ -6,7 +6,7 @@
 
 		<div class="result" v-if="showResult">
 			<div class="cover">
-				<img :src="renderData.result.genImgPath" alt="">
+				<img :src="renderData.result.genImgPath">
 			</div>
 			<div class="info">
 				<p class="name">{{ renderData.result.filename }}</p>
@@ -190,12 +190,14 @@
     	flex: none;
     	width: 144px;
     	height: 190px;
+        overflow: hidden;
     }
 
     .result>.cover>img {
     	width: 100%;
     	height: 100%;
     	background-repeat: no-repeat;
+        object-fit: cover;
     }
 
     .result>.info {
