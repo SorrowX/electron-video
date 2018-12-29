@@ -1,5 +1,6 @@
 import drag from './drag'
 
+export var ONE_BY_ONE = true
 export var PHOTO_WIDTH = [200, 240] // 随机选取一个图片容器的宽度
 export var TOP_HEIGHT = 0 // 照片墙图片距离容器顶部的距离
 export var imgMaxNum = 50 // 照片墙显示的最大图片数量
@@ -20,6 +21,18 @@ var getTransitionCssText = function(timingFunction) {
 	    top ${transitionTime}s ${timingFunction}
 	`
 }
+var raf = window.requestAnimationFrame
+    ? window.requestAnimationFrame.bind(window)
+    : function(fn) {
+    	setTimeout(fn, 1000 / 60)
+    }
+
+function nextFrame(fn) {
+	raf(function() {
+		fn && fn()
+	})
+}
+
 
 var getRandomItem = function () {
     var preItem = null
@@ -73,6 +86,10 @@ var getArrData = function setArrData() {
 	return arr
 }
 
+export function setShowType(bool) {
+	ONE_BY_ONE = bool
+}
+
 let handlerClick = function() {}
 let resource = []
 export default function initPhoto(options) {
@@ -80,10 +97,14 @@ export default function initPhoto(options) {
 	handlerClick = clickCb
 	resource = resourceArr
 	unBindEvent() // 解绑以前的数据
-	insertPhotoDom()
-	caclPhotoPositionAndRotate()
-	bindEvent()
-	// grantPhoto()
+	nextFrame(() => {
+		insertPhotoDom()
+		caclPhotoPositionAndRotate()
+		bindEvent()
+		if (ONE_BY_ONE) {
+			grantPhoto()
+		}
+	})
 }
 
 // 生成图片dom

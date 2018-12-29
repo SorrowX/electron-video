@@ -2,7 +2,8 @@
 	<div class="photo-wall-header">
 	    <base-logo :title="'照片墙'"></base-logo>
 	    <div class="operat">
-	    	<button @click="$emit('change-data')">更换</button>
+	    	<button @click="handlerShowType">{{ oneByOne ? '逐个显示' : '全部显示' }}</button>
+	    	<button @click="$emit('change-data')">更换数据</button>
 	    </div>
 	</div>
 </template>
@@ -14,7 +15,17 @@
 
 	export default {
 		name: 'PhotoWallHeader',
-		components
+		components,
+		data() {
+			return {
+				oneByOne: true
+			}
+		},
+		methods: {
+			handlerShowType() {
+				this.$emit('show-type', (this.oneByOne = !this.oneByOne))
+			}
+		}
 	}
 </script>
 

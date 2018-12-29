@@ -1,6 +1,10 @@
 <template>
 	<div class="photo-wall">
-		<photo-wall-header @change-data="handlerChangeData"></photo-wall-header>
+		<photo-wall-header 
+		    @change-data="handlerChangeData"
+		    @show-type="handlerShowType"
+		>
+		</photo-wall-header>
 		<photo-wall-content ref="wallComp"></photo-wall-content>
 	</div>
 </template>
@@ -17,6 +21,9 @@
 		methods: {
 			handlerChangeData() {
                 this.$refs.wallComp.initPhoto()
+			},
+			handlerShowType(bool) {
+				this.$refs.wallComp.setShowType(bool)
 			}
 		}
 	}

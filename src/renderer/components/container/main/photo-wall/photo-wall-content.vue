@@ -6,7 +6,7 @@
 
 <script>
 	import CommonMixin from '@/mixin/common-mixin'
-    import initPhoto from './photo'
+    import initPhoto, { setShowType } from './photo'
 
 	export default {
 		name: 'PhotoWallContent',
@@ -24,6 +24,9 @@
 					})
 				})
 			},
+			setShowType(bool) {
+				setShowType(bool)
+			}
 		},
 		mounted() {
 			this.initPhoto()
