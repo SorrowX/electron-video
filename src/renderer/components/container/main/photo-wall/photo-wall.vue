@@ -1,17 +1,24 @@
 <template>
 	<div class="photo-wall">
-		<photo-wall-header></photo-wall-header>
+		<photo-wall-header @change-data="handlerChangeData"></photo-wall-header>
+		<photo-wall-content ref="wallComp"></photo-wall-content>
 	</div>
 </template>
 
 <script>
     import PhotoWallHeader from './photo-wall-header'
+    import PhotoWallContent from './photo-wall-content'
 
-    const components = { PhotoWallHeader }
+    const components = { PhotoWallHeader, PhotoWallContent }
 
 	export default {
 		name: 'PhotoWall',
-		components
+		components,
+		methods: {
+			handlerChangeData() {
+                this.$refs.wallComp.initPhoto()
+			}
+		}
 	}
 </script>
 

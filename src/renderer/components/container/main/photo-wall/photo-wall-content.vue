@@ -1,0 +1,74 @@
+<template>
+	<div class="photo-wall-content">
+		<div class="photo-wrapper"></div>
+	</div>
+</template>
+
+<script>
+	import CommonMixin from '@/mixin/common-mixin'
+    import initPhoto from './photo'
+
+	export default {
+		name: 'PhotoWallContent',
+		mixins: [ CommonMixin ],
+		methods: {
+			initPhoto() {
+				let self = this
+				this.getRandomVideoData((resourceArr) => {
+					initPhoto({
+						resourceArr,
+						clickCb: function(item) {
+							console.log('点中', item)
+							self.playVideo(item)
+						}
+					})
+				})
+			},
+		},
+		mounted() {
+			this.initPhoto()
+		}
+	}
+</script>
+
+<style>
+    .photo-wall-content {
+    	flex: 1;
+    	position: relative;
+    	box-sizing: border-box;
+    }
+
+	.photo-wrapper {
+		position: absolute;
+		top: 0;
+		left: 3%;
+		width: 94%;
+		height: 100%;
+		overflow: hidden;
+		/*box-shadow: 0 2px 32px #aaaaaa, 0 0 32px #aaaaaa;*/
+	}
+
+	/* 图片容器样式 */
+	.photo {
+		position: absolute;
+		z-index: 1;
+		width: 280px;
+		padding: 5px;
+		background-color: rgba(52,62,70,.7);
+		border-radius: 4px;
+	}
+
+	.photo img {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.photo:hover {
+		transform: rotate(0deg) !important;
+		transform: scale(1.3) !important;
+		box-shadow: 5px 5px 10px rgba(255,255,255,.5);
+		z-index: 2;
+		cursor: move;
+	}
+</style>
