@@ -94,9 +94,9 @@
                         name: 'PersonalCenter'
         		    },
         		    {
-        		    	cls: 'help-feedback',
-        		    	title: '帮助与反馈',
-                        name: 'HelpFeedback'
+        		    	cls: 'photo-wall',
+        		    	title: '照片墙',
+                        name: 'PhotoWall'
         		    },
         		    {
         		    	cls: 'set-up',
@@ -264,7 +264,7 @@
     	background-image: url(../../../../assets/navigation/center.scale-200.png);
     }
 
-    .help-feedback {
+    .photo-wall {
     	background-image: url(../../../../assets/navigation/feedback.scale-200.png);
     }
 

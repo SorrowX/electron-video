@@ -42,8 +42,8 @@ export default new Router({
             component: require('@/components/container/main/personal-center/personal-center').default
         },
         {
-            path: '/help-feedback',
-            component: require('@/components/container/main/help-feedback/help-feedback').default
+            path: '/photo-wall',
+            component: require('@/components/container/main/photo-wall/photo-wall').default
         },
         {
             path: '/set-up',
