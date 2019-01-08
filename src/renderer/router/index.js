@@ -34,8 +34,8 @@ export default new Router({
             component: require('@/components/container/main/quick-view/quick-view').default
         },
         {
-            path: '/vip',
-            component: require('@/components/container/main/vip/vip').default
+            path: '/together-look',
+            component: require('@/components/container/main/together-look/together-look').default
         },
         {
             path: '/personal-center',

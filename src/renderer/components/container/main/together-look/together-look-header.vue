@@ -1,24 +1,22 @@
 <template>
-	<div class="vip-header">
-	    <base-logo :title="'VIP会员'"></base-logo>
-	    <base-search-box></base-search-box>
+	<div class="together-look-header">
+	    <base-logo :title="'一起看'"></base-logo>
 	</div>
 </template>
 
 <script>
     import BaseLogo from '@/components/base/base-logo'
-    import BaseSearchBox from '@/components/base/base-search-box'
 
-    const components = { BaseLogo, BaseSearchBox }
+    const components = { BaseLogo }
 
 	export default {
-		name: 'VipHeader',
+		name: 'TogetherLookHeader',
 		components
 	}
 </script>
 
 <style scoped>
-	.vip-header{
+	.together-look-header{
 	    flex: none;
 	    display: flex;
 	    flex-direction: row;

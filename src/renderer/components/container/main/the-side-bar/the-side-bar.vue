@@ -84,9 +84,9 @@
         		],
         		bottomNavArr: [
         		    {
-        		    	cls: 'vip',
-        		    	title: 'VIP会员',
-                        name: 'Vip'
+        		    	cls: 'together-look',
+        		    	title: '一起看',
+                        name: 'TogetherLook'
         		    },
         		    {
         		    	cls: 'personal-center',
@@ -256,7 +256,7 @@
     	background-image: url(../../../../assets/navigation/download.scale-200.png);
     }
 
-    .vip {
+    .together-look {
     	background-image: url(../../../../assets/navigation/vip.scale-200.png);
     }
 
