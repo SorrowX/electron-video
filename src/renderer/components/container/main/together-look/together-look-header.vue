@@ -1,6 +1,6 @@
 <template>
 	<div class="together-look-header">
-	    <base-logo :title="'一起看'"></base-logo>
+	    <base-logo :title="'一起看(开发中)'"></base-logo>
 	</div>
 </template>
 

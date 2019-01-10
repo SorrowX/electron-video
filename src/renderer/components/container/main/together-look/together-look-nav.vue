@@ -25,6 +25,7 @@
 				this.$emit('click-nav', nav)
 			},
 			openSettingPage() {
+				this.$emit('play')
 				console.log('处理设置页面')
 			}
 		}

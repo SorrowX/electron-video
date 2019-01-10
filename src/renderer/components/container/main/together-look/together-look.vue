@@ -1,8 +1,8 @@
 <template>
 	<div class="together-look">
 		<together-look-header />
-		<together-look-nav @click-nav="handleClickNav" />
-		<together-look-video-panel :mediaArr="mediaArr" />
+		<together-look-nav @click-nav="handleClickNav" @play="handlerPlay" />
+		<together-look-video-panel :mediaArr="mediaArr" ref="videoPanel" />
 	</div>
 </template>
 
@@ -33,6 +33,9 @@
 						console.log('总数据', this.mediaArr)
 					}
 				})
+			},
+			handlerPlay() {
+                this.$refs.videoPanel.togetherPlay()
 			}
 		}
 	}

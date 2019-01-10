@@ -3,7 +3,7 @@
 		<div class="panel">
 			<div class="row" v-for="(arr, index) in renderArr" ref="rows">
 				<div v-for="(media, idx) in arr">
-					<!-- <video :src="media['name']"></video> -->
+					<!-- <video :src="media['name']" :poster="media['genImgPath']" ref="videos"></video> -->
 					{{ media }}
 				</div>
 			</div>
@@ -17,11 +17,11 @@
 		props: {
 			rows: {
 				type: Number,
-				default: 3
+				default: 2
 			},
 			rowNum: {
 				type: Number,
-				default: 5
+				default: 3
 			},
 			mediaArr: {
 				type: Array,
@@ -66,10 +66,19 @@
 						dom.style.width = (100 / this.rowNum) + '%'
 					})
 				})
+			},
+			togetherPlay() {
+				this.$refs.videos.forEach((video, i) => {
+					if (video.pause) {
+						video.play()
+					} else {
+						video.pause()
+					}
+				})
 			}
 		},
 		mounted() {
-			this.setRowHeight()
+			// this.setRowHeight()
 		}
 	}
 </script>
