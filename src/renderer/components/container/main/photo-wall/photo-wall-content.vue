@@ -1,6 +1,10 @@
 <template>
 	<div class="photo-wall-content">
 		<div class="photo-wrapper"></div>
+		<div class="empty" v-show="!resourceArr.length">
+			<i class="bg-img"></i>
+			<p>未获取到数据!</p>
+		</div>
 	</div>
 </template>
 
@@ -11,14 +15,19 @@
 	export default {
 		name: 'PhotoWallContent',
 		mixins: [ CommonMixin ],
+		data() {
+			return {
+				resourceArr: []
+			}
+		},
 		methods: {
 			initPhoto() {
 				let self = this
 				this.getRandomVideoData((resourceArr) => {
+					this.resourceArr = resourceArr
 					initPhoto({
 						resourceArr,
 						clickCb: function(item) {
-							console.log('点中', item)
 							self.playVideo(item)
 						}
 					})
@@ -39,6 +48,7 @@
     	flex: 1;
     	position: relative;
     	box-sizing: border-box;
+    	position: relative;
     }
 
 	.photo-wrapper {
@@ -73,5 +83,46 @@
 		box-shadow: 5px 5px 10px rgba(255,255,255,.5);
 		z-index: 2;
 		cursor: move;
+	}
+
+	.empty {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 2;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: rgba(183,174,168,1);
+		font-size: 15px;
+	}
+
+	.empty {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+	}
+
+	.empty>.bg-img {
+        display: block;
+        width: 120px;
+        height: 120px;
+        background-image: url(../../../../assets/waw.gif);
+        background-size: contain;
+	}
+
+	.empty>p {
+		margin-top: 20px;
+		font-size: 14px;
+		color: rgba(183,174,168,1);
 	}
 </style>

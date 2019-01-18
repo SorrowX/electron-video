@@ -1,6 +1,6 @@
 <template>
 	<div class="photo-wall-header">
-	    <base-logo :title="'照片墙'"></base-logo>
+	    <base-logo :title="'照片墙(开发中)'"></base-logo>
 	    <div class="operat">
 	    	<button @click="handlerShowType">{{ oneByOne ? '逐个显示' : '全部显示' }}</button>
 	    	<button @click="$emit('change-data')">更换数据</button>
