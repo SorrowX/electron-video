@@ -13,7 +13,7 @@ export function writeWindowInfo(stringData) {
 }
 
 export function getWindowInfo() {
-	let result = { width: defaultWindowWidth, height: defaultWindowHeight }
+	let result = { width: 0, height: 0, currentDeviceWidth: 0, currentDeviceHeight: 0 }
     if (!fu.exist(file)) {
         writeWindowInfo(JSON.stringify(result, null, 4))
         return result

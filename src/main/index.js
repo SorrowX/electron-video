@@ -1,7 +1,12 @@
 import { app, BrowserWindow } from 'electron'
 import electron from 'electron'
 import config from '../config/config'
-import { writeWindowInfo } from '../config/handler-window-config'
+import { writeWindowInfo, getWindowInfo } from '../config/handler-window-config'
+
+const winSize = getWindowInfo()
+let currentDeviceWidth = 0
+let currentDeviceHeight = 0
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -20,17 +25,29 @@ function createWindow () {
      * Initial window options
      */
     let workAreaSize = electron.screen.getPrimaryDisplay().workAreaSize
-    let winWidth = workAreaSize.width
-    let winHeight = workAreaSize.height
-    if (winWidth >= config['windowWidth']) {
-        winWidth = config['windowWidth']
-        winHeight = config['windowHeight']
+    let winWidth = currentDeviceWidth = workAreaSize.width
+    let winHeight = currentDeviceHeight = workAreaSize.height + 40
+    let minWidth =  winWidth * config['ratioWidth']
+    let minHeight =  winHeight * config['ratioHeight']
+
+    if (winSize.width && winSize.height && winSize.currentDeviceWidth === winWidth) { // 默认使用配置文件中宽高
+        winWidth = winSize.width
+        winHeight = winSize.height
+    } else {
+        if (winWidth === config['deviceWidth']) { // 1080p
+            winWidth = config['windowWidth']
+            winHeight = config['windowHeight']
+        } else { // 更高清屏幕或者低分辨
+            winHeight = winHeight * config['ratioHeight']
+            winWidth = (config['defaultWindowWidth'] * winHeight) / config['defaultWindowHeight']
+        }
     }
+
     mainWindow = new BrowserWindow({
-        minWidth: config['minWindowWidth'],
-        minHeight: config['minWindowHeight'],
-        width: winWidth,
-        height: winHeight,
+        minWidth: parseInt(minWidth),
+        minHeight: parseInt(minHeight),
+        width: parseInt(winWidth),
+        height: parseInt(winHeight),
         frame: false,
         webPreferences: {
             webSecurity: false
@@ -93,7 +110,9 @@ ipc.on('save-window-size', () => {
     let winSize = mainWindow.getSize()
     writeWindowInfo(JSON.stringify({
         width: winSize[0],
-        height: winSize[1]
+        height: winSize[1],
+        currentDeviceWidth,
+        currentDeviceHeight
     }, null, 4))
 })
 
