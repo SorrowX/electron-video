@@ -19,7 +19,8 @@
     import Container from '@/components/container/container'
     import fu from '../file-server/fu'
     import { 
-        SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE 
+        SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE,
+        REFRESH_VUEX_STATE_MESSAGE
     } from '@/constant/index'
 
     const imgDirName = '缩略图'
@@ -110,8 +111,10 @@
                 })
                 // 2.跳转到快速查看页面
                 this.insideSwitchNav('QuickView')
-                // 3.选中第一个导航,加载数据
+                // 3.选中快速查看页面第一个导航,加载数据
                 this.$root.$emit(SWITCH_QUICK_VIEW_NAV_DATA_MESSAGE, this.navArr[0])
+                // 4.选中首页第一个导航
+                this.$root.$emit(REFRESH_VUEX_STATE_MESSAGE)
             },
             genImagePath(file) {
                 let imgPath = file.path + `\\${imgDirName}`

@@ -12,6 +12,7 @@
             <media-recommend 
                 :arrMedia="arrMedia"
                 :nav="curNav"
+                ref="homeContentComp"
             >
             </media-recommend>
 		</div>
@@ -41,10 +42,15 @@
 		methods: {
 			loadData(nav) {
 				this.curNav = nav
+				let self = this
 				this.loadDataByNav({
 					nav,
 					callback: (data) => {
-						this.arrMedia = data
+						if (data.length === 0 ) {
+							self.$refs.homeContentComp.handlerEmptyData()
+						} else {
+							self.arrMedia = data
+						}
 					}
 				})
 			},

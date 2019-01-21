@@ -166,6 +166,10 @@
 				}
 				this.dynamicCalcRenderMediaData = arr
 				this.loading = this.dynamicCalcRenderMediaData.length ? false : true
+			},
+			handlerEmptyData() {
+				this.dynamicCalcRenderMediaData = []
+				this.loading = false
 			}
 		}
 	}
