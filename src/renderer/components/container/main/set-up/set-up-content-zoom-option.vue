@@ -1,6 +1,6 @@
 <template>
 	<div class="zoom">
-		<div class="title">缩放(开发)</div>
+		<div class="title">缩放</div>
 		<div>
 			<p>
 			    控制页面缩放 当前比例: {{ zoomRatio }}%
@@ -28,9 +28,9 @@
 				let curZoom = local.getItem(WINDOW_ZOOM_FACTOR)
 				let val
 				if (type === 'add') {
-                    val = curZoom + 0.1
+                    val = curZoom + 0.01
 				} else {
-					val = curZoom - 0.1
+					val = curZoom - 0.01
 				}
 				this.zoomRatio = parseInt(Math.ceil(setZoomFactor(val) * 100))
 			}
