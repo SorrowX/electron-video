@@ -6,6 +6,7 @@
 					<movie-play 
 					    :videoUrl="videoUrl" 
 					    :poster="videoPoster" 
+					    :movieInfo="movieInfo"
 					    ref="moviePlayComponent"
 					>
 					</movie-play>
@@ -45,15 +46,28 @@
 		methods: {
 			isShow(bool) {
 				this.show = bool
+				if (!bool) { // 停止播放且存一个播放记录
+					this.$refs.moviePlayComponent.stop()
+					this.setPlayTime({ curTime: 0 })
+					this.$refs.moviePlayComponent.addOneVideoRecord(this.movieInfo)
+				}
 			},
 			play(options) {
 				let { videoUrl, videoPoster } = options
 				this.movieInfo = options
-				this.isShow(true)
 				this.videoUrl = videoUrl
 				this.videoPoster = videoPoster
+				this.isShow(true)
+
 				this.$refs.moviePlayComponent.play()
+				this.setPlayTime(options['videoInfo'])
+
 				this.$refs.movieInfoComponent.updateCollectUi(this.movieInfo)
+			},
+			setPlayTime(videoInfo) {
+				if (videoInfo && typeof videoInfo['curTime'] === 'number') {
+					this.$refs.moviePlayComponent.setVideoPlayTime(videoInfo['curTime'])
+				}
 			},
 			getCurPlayTime() {
 				return this.$refs.moviePlayComponent.getCurrentPlayTime()
@@ -72,6 +86,7 @@
 	    position: absolute;
 	    left: 0;
 	    top: 0;
+	    z-index: 9999;
 	}
 	.play-movie {
 		width: 100%;

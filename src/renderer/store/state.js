@@ -1,7 +1,11 @@
-import { getCollectVideoFromCache } from './cache'
+import { 
+	getCollectVideoFromCache,
+	getVideoRecordFromCache
+} from './cache'
 
 const state = {
-	videoCollection: getCollectVideoFromCache()
+	videoCollection: getCollectVideoFromCache(),
+	videoRecord: getVideoRecordFromCache()
 }
 
 export default state

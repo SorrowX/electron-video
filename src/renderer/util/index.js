@@ -67,9 +67,61 @@ export function setZoomFactor(devScaleFactor, devInnerHeight) {
     return require('electron').webFrame.getZoomFactor()
 }
 
+/**
+ * 浅拷贝
+ * @param 
+ *    to: { Object } 
+ *    from: { Object } 被拷贝的对象
+ * @return
+ *    to
+*/
 export function extend (to, from) {
     for (const key in from) {
         to[key] = from[key]
     }
     return to
+}
+
+/**
+ * 获取时间根据时间搓
+ * @param 
+ *    time: { Number } 时间搓 
+ *    isFull: { Boolean } 是否包含小时和分钟 
+ * @return
+ *    string 字符串时间
+*/
+export const getTime = function(time, isFull) {
+    let year, mouth, date, hours, min
+    let d = new Date(time)
+
+    year = twoDigits(d.getFullYear())
+    mouth = twoDigits(d.getMonth() + 1)
+    date = twoDigits(d.getDate())
+    hours = twoDigits(d.getHours())
+    min = twoDigits(d.getMinutes())
+
+    return isFull ? `${year}-${mouth}-${date} ${hours}:${min}` : `${year}-${mouth}-${date}`
+
+    function twoDigits(num) {
+        return String(num).length <= 1 ? ('0' + num) : String(num)
+    }
+}
+
+/**
+ * 获取秒获取时间
+ * @param 
+ *    second: { Number } 秒
+ * @return
+ *    string 字符串时间
+*/
+export const getTimeStrBySecond = function(second) {
+    let min, hour
+    min = Math.floor(second / 60)
+    if (min <= 60) {
+        return min + '分钟'
+    } else {
+        hour = Math.floor(second/3600)
+        min = Math.floor(second/60) % 60
+        return `${hour}小时${min}分钟`
+    }
 }

@@ -8,7 +8,8 @@ const homeErrorBgImg = require('../assets/bg/DefaultImage/Assets/Dark/Scale-200/
 export default {
 	computed: {
 		...mapState([
-			'videoCollection'
+			'videoCollection',
+			'videoRecord'
 		]),
 		...mapState('quickView', [
 			'navArr'
@@ -115,6 +116,10 @@ export default {
 		getTime() {
 			return `${this.getRandomNumber()}${this.getRandomNumber()}:${this.getRandomNumber()}${this.getRandomNumber()}`
 		},
-		...mapActions(['collectVideo', 'cancelCollectVideo'])
+		...mapActions([
+			'collectVideo', 
+			'cancelCollectVideo', 
+			'deleteVideoRecordByKey'
+		])
 	}
 }

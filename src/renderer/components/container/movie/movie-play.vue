@@ -5,12 +5,16 @@
 		    :poster="poster"
 		    ref="videoDom"
 		    controls="controls"
+		    @loadedmetadata="loadedmetadataHandler"
 		>
 		</video>
 	</div>
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
+    import { extend } from '../../../util/index'
+
 	export default {
 		name: 'MoviePlay',
 		props: {
@@ -21,19 +25,51 @@
 			poster: {
 				type: String,
 				default: ''
+			},
+			movieInfo: {
+				type: Object,
+				default: function() { return {} }
 			}
 		},
 		methods: {
 			play() {
 				this.$nextTick(() => {
-	                this.$refs.videoDom.play().catch((e) => {
+					let video =  this.$refs.videoDom
+	                video.play().catch((e) => {
 	                	alert('播放失败！')
 	                })
 				})
 			},
+			stop() {
+				this.$refs.videoDom.pause()
+			},
 			getCurrentPlayTime() {
 				return this.$refs.videoDom.currentTime
-			}
+			},
+			getVideoInfo() {
+				return {
+					curTime: this.$refs.videoDom.currentTime,
+					duration: this.$refs.videoDom.duration
+				}
+			},
+			setVideoPlayTime(second) {
+				this.currentTime = second
+				// this.$refs.videoDom.currentTime = second
+			},
+			addOneVideoRecord(media) {
+				media = extend({}, media) || extend({}, this.movieInfo)
+				media['videoInfo'] = this.getVideoInfo()
+				this.addVideoRecord(media)
+			},
+			loadedmetadataHandler() {
+            	if (this.currentTime !== 0) {
+                	this.$refs.videoDom.currentTime = this.currentTime
+            	}
+			},
+			...mapActions(['addVideoRecord'])
+		},
+		created() {
+			this.currentTime = 0
 		}
 	}
 </script>

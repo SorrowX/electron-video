@@ -1,14 +1,15 @@
 <template>
 	<div class="record">
 		<record-header></record-header>
-		我是 播放记录 页面
+		<record-content></record-content>
 	</div>
 </template>
 
 <script>
 	import RecordHeader from './record-header'
+	import RecordContent from './record-content'
 
-	const components = { RecordHeader }
+	const components = { RecordHeader, RecordContent }
 
 	export default {
 		name: 'Record',
@@ -17,13 +18,10 @@
 </script>
 
 <style scoped>
-	.record{
+	.record {
 		display: flex;
+		height: 100%;
 		flex-direction: column;
 		position: relative;
-
-		font-size: 20px;
-		color: #fff;
-		text-align: center;
 	}
 </style>
